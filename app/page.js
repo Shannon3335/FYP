@@ -10,7 +10,13 @@ export default function Home() {
   const addUser = async () => {
     console.log("Calling the true Add user function")
     try{
-      await AddUser()
+      await AddUser(
+        {Career: "Engineering",
+        JobTitle: "Software Engineer",
+        PreviousIncorrectQuestions: ["GADFsdfsadf","asdfsfd"],
+        UserName: "ShannonFernandes?"
+        }
+      )
     }catch (error){
       console.log("Function call failed")
     }
