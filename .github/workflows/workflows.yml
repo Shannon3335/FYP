@@ -1,17 +1,17 @@
 name: Basic github workflow
-  on: 
-    push:
-      branches-ignore : ["master"]
+on: 
+  push:
+    branches-ignore : ["master"]
 
-    pull-request: 
-      types: [opened, reopened]
+  pull-request: 
+    types: [opened, reopened]
 
-    workflow_dispatch:
-      jobs:
-        test:
-          runs-on: ubuntu-latest
+  workflow_dispatch:
+    jobs:
+      test:
+        runs-on: ubuntu-latest
 
-          steps:
-          - name: Checkout repository
-            uses: actions/checkout@v4
-          - name: Detect package manager
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+        - name: Detect package manager
