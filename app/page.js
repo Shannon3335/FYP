@@ -1,59 +1,35 @@
 'use client'
-
-import { AddUser } from "/firebase/AddUser.js"
-import { ReadUser } from "/firebase/ReadUser.js"
-import { useCompletion } from "ai/react"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
-  const { completion, input, handleInputChange, handleSubmit} = useCompletion();
 
-  const addUser = async () => {
-    console.log("Calling the true Add user function")
-    try{
-      await AddUser(
-        {Career: "Engineering",
-        JobTitle: "Software Engineer",
-        PreviousIncorrectQuestions: ["GADFsdfsadf","asdfsfd"],
-        UserName: "ShannonFernandes?"
-        }
-      )
-    }catch (error){
-      console.log("Function call failed")
-    }
-  }
+    const router = useRouter()
 
-  const readUser = async () => {
-    console.log("Calling read function")
-    try{
-      await ReadUser({userID:'xRlUNWGeaqZ8LXYlaNdM'})
-    }catch (error){
-      console.log("Function call failed")
+    const toSignup =()=>{
+        router.push("/signup")
     }
 
-  }
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <div><button className='border-white border-2' onClick={addUser}>Add User</button>
-        <div><button className='radius-2 boredr-green-400 border-4' onClick={readUser}>ReadUser</button></div>
-      </div>
-      <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
-      <form onSubmit={handleSubmit}>
-        <input
-          className="fixed w-full max-w-md bottom-0 border border-gray-300 rounded mb-8 shadow-xl p-2 dark:text-black"
-          value={input}
-          placeholder="Describe your business..."
-          onChange={handleInputChange}
-        />
-      </form>
-      {completion ? (
-        <div className="whitespace-pre-wrap my-4">{completion}</div>
-      ) : (
-        <div>Enter a business description and click enter to generate slogans.</div>
-      )}
-    </div>
-
-</div>
-    </main>
-  )
+    const toGithub =()=>{
+        window.open("https://github.com/Shannon3335/FYP","_blank")
+    }
+    return(
+        <main id="MainContainer" className="slate-900 flex flex-col min-h-screen h-screen w-full flex-nowrap justify-between">
+            <div id="NavBar" className="flex flex-row bg-slate-800 justify-between w-full p-3 font-mono text-sm ">
+                <div id="Logo" className="">PrepME</div>
+                <div id="MiddleLinks"className="flex flex-row">
+                    <button className=" me-8" onClick={toGithub}>Github</button>
+                    <div className=" me-8">Contact</div>
+                    <div className="">Design Rules</div>
+                </div>
+                <div id="SignInButtons"className="flex flex-row">
+                    <button className="bg-slate-600 hover:bg-blue-700 rounded-lg me-6" onClick={toSignup}>Signup</button>
+                    <button className="bg-slate-600 hover:bg-blue-700 rounded-lg" onClick={toSignup}>Login</button>
+                </div>
+            </div>
+            <div id="MainBody" className="flex flex-col w-full min-h-full h-full bg-blue-500">
+                asdfasdf
+            </div>
+            <div className="flex bg-grey-300 ">asdfsfd</div>
+        </main>
+    )
 }
