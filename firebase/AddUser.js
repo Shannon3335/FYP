@@ -5,10 +5,12 @@ import { db } from "./FirebaseApp.js"
 export async function AddUser(props){
     try{
         const docRef = await addDoc(collection(db,'Users'), {
+            Username:props.UserName,
+            Email: props.email,
+            Password: props.password,
             Career : props.Career,
             JobTitle :props.JobTitle,
             PreviousIncorrectQuestions :props.PreviousIncorrectQuestions,
-            UserName : props.UserName
         })
         console.log("Document written with ID: ", docRef.id)
     } catch (e) {
