@@ -15,7 +15,7 @@ export default function Quiz() {
           Career: "Engineering",
           JobTitle: "Software Engineer",
           PreviousIncorrectQuestions: ["GADFsdfsadf", "asdfsfd"],
-          UserName: "ShannonFernandes?"
+          UserName: "ShannonFernandes?w"
         }
       )
     } catch (error) {
