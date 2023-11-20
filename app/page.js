@@ -13,8 +13,8 @@ export default function Home() {
         window.open("https://github.com/Shannon3335/FYP","_blank")
     }
     return(
-        <main id="MainContainer" className="slate-900 flex flex-col min-h-screen h-screen w-full flex-nowrap justify-between">
-            <div id="NavBar" className="flex flex-row bg-slate-800 justify-between w-full p-3 font-mono text-sm ">
+        <main id="MainContainer" className="bg-gradient-to-b from-slate-900 via-purple-900 to-pink-500 flex flex-col min-h-screen h-screen w-full flex-nowrap justify-between">
+            <div id="NavBar" className="flex flex-row justify-between w-full p-3 font-mono text-sm ">
                 <div id="Logo" className="">PrepME</div>
                 <div id="MiddleLinks"className="flex flex-row">
                     <button className=" me-8" onClick={toGithub}>Github</button>
@@ -26,10 +26,10 @@ export default function Home() {
                     <button className="bg-slate-600 hover:bg-blue-700 rounded-lg" onClick={toSignup}>Login</button>
                 </div>
             </div>
-            <div id="MainBody" className="flex flex-col w-full min-h-full h-full bg-blue-500">
+            <div id="MainBody" className="flex flex-col w-full min-h-full h-full ">
                 asdfasdf
             </div>
-            <div className="flex bg-grey-300 ">asdfsfd</div>
+            <div className="flex ">asdfsfd</div>
         </main>
     )
 }

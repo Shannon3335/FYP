@@ -1,12 +1,11 @@
 // SignUpForm.js
-"use client"
-import { useState } from "react";
-import { AddUser } from "@/firebase/AddUser";
-import Dropdown from "@/components/dropdown";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+'use client'
+import { useState, useEffect } from "react"
+import { AddUser } from "@/firebase/AddUser"
+import Dropdown from "@/components/dropdown"
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation"
 
 const SignUpForm = () => {
     const [maskPassword, setMaskPassword] = useState(true)
@@ -33,7 +32,8 @@ const SignUpForm = () => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+
+        e.preventDefault()
         // Add your signup logic here, such as sending the data to a server or performing client-side validation
         if(passwordsMatch){
             console.log('Form submitted:', formData)
@@ -131,4 +131,4 @@ const SignUpForm = () => {
     )
 }
 
-export default SignUpForm;
+export default SignUpForm
