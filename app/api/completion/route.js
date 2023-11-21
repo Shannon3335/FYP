@@ -18,16 +18,27 @@ export async function POST(req) {
         stream: true,
         temperature: 0.6,
         max_tokens: 300,
-        prompt: `Create three slogans for a business with unique features.
+        prompt: `Job Title: ${prompt}
+        Role Description: ${prompt}
+Prompt: Generate 10 multiple choice questons that an interviewr might ask you based on the technical requirements of the ${prompt} role.
+Please format the questions and answer choices in the following way:
+[Question 1]
+a.[Option a]
+b.[Option b]
+c.[Option c]
+d.[Option d]
+Answer:[Correct Option]
 
-Business: Bookstore with cats
-Slogans: "Purr-fect Pages", "Books and Whiskers", "Novels and Nuzzles"
-Business: Gym with rock climbing
-Slogans: "Peak Performance", "Reach New Heights", "Climb Your Way Fit"
-Business: ${prompt}
-Slogans:`,
+[Question 2]
+a.[Option a]
+b.[Option b]
+c.[Option c]
+d.[Option d]
+Answer:[Correct Option]
+...
+Note: Ensure that the questions align with the technical skills and knowledge relevant to the ${prompt}
+`,
     });
-    // Convert the response into a friendly text-stream
     const stream = OpenAIStream(response);
     // Respond with the stream
     return new StreamingTextResponse(stream);
