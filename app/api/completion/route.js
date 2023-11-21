@@ -10,33 +10,36 @@ const openai = new OpenAI({
 export const runtime = 'edge';
 
 export async function POST(req) {
-    const prompt = await req.json();
+    const {prompt} = await req.json();
 
+    //print the value of the prompt object to see what the value it will give is
+    console.log(prompt)
     // Ask OpenAI for a streaming completion given the prompt
     const response = await openai.completions.create({
         model: 'text-davinci-003',
         stream: true,
         temperature: 0.6,
-        max_tokens: 300,
+        max_tokens: 400,
         prompt: `Job Title: ${prompt}
-        Role Description: ${prompt}
-Prompt: Generate 10 multiple choice questons that an interviewr might ask you based on the technical requirements of the ${prompt} role.
+        Role Description: Generate 10 multiple-choice questions for a ${prompt} interview.
+        Each question should have four options (a, b, c, d) with one correct answer.
+        Ensure that the questions cover a range of technical topics relevant to the role of a ${prompt}.
 Please format the questions and answer choices in the following way:
-[Question 1]
+[Q1.Question]
 a.[Option a]
 b.[Option b]
 c.[Option c]
 d.[Option d]
 Answer:[Correct Option]
 
-[Question 2]
+[Q2.Question]
 a.[Option a]
 b.[Option b]
 c.[Option c]
 d.[Option d]
 Answer:[Correct Option]
 ...
-Note: Ensure that the questions align with the technical skills and knowledge relevant to the ${prompt}
+Note: Ensure that the questions align with the technical skills and knowledge relevant to ${prompt}
 `,
     });
     const stream = OpenAIStream(response);
