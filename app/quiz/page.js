@@ -1,17 +1,33 @@
 'use client'
 
-
 import { useCompletion } from "ai/react"
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react"
+import ConvertToQuizObjects from "../functions/convertToQuizObject"
 
 export default function Quiz() {
-    const { completion, input, isLoading, handleInputChange, handleSubmit } = useCompletion();
+  // const [ QuizArray, setQuizArray ] = useState([])
+  const [ quizArray, setquizArray ] = useState(null)
+  const [ convertToObjFlag, setConvertToObjFlag ] = useState(false)
+  const { completion, input, isLoading,handleInputChange, handleSubmit } = useCompletion({
+    onFinish: ()=>{
+      console.log("convertToObj value set")
+      setConvertToObjFlag(!convertToObjFlag)
+    }
+  })
 
-    useEffect(()=>{
-      console.log("this is printing")
-    },[isLoading])
-    
+  useEffect(()=>{ //convert the AI output to quiz objects
+    if(convertToObjFlag && !isLoading){
+      console.log("Completion sent to function:"+completion)
+      let returnedArray = ConvertToQuizObjects(completion)
+      console.log(returnedArray)
+      setquizArray(returnedArray)
+    }
+  },[convertToObjFlag])
+  
+  useEffect(()=>{
+    console.log(quizArray)
+    //trigger a function to upload mcq on the screen
+  },[quizArray])
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
