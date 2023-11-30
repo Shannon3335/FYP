@@ -1,7 +1,7 @@
 // SignUpForm.js
 'use client'
 import { useState, useEffect } from "react"
-import { AddUser } from "@/firebase/AddUser"
+import  { AddUser }  from "app/functions/firebase/AddUser.js"
 import Dropdown from "@/components/dropdown"
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
