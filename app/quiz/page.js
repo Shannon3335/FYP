@@ -5,29 +5,15 @@ import { useEffect, useState } from "react"
 import ConvertToQuizObjects from "../functions/convertToQuizObject"
 
 export default function Quiz() {
-  // const [ QuizArray, setQuizArray ] = useState([])
   const [ quizArray, setquizArray ] = useState(null)
-  const [ convertToObjFlag, setConvertToObjFlag ] = useState(false)
   const { completion, input, isLoading,handleInputChange, handleSubmit } = useCompletion({
-    onFinish: ()=>{
-      console.log("convertToObj value set")
-      setConvertToObjFlag(!convertToObjFlag)
+    onFinish: (_,completion)=>{
+      console.log("convertToObj value" + completion+ "\n END")
+      setquizArray(ConvertToQuizObjects(completion))
     }
   })
-
-  useEffect(()=>{ //convert the AI output to quiz objects
-    if(convertToObjFlag && !isLoading){
-      console.log("Completion sent to function:"+completion)
-      let returnedArray = ConvertToQuizObjects(completion)
-      console.log(returnedArray)
-      setquizArray(returnedArray)
-    }
-  },[convertToObjFlag])
   
-  useEffect(()=>{
-    console.log(quizArray)
-    //trigger a function to upload mcq on the screen
-  },[quizArray])
+  useEffect(()=>console.log(quizArray),[quizArray])
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
