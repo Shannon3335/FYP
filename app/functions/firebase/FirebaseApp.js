@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,19 +18,10 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 };
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyDVaLRPMuhrJiZFYXhMTZMneRc3ouLnY7Y",
-//     authDomain: "shannon-fyp.firebaseapp.com",
-//     projectId: "shannon-fyp",
-//     storageBucket: "shannon-fyp.appspot.com",
-//     messagingSenderId: "911819503153",
-//     appId: "1:911819503153:web:ed8987280eb5039b24c710",
-//     measurementId: "G-ZMDN2JVXKT"
-// };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 // Initialise Firebase Authentication 
+export const auth = getAuth(app)
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
