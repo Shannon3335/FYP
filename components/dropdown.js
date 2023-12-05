@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Dropdown = () => {
-    const [selectedIndustry, setSelectedIndustry] = useState(null);
+    const [selectedIndustry, setSelectedIndustry] = useState("");
     const handleChange = (e) => setSelectedIndustry(e.target.value);
     const industries = ['Medicine', 'Science', 'Business', 'Media', 'Engineering', 'Academia'];
 
@@ -13,7 +13,6 @@ const Dropdown = () => {
                 onChange={handleChange}
                 required
             >
-                <option value={null} disabled selected className='text-grey-500'>Industry</option>
                 {industries.map((industry) => (
                     <option key={industry} value={industry} className='text-grey-500'>
                         {industry}

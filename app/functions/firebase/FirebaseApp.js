@@ -18,16 +18,6 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 };
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyDVaLRPMuhrJiZFYXhMTZMneRc3ouLnY7Y",
-//     authDomain: "shannon-fyp.firebaseapp.com",
-//     projectId: "shannon-fyp",
-//     storageBucket: "shannon-fyp.appspot.com",
-//     messagingSenderId: "911819503153",
-//     appId: "1:911819503153:web:ed8987280eb5039b24c710",
-//     measurementId: "G-ZMDN2JVXKT"
-// };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 

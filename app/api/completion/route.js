@@ -19,7 +19,7 @@ export async function POST(req) {
         model: 'text-davinci-003',
         stream: true,
         temperature: 0.6,
-        max_tokens: 150,
+        max_tokens: 300,
         prompt: `Job Title: ${prompt}
         Role Description: Generate 10 multiple-choice questions for a ${prompt} interview.
         Each question should have four options (a, b, c, d) with one correct answer.

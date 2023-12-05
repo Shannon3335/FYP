@@ -1,19 +1,31 @@
 'use client'
 
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { useRouter } from "next/navigation"
+import { auth } from "../functions/firebase/FirebaseApp"
 import { useCompletion } from "ai/react"
 import { useEffect, useState } from "react"
 import ConvertToQuizObjects from "../functions/convertToQuizObject"
 
 export default function Quiz() {
   const [ quizArray, setquizArray ] = useState(null)
+  const router = useRouter();
   const { completion, input, isLoading,handleInputChange, handleSubmit } = useCompletion({
     onFinish: (_,completion)=>{
       console.log("convertToObj value" + completion+ "\n END")
       setquizArray(ConvertToQuizObjects(completion))
     }
   })
-  
+  const [uid, setuid] = useState(null)
   useEffect(()=>console.log(quizArray),[quizArray])
+  onAuthStateChanged(auth, (user) => {
+    if (user){
+      const uid = user.uid
+    }
+    else{
+      router.push("/")
+    }
+  })
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">

@@ -6,11 +6,14 @@ import Dropdown from "@/components/dropdown"
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from "next/navigation"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { auth  } from "../functions/firebase/FirebaseApp"
 
 const SignUpForm = () => {
   const [maskPassword, setMaskPassword] = useState(true)
   const [maskConfirmPassword, setmaskConfirmPassword] = useState(true)
   const [passwordsMatch, setPasswordsMatch] = useState(false)
+  const [error, setError] = useState(null)
   const router = useRouter()
 
   const [formData, setFormData] = useState({
@@ -32,27 +35,35 @@ const SignUpForm = () => {
   }
 
   const handleSubmit = async (e) => {
-
     e.preventDefault()
     // Add your signup logic here, such as sending the data to a server or performing client-side validation
     if(passwordsMatch){
       console.log('Form submitted:', formData)
-      try {
-        await AddUser(
-          {
-            UserName: formData.username,
-            email: formData.email,
-            password: formData.password,
-            Career: formData.industry,
-            JobTitle: formData.jobTitle,
-            PreviousIncorrectQuestions: []
-          }
-        )
-      } catch (error) {
-        console.log("Function call failed")
-      }
-      router.push("/quiz")
+        createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        .then(async (userCredential)=>{
+          const user = userCredential.user
+          try{
+            await AddUser(
+              {
+                uid: user.uid,
+                Name: formData.username,
+                Industry: formData.industry,
+                JobTitle: formData.jobTitle,
+                PreviousIncorrectQuestions: []
+              }
+            )
+          }catch(error){
+            console.log("Error with AddUser()")
+        }
+          console.log("Success. The user is created in FirebaseAuth")
+          router.push("/quiz")
+        })
+        .catch((error) => {
+          console.log("Error when signing up," + error.message)
+          setError(error.message)
+        })
     }
+    else{setError("Passwords do not match")}
 }
 return (
   <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
@@ -105,7 +116,7 @@ return (
             placeholder="Confirm Password"
             required
         />
-        <div className="flex-flex-row w-12"><button onClick={() => { setConfirmMaskPassword(!maskConfirmPassword) }}><FontAwesomeIcon icon={maskConfirmPassword ? faEyeSlash : faEye} /></button></div>
+        <div className="flex-flex-row w-12"><button onClick={() => { setmaskConfirmPassword(!maskConfirmPassword) }}><FontAwesomeIcon icon={maskConfirmPassword ? faEyeSlash : faEye} /></button></div>
       </div>
       <div className="mb-4">
         <input
