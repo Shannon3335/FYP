@@ -1,4 +1,7 @@
 name: Basic github workflow
+env:
+  OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+
 on: 
   push:
     branches-ignore:
