@@ -15,7 +15,6 @@ on:
 
   pull_request: 
     types: [opened, reopened]
-# comment to test workflow
 jobs:
   build:
     runs-on: ubuntu-latest
