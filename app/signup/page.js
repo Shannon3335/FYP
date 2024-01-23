@@ -1,13 +1,13 @@
 // SignUpForm.js
 'use client'
 import { useState, useEffect } from "react"
-import  { AddUser }  from "app/functions/firebase/AddUser.js"
+import { AddUser } from "app/functions/firebase/AddUser.js"
 import Dropdown from "@/components/dropdown"
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from "next/navigation"
 import { createUserWithEmailAndPassword } from "firebase/auth"
-import { auth  } from "../functions/firebase/FirebaseApp"
+import { auth } from "../functions/firebase/FirebaseApp"
 
 const SignUpForm = () => {
   const [maskPassword, setMaskPassword] = useState(true)
@@ -37,12 +37,12 @@ const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     // Add your signup logic here, such as sending the data to a server or performing client-side validation
-    if(passwordsMatch){
+    if (passwordsMatch) {
       console.log('Form submitted:', formData)
-        createUserWithEmailAndPassword(auth, formData.email, formData.password)
-        .then(async (userCredential)=>{
+      createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        .then(async (userCredential) => {
           const user = userCredential.user
-          try{
+          try {
             await AddUser(
               {
                 uid: user.uid,
@@ -52,9 +52,9 @@ const SignUpForm = () => {
                 PreviousIncorrectQuestions: []
               }
             )
-          }catch(error){
+          } catch (error) {
             console.log("Error with AddUser()")
-        }
+          }
           console.log("Success. The user is created in FirebaseAuth")
           router.push("/quiz")
         })
@@ -63,13 +63,21 @@ const SignUpForm = () => {
           setError(error.message)
         })
     }
-    else{setError("Passwords do not match")}
-}
-return (
-  <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
-    <form onSubmit={handleSubmit}>
-      <div className="mb-4">
-        <input
+    else { setError("Passwords do not match") }
+  }
+
+  const handleIndustryChange = (selectedIndustry) => {
+    console.log("new industry:"+selectedIndustry)
+    setFormData({
+      ...formData,
+      industry: selectedIndustry
+    })
+  }
+  return (
+    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <input
             type="text"
             id="username"
             name="username"
@@ -78,10 +86,10 @@ return (
             className="mt-1 p-2 w-full border rounded-md text-slate-700"
             placeholder="Username"
             required
-        />
-      </div>
-      <div className="mb-4">
-        <input
+          />
+        </div>
+        <div className="mb-4">
+          <input
             type="email"
             id="email"
             name="email"
@@ -90,10 +98,10 @@ return (
             className="mt-1 p-2 w-full border rounded-md text-slate-700"
             placeholder="Email"
             required
-        />
-      </div>
-      <div id="Password" className="mb-4 flex flex-row border rounded-md focus:border-slate-700">
-        <input
+          />
+        </div>
+        <div id="Password" className="mb-4 flex flex-row border rounded-md focus:border-slate-700">
+          <input
             type={maskPassword ? "password" : "text"}
             id="password"
             name="password"
@@ -102,11 +110,11 @@ return (
             className="mt-1 p-2 w-full text-slate-700"
             placeholder="Password"
             required
-        />
-        <div className="flex-flex-row w-12"><button onClick={() => { setMaskPassword(!maskPassword) }}><FontAwesomeIcon icon={maskPassword ? faEyeSlash : faEye} /></button></div>
-      </div>
-      <div id="confirmPassword" className="mb-4">
-        <input
+          />
+          <div className="flex-flex-row w-12"><button onClick={() => { setMaskPassword(!maskPassword) }}><FontAwesomeIcon icon={maskPassword ? faEyeSlash : faEye} /></button></div>
+        </div>
+        <div id="confirmPassword" className="mb-4">
+          <input
             type={maskConfirmPassword ? "password" : "text"}
             id="confirmPassword"
             name="confirmPassword"
@@ -115,11 +123,11 @@ return (
             className="mt-1 p-2 w-full border rounded-md text-slate-700"
             placeholder="Confirm Password"
             required
-        />
-        <div className="flex-flex-row w-12"><button onClick={() => { setmaskConfirmPassword(!maskConfirmPassword) }}><FontAwesomeIcon icon={maskConfirmPassword ? faEyeSlash : faEye} /></button></div>
-      </div>
-      <div className="mb-4">
-        <input
+          />
+          <div className="flex-flex-row w-12"><button onClick={() => { setmaskConfirmPassword(!maskConfirmPassword) }}><FontAwesomeIcon icon={maskConfirmPassword ? faEyeSlash : faEye} /></button></div>
+        </div>
+        <div className="mb-4">
+          <input
             type="text"
             id="jobTitle"
             name="jobTitle"
@@ -128,17 +136,17 @@ return (
             className="mt-1 p-2 w-full border rounded-md text-slate-700"
             placeholder="Job Title"
             required
-        />
-      </div>
-      <Dropdown />
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
-      >
-        Sign Up
-      </button>
-    </form>
-  </div>
+          />
+        </div>
+        <Dropdown onIndustryChange={handleIndustryChange}/>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
   )
 }
 
