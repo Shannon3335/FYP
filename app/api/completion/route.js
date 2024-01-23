@@ -16,7 +16,7 @@ export async function POST(req) {
     console.log(prompt)
     // Ask OpenAI for a streaming completion given the prompt
     const response = await openai.completions.create({
-        model: 'text-davinci-003',
+        model: 'gpt-3.5-turbo-instruct',
         stream: true,
         temperature: 0.6,
         max_tokens: 300,
