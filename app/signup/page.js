@@ -1,4 +1,3 @@
-// SignUpForm.js
 'use client'
 import { useState, useEffect } from "react"
 import { AddUser } from "app/functions/firebase/AddUser.js"
