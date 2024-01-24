@@ -1,5 +1,6 @@
 'use client'
 
+import ReadUser from "../functions/firebase/ReadUser"
 import Signin from "../functions/firebase/Signin"
 import { useState } from "react"
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
@@ -7,7 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Login = () => {
   const [maskPassword, setMaskPassword] = useState(true)
-
+  const [uid, setUid] = useState(null)
+  const [userDetail, setUserDetails] = useState(null)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -23,9 +25,15 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await Signin(formData.email, formData.password)
+    const returned_uid = await Signin(formData.email, formData.password)
+    setUid(returned_uid.userID)
+    // console.log("returned uid:"+returned_uid.userID)
+    const returned_userDetails = await ReadUser({ userID: returned_uid.userID })
+    // const returned_userDetails = await ReadUser({ userID: "Aphvkhdw6OS6o7HeARv8lpxHpZH2" })
+    setUserDetails(returned_userDetails)
+    console.log("Returned user details:" + JSON.stringify(returned_userDetails))
+    //set the atom for userdetails here?
   }
-
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
       <form onSubmit={handleSubmit}>
