@@ -2,18 +2,25 @@
 
 import ReadUser from "../functions/firebase/ReadUser"
 import Signin from "../functions/firebase/Signin"
-import { useState } from "react"
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
+import { useEffect, useState } from "react"
+import { faEye, faEyeSlash, faUserAstronaut } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import editUserAtom from "@/atoms/userAtom"
+import { flightRouterStateSchema } from "next/dist/server/app-render/types"
 
 const Login = () => {
   const [maskPassword, setMaskPassword] = useState(true)
   const [uid, setUid] = useState(null)
   const [userDetail, setUserDetails] = useState(null)
+  const [changeUserDetails, setChangeUserDetails] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   })
+
+  useEffect(()=>{
+    editUserAtom({...userDetail})
+  },[changeUserDetails])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -33,6 +40,7 @@ const Login = () => {
     setUserDetails(returned_userDetails)
     console.log("Returned user details:" + JSON.stringify(returned_userDetails))
     //set the atom for userdetails here?
+    setChangeUserDetails(true)
   }
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
