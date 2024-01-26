@@ -1,7 +1,7 @@
 'use client'
-import { useState, useEffect } from "react"
-import { AddUser } from "app/functions/firebase/AddUser.js"
-import Dropdown from "@/components/dropdown"
+import { useState } from "react"
+import AddUser from "../functions/firebase/AddUser"
+import Dropdown from "../../components/dropdown"
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from "next/navigation"
