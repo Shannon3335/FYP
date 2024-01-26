@@ -2,7 +2,7 @@ import { doc, setDoc } from "firebase/firestore"
 import { db } from "./FirebaseApp.js"
 
 //Code to add a user to the database, using a default user for now
-export async function AddUser(props) {
+export default async function AddUser(props) {
   try {
     await setDoc(doc(db, "Users", props.uid), {
       Name: props.Name,
