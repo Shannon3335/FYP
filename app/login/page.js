@@ -22,7 +22,6 @@ const Login = () => {
     console.log("Initial user atom:" + JSON.stringify(user))
     console.log(JSON.stringify(props))
     modifyUser(props)
-    console.log("Edited user atom" + JSON.stringify(user))
   }
 
   const handleChange = (e) => {
@@ -36,12 +35,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const returned_uid = await Signin(formData.email, formData.password)
-    // console.log("returned uid:"+returned_uid.userID)
-    const returned_userDetails = await ReadUser({ userID: returned_uid.userID })
-    // const returned_userDetails = await ReadUser({ userID: "Aphvkhdw6OS6o7HeARv8lpxHpZH2" })
-    console.log("Returned user details:" + JSON.stringify(returned_userDetails))
-    //set the atom for userdetails here?
-    EditUserAtom(returned_userDetails)
+    const {userDetails} = await ReadUser({ userID: returned_uid.userID })
+    console.log("Returned user details:" + JSON.stringify(userDetails))
+    EditUserAtom({
+      userName: userDetails.Name,
+      industry: userDetails.Industry,
+      field: userDetails.JobTitle,
+      previousIncorrectQuestions: userDetails.PreviousIncorrectQuestions
+    })
     router.push("/quiz")
   }
   return (

@@ -7,7 +7,11 @@ const userAtom = atom({
   previousIncorrectQuestions: []
 })
 
-// export const industryAndFieldAtom = atom((get) => { industry: get(userAtom).industry, field : get(userAtom).field })
-export default userAtom
+export const industryAndFieldAtom = atom((get) => {
+  const industry = get(userAtom).industry
+  const field = get(userAtom).field 
 
-// export default EditUserAtom
+  return {industry,field}
+})
+
+export default userAtom
