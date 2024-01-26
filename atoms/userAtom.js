@@ -1,4 +1,4 @@
-import { Atom, useAtom } from "jotai"
+import { atom } from "jotai"
 
 const userAtom = atom({
   userName: "",
@@ -7,11 +7,7 @@ const userAtom = atom({
   previousIncorrectQuestions: []
 })
 
-const editUserAtom = (props) => {
-  const [user, modifyUser] = useAtom(userAtom)
-  console.log("Initial user atom:"+ JSON.stringify(user))
-  modifyUser((prevUser)=>({...prevUser,[props.key]:props.value}))
-    console.log("Edited user atom"+ JSON.stringify(user))
-}
+// export const industryAndFieldAtom = atom((get) => { industry: get(userAtom).industry, field : get(userAtom).field })
+export default userAtom
 
-export default editUserAtom
+// export default EditUserAtom
