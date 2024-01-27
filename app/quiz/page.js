@@ -4,37 +4,34 @@ import { useRouter } from "next/navigation"
 import { useCompletion } from "ai/react"
 import { useEffect, useState } from "react"
 import ConvertToQuizObjects from "../functions/convertToQuizObject"
-import userAtom from "../../atoms/userAtom"
+import userAtom, { nameAtom } from "../../atoms/userAtom"
 import { industryAndFieldAtom } from "../../atoms/userAtom"
 import { useAtomValue } from "jotai"
 
 export default function Quiz() {
-  const user = useAtomValue(userAtom)
+  const username = useAtomValue(nameAtom)
   const { industry, field } = useAtomValue(industryAndFieldAtom)
   const [quizArray, setquizArray] = useState(null)
   const router = useRouter()
   const { completion, input, handleInputChange, handleSubmit, complete, isLoading } = useCompletion({
     // const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
 
-    initialInput: user.field,
+    initialInput: field,
     onFinish: (_, completion) => {
       console.log("convertToObj value" + completion + "\n END")
       setquizArray(ConvertToQuizObjects(completion))
     },
 
   })
-  // console.log(user)
-  console.log(industry)
-  console.log(field)
 
   useEffect(() => console.log(quizArray), [quizArray])
 
   useEffect(() => {
-    if (user.userName === '') {
+    if (username === '') {
       router.push("/")
     }
     else {
-      complete(user.field)
+      complete({field,industry})
     }
   }, [])
   return (
@@ -58,7 +55,6 @@ export default function Quiz() {
               <div>Enter your job title </div>
             )
           )}
-
         </div>
       </div>
     </main>
