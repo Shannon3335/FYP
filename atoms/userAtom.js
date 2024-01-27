@@ -14,4 +14,6 @@ export const industryAndFieldAtom = atom((get) => {
   return {industry,field}
 })
 
+export const nameAtom = atom((get) => get(userAtom).userName)
+
 export default userAtom

@@ -4,36 +4,36 @@ import { useRouter } from "next/navigation"
 import { useCompletion } from "ai/react"
 import { useEffect, useState } from "react"
 import ConvertToQuizObjects from "../functions/convertToQuizObject"
-import userAtom from "../../atoms/userAtom"
+import userAtom, { nameAtom } from "../../atoms/userAtom"
 import { industryAndFieldAtom } from "../../atoms/userAtom"
 import { useAtomValue } from "jotai"
 
 export default function Quiz() {
-  const user = useAtomValue(userAtom)
+  const username = useAtomValue(nameAtom)
   const { industry, field } = useAtomValue(industryAndFieldAtom)
   const [quizArray, setquizArray] = useState(null)
   const router = useRouter()
-  const { completion, input, handleInputChange, handleSubmit } = useCompletion({
-    initialInput: user.field,
+  const { completion, input, handleInputChange, handleSubmit, complete, isLoading } = useCompletion({
+    // const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
+
+    initialInput: field,
     onFinish: (_, completion) => {
       console.log("convertToObj value" + completion + "\n END")
       setquizArray(ConvertToQuizObjects(completion))
-    }
+    },
+
   })
-  // console.log(user)
-  console.log(industry)
-  console.log(field)
 
   useEffect(() => console.log(quizArray), [quizArray])
 
   useEffect(() => {
-    if (user.userName === '') {
+    if (username === '') {
       router.push("/")
     }
     else {
-      handleSubmit
+      complete({field,industry})
     }
-  })
+  }, [])
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -47,10 +47,13 @@ export default function Quiz() {
               onChange={handleInputChange}
             />
           </form>
-          {completion ? (
-            <div className="whitespace-pre-wrap my-4">{completion}</div>
+          {isLoading ? (<div>LOADING... </div>
           ) : (
-            <div>Enter your job title </div>
+            completion ? (
+              <div className="whitespace-pre-wrap my-4">{completion}</div>
+            ) : (
+              <div>Enter your job title </div>
+            )
           )}
         </div>
       </div>
