@@ -13,12 +13,15 @@ export default function Quiz() {
   const { industry, field } = useAtomValue(industryAndFieldAtom)
   const [quizArray, setquizArray] = useState(null)
   const router = useRouter()
-  const { completion, input, handleInputChange, handleSubmit } = useCompletion({
+  const { completion, input, handleInputChange, handleSubmit, complete, isLoading } = useCompletion({
+    // const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
+
     initialInput: user.field,
     onFinish: (_, completion) => {
       console.log("convertToObj value" + completion + "\n END")
       setquizArray(ConvertToQuizObjects(completion))
-    }
+    },
+
   })
   // console.log(user)
   console.log(industry)
@@ -31,9 +34,9 @@ export default function Quiz() {
       router.push("/")
     }
     else {
-      handleSubmit
+      complete(user.field)
     }
-  })
+  }, [])
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -47,11 +50,15 @@ export default function Quiz() {
               onChange={handleInputChange}
             />
           </form>
-          {completion ? (
-            <div className="whitespace-pre-wrap my-4">{completion}</div>
+          {isLoading ? (<div>LOADING... </div>
           ) : (
-            <div>Enter your job title </div>
+            completion ? (
+              <div className="whitespace-pre-wrap my-4">{completion}</div>
+            ) : (
+              <div>Enter your job title </div>
+            )
           )}
+
         </div>
       </div>
     </main>
