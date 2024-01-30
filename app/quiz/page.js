@@ -8,8 +8,7 @@ import ConvertToQuizObjects from "../functions/convertToQuizObject"
 import { nameAtom } from "../../atoms/userAtom"
 import { industryAndFieldAtom } from "../../atoms/userAtom"
 import { useAtomValue } from "jotai"
-import Piechart from "../../components/Piechart/piechart"
-
+import PieChart from "../../components/Piechart/piechart"
 export default function Quiz() {
 
   const username = useAtomValue(nameAtom)
@@ -26,21 +25,45 @@ export default function Quiz() {
     wrongAnswers: 0
   })
 
-  const [chartData, setChartData] = useState({
-    labels: ["Correct", "Incorrect"],
-    datasets: [
-      {
-        label: "Result",
-        data: [result.correctAnswers, result.wrongAnswers],
-        backgroundColor: [
-          "#f3ba2f",
-          "#2a71d0"
-        ],
-        borderColor: "black",
-        borderWidth: 2
-      }
-    ]
-  })
+  // const [chartData, setChartData] = useState({
+  //   // labels: ["Correct", "Incorrect"],
+  //   // datasets: [
+  //   //   {
+  //   //     label: "Result",
+  //   //     data: [result.correctAnswers, result.wrongAnswers],
+  //   //     backgroundColor: [
+  //   //       "#f3ba2f",
+  //   //       "#2a71d0"
+  //   //     ],
+  //   //     borderColor: "black",
+  //   //     borderWidth: 2
+  //   //   }
+  //   // ]
+  //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  // datasets: [
+  //   {
+  //     label: '# of Votes',
+  //     data: [12, 19, 3, 5, 2, 3],
+  //     backgroundColor: [
+  //       'rgba(255, 99, 132, 0.2)',
+  //       'rgba(54, 162, 235, 0.2)',
+  //       'rgba(255, 206, 86, 0.2)',
+  //       'rgba(75, 192, 192, 0.2)',
+  //       'rgba(153, 102, 255, 0.2)',
+  //       'rgba(255, 159, 64, 0.2)',
+  //     ],
+  //     borderColor: [
+  //       'rgba(255, 99, 132, 1)',
+  //       'rgba(54, 162, 235, 1)',
+  //       'rgba(255, 206, 86, 1)',
+  //       'rgba(75, 192, 192, 1)',
+  //       'rgba(153, 102, 255, 1)',
+  //       'rgba(255, 159, 64, 1)',
+  //     ],
+  //     borderWidth: 1,
+  //   },
+  // ]
+  // })
 
   const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
     // const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
@@ -107,11 +130,7 @@ export default function Quiz() {
               <div>Loading mcq...</div>
             )
           ) : null
-          // <Piechart props = {{
-          //   labels: ["correct", "incorrect"],
-          //   data: [result.correctAnswers, result.wrongAnswers],
-          //   colors: ["#50AF95","#f3ba2f"]
-          // }}/>
+          // <PieChart chartData={chartData}/>
         }
       </div>
     </div>
