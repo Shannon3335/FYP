@@ -1,62 +1,139 @@
 'use client'
+// Code for MCQ logic from: https://www.codevertiser.com/quiz-app-using-reactjs/
 
 import { useRouter } from "next/navigation"
 import { useCompletion } from "ai/react"
 import { useEffect, useState } from "react"
 import ConvertToQuizObjects from "../functions/convertToQuizObject"
-import userAtom, { nameAtom } from "../../atoms/userAtom"
+import { nameAtom } from "../../atoms/userAtom"
 import { industryAndFieldAtom } from "../../atoms/userAtom"
 import { useAtomValue } from "jotai"
 
-export default function Quiz() {
+const Quiz = ()=> {
+
   const username = useAtomValue(nameAtom)
   const { industry, field } = useAtomValue(industryAndFieldAtom)
   const [quizArray, setquizArray] = useState(null)
+  const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
   const router = useRouter()
-  const { completion, input, handleInputChange, handleSubmit, complete, isLoading } = useCompletion({
+  const [activeQuestion, setActiveQuestion] = useState(0)
+  const [selectedOption, setSelectedOption] = useState('')
+
+  const [result, setResult] = useState({
+    score: 0,
+    correctAnswers: 0,
+    wrongAnswers: 0
+  })
+
+  // const [chartData, setChartData] = useState({
+  //   // labels: ["Correct", "Incorrect"],
+  //   // datasets: [
+  //   //   {
+  //   //     label: "Result",
+  //   //     data: [result.correctAnswers, result.wrongAnswers],
+  //   //     backgroundColor: [
+  //   //       "#f3ba2f",
+  //   //       "#2a71d0"
+  //   //     ],
+  //   //     borderColor: "black",
+  //   //     borderWidth: 2
+  //   //   }
+  //   // ]
+  //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  // datasets: [
+  //   {
+  //     label: '# of Votes',
+  //     data: [12, 19, 3, 5, 2, 3],
+  //     backgroundColor: [
+  //       'rgba(255, 99, 132, 0.2)',
+  //       'rgba(54, 162, 235, 0.2)',
+  //       'rgba(255, 206, 86, 0.2)',
+  //       'rgba(75, 192, 192, 0.2)',
+  //       'rgba(153, 102, 255, 0.2)',
+  //       'rgba(255, 159, 64, 0.2)',
+  //     ],
+  //     borderColor: [
+  //       'rgba(255, 99, 132, 1)',
+  //       'rgba(54, 162, 235, 1)',
+  //       'rgba(255, 206, 86, 1)',
+  //       'rgba(75, 192, 192, 1)',
+  //       'rgba(153, 102, 255, 1)',
+  //       'rgba(255, 159, 64, 1)',
+  //     ],
+  //     borderWidth: 1,
+  //   },
+  // ]
+  // })
+
+  const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
     // const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
 
     initialInput: field,
     onFinish: (_, completion) => {
       console.log("convertToObj value" + completion + "\n END")
       setquizArray(ConvertToQuizObjects(completion))
+      setIsQuestionsGenerated(!isQuestionsGenerated)
     },
-
   })
 
-  useEffect(() => console.log(quizArray), [quizArray])
+  const onClickNext = () => {
+    if (selectedOption == quizArray[activeQuestion].answer) {
+      console.log("correctAnswer!")
+      setResult((prev) => ({
+        ...prev,
+        score: prev.score + 5,
+        correctAnswers: prev.correctAnswers + 1
+      }))
+    }
+    else {
+      console.log("Incorrect Answer :(")
+      setResult((prev) => ({ ...prev, wrongAnswers: prev.wrongAnswers + 1 }))
+    }
+    activeQuestion === quizArray.length - 1 ? (console.log(JSON.stringify(result))) : (setActiveQuestion((prev) => prev + 1))
+  }
+  const onClickOption = (option) => {
+    setSelectedOption(option)
+  }
 
   useEffect(() => {
     if (username === '') {
       router.push("/")
     }
     else {
-      complete({field,industry})
+      complete({ field, industry })
     }
   }, [])
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <div className="mx-auto w-full max-w-md py-24 flex flex-col stretch">
-          <div>{field}</div>
-          <form onSubmit={handleSubmit}>
-            <input
-              className="fixed w-full max-w-md bottom-0 border border-gray-300 rounded mb-8 shadow-xl p-2 dark:text-black"
-              value={input}
-              placeholder="Enter your job title for the questions"
-              onChange={handleInputChange}
-            />
-          </form>
-          {isLoading ? (<div>LOADING... </div>
-          ) : (
-            completion ? (
-              <div className="whitespace-pre-wrap my-4">{completion}</div>
-            ) : (
-              <div>Enter your job title </div>
-            )
-          )}
-        </div>
+    <div>
+      <h1>Quiz</h1>
+      <div>
+        {
+          isQuestionsGenerated ? (
+            // activeQuestion === quizArray.length - 1 ? (
+              <>
+                <h2>Question {activeQuestion + 1}</h2>
+                <p>{quizArray[activeQuestion].question}</p>
+                <ul>
+                  {
+                    quizArray[activeQuestion].options.map((option, index) => (
+                      <li key={index}><button onClick={() => {
+                        onClickOption(option)
+                        console.log(option)
+                      }}>{option}</button></li>
+                    ))}
+                </ul>
+                <button onClick={() => {
+                  onClickNext()
+                }}>{activeQuestion === quizArray.length ? 'Finish' : 'Next'}</button>
+              </>
+            ) :  <div>Loading mcq...</div>
+          // ) : 
+          // <PieChart chartData={chartData}/>
+        }
       </div>
-    </main>
+    </div>
   )
 }
+
+
+export default Quiz
