@@ -15,10 +15,7 @@ const ConvertToQuizObjects =(input)=>{
     // console.log("answer:"+answer)
     let quizObject = {
         question: qText,
-        option1: options[0],
-        option2: options[1],
-        option3: options[2],
-        option4: options[3],
+        options: options,
         answer: answer,
     }
     // console.log(quizObject)
