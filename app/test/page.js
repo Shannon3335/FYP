@@ -1,7 +1,7 @@
 import React from "react";
 import PieChart from "../../components/Piechart/piechart";
 
-export const Test = () => {
+const Test = () => {
   const chartData = {
     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
     datasets: [
@@ -33,5 +33,8 @@ export const Test = () => {
     <>
       <PieChart chartData={chartData} />
     </>
-  );
-};
+  )
+}
+
+
+export default Test

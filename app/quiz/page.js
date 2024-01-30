@@ -8,8 +8,8 @@ import ConvertToQuizObjects from "../functions/convertToQuizObject"
 import { nameAtom } from "../../atoms/userAtom"
 import { industryAndFieldAtom } from "../../atoms/userAtom"
 import { useAtomValue } from "jotai"
-import PieChart from "../../components/Piechart/piechart"
-export default function Quiz() {
+
+const Quiz = ()=> {
 
   const username = useAtomValue(nameAtom)
   const { industry, field } = useAtomValue(industryAndFieldAtom)
@@ -134,3 +134,6 @@ export default function Quiz() {
     </div>
   )
 }
+
+
+export default Quiz
