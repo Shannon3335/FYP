@@ -6,7 +6,7 @@ import { Pie } from "react-chartjs-2"
 function PieChart({ chartData }) {
   return (
     <div className="chart-container">
-      //replace styling with tailwind later
+      {/* //replace styling with tailwind later */}
       <h2 style={{ textAlign: "center" }}>Pie Chart</h2> 
       <Pie
         data={chartData}

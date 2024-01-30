@@ -109,7 +109,7 @@ export default function Quiz() {
       <div>
         {
           isQuestionsGenerated ? (
-            activeQuestion === quizArray.length - 1 ? (
+            // activeQuestion === quizArray.length - 1 ? (
               <>
                 <h2>Question {activeQuestion + 1}</h2>
                 <p>{quizArray[activeQuestion].question}</p>
@@ -126,10 +126,8 @@ export default function Quiz() {
                   onClickNext()
                 }}>{activeQuestion === quizArray.length ? 'Finish' : 'Next'}</button>
               </>
-            ) : (
-              <div>Loading mcq...</div>
-            )
-          ) : null
+            ) :  <div>Loading mcq...</div>
+          // ) : 
           // <PieChart chartData={chartData}/>
         }
       </div>
