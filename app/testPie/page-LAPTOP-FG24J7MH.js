@@ -1,3 +1,4 @@
+'use client'
 //TESTING PAGE FOR PROOF OF CONCEPT OF THE PIE CHART
 import React from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
