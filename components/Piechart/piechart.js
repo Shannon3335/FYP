@@ -5,7 +5,9 @@ import { Pie } from 'react-chartjs-2'
 //Register only what you need from chartjs for tree shakability (reduces code size when deploying)
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-const TestPie = () => {
+const PieChart = (props) => {
+  // console.log(JSON.stringify(props))
+  console.log("Data:",JSON.stringify(props.data))
   const data = {
     // labels: ['Correct', 'Incorrect'],
     labels: props.labels,
@@ -14,13 +16,10 @@ const TestPie = () => {
         // label: '# of Votes',
         // data: [12, 19],
         data: props.data,
-
         // backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
-        backgroundColor: props.bgcolor,
-
+        backgroundColor: props.bgColor,
         // borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
         borderColor: props.borderColor,
-
         // borderWidth: 1,
         borderWidth: props.borderWidth,
       },
@@ -33,4 +32,4 @@ const TestPie = () => {
   )
 }
 
-export default TestPie
+export default PieChart

@@ -3,7 +3,7 @@
 import React from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Pie } from 'react-chartjs-2'
-
+// import PieChart from '../../components/Piechart/piechart'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 const TestPie = () => {
@@ -22,6 +22,7 @@ const TestPie = () => {
   return (
     <>
       <Pie data={data} className='flex' />
+      {/* <PieChart></PieChart> */}
     </>
   )
 }
