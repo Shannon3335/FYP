@@ -20,7 +20,7 @@ const Quiz = () => {
   //quiz related values
   const [quizArray, setquizArray] = useState(null)
   const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
-  const [activeQuestion, setActiveQuestion] = useState(0)
+  const [activeQuestionNo, setActiveQuestionNo] = useState(0)
   const [selectedOption, setSelectedOption] = useState('')
   const [result, setResult] = useState({
     score: 0,
@@ -28,7 +28,7 @@ const Quiz = () => {
     wrongAnswers: 0,
   })
   const [isLastQuestion, setIsLastQuestion] = useState(false)
-
+  const [isQuizOver, setQuizOver] = useState(false)
   //piechart related values
   const props = {
     data: [result.correctAnswers, result.wrongAnswers],
@@ -41,7 +41,6 @@ const Quiz = () => {
   const { completion, input, handleInputChange, handleSubmit, complete } =
     useCompletion({
       // const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
-
       initialInput: field,
       onFinish: (_, completion) => {
         console.log('convertToObj value' + completion + '\n END')
@@ -50,8 +49,8 @@ const Quiz = () => {
       },
     })
 
-  const onClickNext = () => {
-    if (selectedOption == quizArray[activeQuestion].answer) {
+  const verifyAnswer = () => {
+    if (selectedOption == quizArray[activeQuestionNo].answer) {
       console.log('correctAnswer!')
       setResult((prev) => ({
         ...prev,
@@ -62,17 +61,26 @@ const Quiz = () => {
       console.log('Incorrect Answer :(')
       setResult((prev) => ({ ...prev, wrongAnswers: prev.wrongAnswers + 1 }))
     }
+  }
 
+  const nextQuizFlow = () => {
     //Check if you're at the last qestion
-    if (activeQuestion === quizArray.length - 1) {
-      setIsLastQuestion(true)
+    if (isLastQuestion) {
+      //if at the last question when submitting, end the quiz
+      setQuizOver(true)
     } else {
-      setActiveQuestion((prev) => prev + 1)
+      //go to the next question
+      setActiveQuestionNo((prev) => prev + 1)
+      //if at the second last question, set the last question flag
+      if (activeQuestionNo === quizArray.length - 2) {
+        setIsLastQuestion(true)
+      }
     }
   }
 
-  const onClickOption = (option) => {
-    setSelectedOption(option)
+  const onClickNext = () => {
+    verifyAnswer()
+    nextQuizFlow()
   }
 
   useEffect(() => {
@@ -88,32 +96,27 @@ const Quiz = () => {
       <h1>Quiz</h1>
       <div>
         {isQuestionsGenerated ? (
-          !isLastQuestion ? (
+          (console.log(quizArray),
+          !isQuizOver ? (
             <>
-              <h2>Question {activeQuestion + 1}</h2>
-              <p>{quizArray[activeQuestion].question}</p>
+              <h2>Question {activeQuestionNo + 1}</h2>
+              <p>{quizArray[activeQuestionNo].question}</p>
               <ul>
-                {quizArray[activeQuestion].options.map((option, index) => (
+                {quizArray[activeQuestionNo].options.map((option, index) => (
                   <li key={index}>
-                    <button
-                      onClick={() => {
-                        setSelectedOption(option)
-                      }}>
+                    <button onClick={() => setSelectedOption(option)}>
                       {option}
                     </button>
                   </li>
                 ))}
               </ul>
-              <button
-                onClick={() => {
-                  onClickNext()
-                }}>
-                {activeQuestion === quizArray.length - 1 ? 'Finish' : 'Next'}
+              <button onClick={() => onClickNext()}>
+                {!isLastQuestion ? 'Next' : 'Finish'}
               </button>
             </>
           ) : (
             <PieChart {...props} />
-          )
+          ))
         ) : (
           <div>Loading mcq...</div>
         )}
