@@ -1,10 +1,10 @@
 //This func. takes in the AI completion and converts it into a quizObject
 const ConvertToQuizObjects = (input) => {
-  console.log('input:' + input)
+  // console.log('input:' + input)
   const lines = input.split('\n') // Split input into individual lines
   //add another empty line at the end for processing
   lines.push('')
-  console.log('lines:' + lines)
+  // console.log('lines:' + lines)
   let quizArray = []
   const numberofLines = lines.length
   for (let i = 0; i <= numberofLines - 7; i += 7) {
@@ -25,11 +25,11 @@ const ConvertToQuizObjects = (input) => {
     }
     // console.log(quizObject)
     quizArray.push(quizObject)
-    console.log('quizArray after pushing:', quizArray)
+    // console.log('quizArray after pushing:', quizArray)
   }
   // console.log("array before returning:")
   // console.log(quizArray)
-  console.log('quizArray before returning:', quizArray)
+  // console.log('quizArray before returning:', quizArray)
   return quizArray
 }
 export default ConvertToQuizObjects
