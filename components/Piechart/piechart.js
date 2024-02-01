@@ -1,25 +1,35 @@
-// src/components/PieChart.js
-import React from "react"
+import React from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
-import { Pie } from "react-chartjs-2"
+import { Pie } from 'react-chartjs-2'
 
-function PieChart({ chartData }) {
+//Register only what you need from chartjs for tree shakability (reduces code size when deploying)
+ChartJS.register(ArcElement, Tooltip, Legend)
+
+const PieChart = (props) => {
+  // console.log(JSON.stringify(props))
+  console.log("Data:",JSON.stringify(props.data))
+  const data = {
+    // labels: ['Correct', 'Incorrect'],
+    labels: props.labels,
+    datasets: [
+      {
+        // label: '# of Votes',
+        // data: [12, 19],
+        data: props.data,
+        // backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+        backgroundColor: props.bgColor,
+        // borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+        borderColor: props.borderColor,
+        // borderWidth: 1,
+        borderWidth: props.borderWidth,
+      },
+    ],
+  }
   return (
-    <div className="chart-container">
-      {/* //replace styling with tailwind later */}
-      <h2 style={{ textAlign: "center" }}>Pie Chart</h2> 
-      <Pie
-        data={chartData}
-        options={{
-          plugins: {
-            title: {
-              display: true,
-              text: "Users Gained between 2016-2020"
-            }
-          }
-        }}
-      />
-    </div>
+    <>
+      <Pie data={data} className='flex' />
+    </>
   )
 }
+
 export default PieChart
