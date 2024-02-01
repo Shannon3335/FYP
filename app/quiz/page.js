@@ -12,6 +12,7 @@ import PieChart from '../../components/Piechart/piechart'
 
 const Quiz = () => {
   const router = useRouter()
+
   //user related values
   const username = useAtomValue(nameAtom)
   const { industry, field } = useAtomValue(industryAndFieldAtom)
@@ -26,10 +27,10 @@ const Quiz = () => {
     correctAnswers: 0,
     wrongAnswers: 0,
   })
-  const [isLastQuestion, setIsLastQuestion ] = useState(false)
+  const [isLastQuestion, setIsLastQuestion] = useState(false)
+
   //piechart related values
   const props = {
-    // data: ['5', '15'],
     data: [result.correctAnswers, result.wrongAnswers],
     labels: ['Correct', 'Incorrect'],
     bgColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
@@ -63,9 +64,11 @@ const Quiz = () => {
     }
 
     //Check if you're at the last qestion
-    activeQuestion === quizArray.length - 1
-      ? console.log(JSON.stringify(result))
-      : setActiveQuestion((prev) => prev + 1)
+    if (activeQuestion === quizArray.length - 1) {
+      setIsLastQuestion(true)
+    } else {
+      setActiveQuestion((prev) => prev + 1)
+    }
   }
 
   const onClickOption = (option) => {
@@ -85,7 +88,7 @@ const Quiz = () => {
       <h1>Quiz</h1>
       <div>
         {isQuestionsGenerated ? (
-          activeQuestion !== quizArray.length - 1 ? (
+          !isLastQuestion ? (
             <>
               <h2>Question {activeQuestion + 1}</h2>
               <p>{quizArray[activeQuestion].question}</p>
