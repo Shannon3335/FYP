@@ -19,7 +19,7 @@ export async function POST(req) {
     model: 'gpt-3.5-turbo-instruct',
     stream: true,
     temperature: 0.6,
-    max_tokens: 300,
+    max_tokens: 600,
     prompt: `Job Title: ${field}
         Role Description: Generate 10 multiple-choice questions for a ${industry} interview.
         Each question should have four options (a, b, c, d) with one correct answer.
