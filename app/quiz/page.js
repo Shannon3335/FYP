@@ -12,7 +12,6 @@ import PieChart from '../../components/Piechart/piechart'
 
 const Quiz = () => {
   const router = useRouter()
-
   //user related values
   const username = useAtomValue(nameAtom)
   const { industry, field } = useAtomValue(industryAndFieldAtom)
@@ -20,17 +19,17 @@ const Quiz = () => {
   //quiz related values
   const [quizArray, setquizArray] = useState(null)
   const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
-  const [activeQuestionNo, setActiveQuestionNo] = useState(0)
+  const [activeQuestion, setActiveQuestion] = useState(0)
   const [selectedOption, setSelectedOption] = useState('')
   const [result, setResult] = useState({
     score: 0,
     correctAnswers: 0,
     wrongAnswers: 0,
   })
-  const [isLastQuestion, setIsLastQuestion] = useState(false)
-  const [isQuizOver, setQuizOver] = useState(false)
+  const [isLastQuestion, setIsLastQuestion ] = useState(false)
   //piechart related values
   const props = {
+    // data: ['5', '15'],
     data: [result.correctAnswers, result.wrongAnswers],
     labels: ['Correct', 'Incorrect'],
     bgColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
@@ -41,6 +40,7 @@ const Quiz = () => {
   const { completion, input, handleInputChange, handleSubmit, complete } =
     useCompletion({
       // const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
+
       initialInput: field,
       onFinish: (_, completion) => {
         console.log('convertToObj value' + completion + '\n END')
@@ -49,8 +49,8 @@ const Quiz = () => {
       },
     })
 
-  const verifyAnswer = () => {
-    if (selectedOption == quizArray[activeQuestionNo].answer) {
+  const onClickNext = () => {
+    if (selectedOption == quizArray[activeQuestion].answer) {
       console.log('correctAnswer!')
       setResult((prev) => ({
         ...prev,
@@ -61,26 +61,15 @@ const Quiz = () => {
       console.log('Incorrect Answer :(')
       setResult((prev) => ({ ...prev, wrongAnswers: prev.wrongAnswers + 1 }))
     }
-  }
 
-  const nextQuizFlow = () => {
     //Check if you're at the last qestion
-    if (isLastQuestion) {
-      //if at the last question when submitting, end the quiz
-      setQuizOver(true)
-    } else {
-      //go to the next question
-      setActiveQuestionNo((prev) => prev + 1)
-      //if at the second last question, set the last question flag
-      if (activeQuestionNo === quizArray.length - 2) {
-        setIsLastQuestion(true)
-      }
-    }
+    activeQuestion === quizArray.length - 1
+      ? console.log(JSON.stringify(result))
+      : setActiveQuestion((prev) => prev + 1)
   }
 
-  const onClickNext = () => {
-    verifyAnswer()
-    nextQuizFlow()
+  const onClickOption = (option) => {
+    setSelectedOption(option)
   }
 
   useEffect(() => {
@@ -96,27 +85,33 @@ const Quiz = () => {
       <h1>Quiz</h1>
       <div>
         {isQuestionsGenerated ? (
-          (console.log(quizArray),
-          !isQuizOver ? (
+          activeQuestion !== quizArray.length - 1 ? (
             <>
-              <h2>Question {activeQuestionNo + 1}</h2>
-              <p>{quizArray[activeQuestionNo].question}</p>
+              <h2>Question {activeQuestion + 1}</h2>
+              <p>{quizArray[activeQuestion].question}</p>
               <ul>
-                {quizArray[activeQuestionNo].options.map((option, index) => (
+                {quizArray[activeQuestion].options.map((option, index) => (
                   <li key={index}>
-                    <button onClick={() => setSelectedOption(option)}>
+                    <button
+                      onClick={() => {
+                        onClickOption(option)
+                        console.log(option)
+                      }}>
                       {option}
                     </button>
                   </li>
                 ))}
               </ul>
-              <button onClick={() => onClickNext()}>
-                {!isLastQuestion ? 'Next' : 'Finish'}
+              <button
+                onClick={() => {
+                  onClickNext()
+                }}>
+                {activeQuestion === quizArray.length - 1 ? 'Finish' : 'Next'}
               </button>
             </>
           ) : (
             <PieChart {...props} />
-          ))
+          )
         ) : (
           <div>Loading mcq...</div>
         )}
