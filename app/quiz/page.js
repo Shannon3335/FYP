@@ -97,8 +97,7 @@ const Quiz = () => {
                   <li key={index}>
                     <button
                       onClick={() => {
-                        onClickOption(option)
-                        console.log(option)
+                        setSelectedOption(option)
                       }}>
                       {option}
                     </button>
