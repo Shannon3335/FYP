@@ -19,8 +19,8 @@ const Login = () => {
   })
 
   const EditUserAtom = (props) => {
-    console.log("Initial user atom:" + JSON.stringify(user))
-    console.log(JSON.stringify(props))
+    // console.log("Initial user atom:" + JSON.stringify(user))
+    // console.log(JSON.stringify(props))
     modifyUser(props)
   }
 
