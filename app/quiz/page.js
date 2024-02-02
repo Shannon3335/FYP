@@ -40,14 +40,28 @@ const Quiz = () => {
 
   const { completion, input, handleInputChange, handleSubmit, complete } =
     useCompletion({
-      // const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
+      // api route using openai.chat.completion.create()
+      api: '/api/completionv2',
+      // api route using openai.completion.create()
+      // api: '/api/completion',
       initialInput: field,
       onFinish: (_, completion) => {
-        console.log('convertToObj value' + completion + '\n END')
-        setquizArray(ConvertToQuizObjects(completion))
-        setIsQuestionsGenerated(!isQuestionsGenerated)
+        //v2 completion code
+        // console.log("parsed completion:" , parsed_completion)
+        const parsed_completion = JSON.parse(completion)
+        setquizArray(parsed_completion)
+        setIsQuestionsGenerated(true)
+        // v1 completion code
+        // console.log('convertToObj value' + completion + '\n END')
+        // setquizArray(ConvertToQuizObjects(completion))
+        // setIsQuestionsGenerated(!isQuestionsGenerated)
       },
     })
+
+    //useEffect to see what the quiz array holds
+    useEffect(()=>{
+      console.log(quizArray)
+    },[isQuestionsGenerated])
 
   const verifyAnswer = () => {
     if (selectedOption == quizArray[activeQuestionNo].answer) {
