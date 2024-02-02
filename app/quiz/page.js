@@ -21,7 +21,7 @@ const Quiz = () => {
   const [quizArray, setquizArray] = useState(null)
   const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
   const [activeQuestionNo, setActiveQuestionNo] = useState(0)
-  const [selectedOption, setSelectedOption] = useState('')
+  const [selectedOption, setSelectedOption] = useState(null)
   const [result, setResult] = useState({
     score: 0,
     correctAnswers: 0,
@@ -61,6 +61,7 @@ const Quiz = () => {
       console.log('Incorrect Answer :(')
       setResult((prev) => ({ ...prev, wrongAnswers: prev.wrongAnswers + 1 }))
     }
+    setSelectedOption(null)
   }
 
   const nextQuizFlow = () => {
@@ -96,7 +97,6 @@ const Quiz = () => {
       <h1>Quiz</h1>
       <div>
         {isQuestionsGenerated ? (
-          (console.log(quizArray),
           !isQuizOver ? (
             <>
               <h2>Question {activeQuestionNo + 1}</h2>
@@ -110,13 +110,15 @@ const Quiz = () => {
                   </li>
                 ))}
               </ul>
-              <button onClick={() => onClickNext()}>
+              <button
+                onClick={() => onClickNext()}
+                disabled={selectedOption === null}>
                 {!isLastQuestion ? 'Next' : 'Finish'}
               </button>
             </>
           ) : (
             <PieChart {...props} />
-          ))
+          )
         ) : (
           <div>Loading mcq...</div>
         )}
