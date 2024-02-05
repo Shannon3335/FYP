@@ -102,6 +102,7 @@ const Quiz = () => {
     if (username === '') {
       router.push('/')
     } else {
+      console.log(field, industry)
       complete({ field, industry })
     }
   }, [])
