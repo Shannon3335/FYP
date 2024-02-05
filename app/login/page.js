@@ -1,7 +1,7 @@
 'use client'
 
-import ReadUser from "../functions/firebase/ReadUser"
-import Signin from "../functions/firebase/Signin"
+import ReadUser from "../../services/firebase/ReadUser.js"
+import Signin from "../../services/firebase/Signin.js"
 import { useEffect, useState } from "react"
 import { faEye, faEyeSlash, faUserAstronaut } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
