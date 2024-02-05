@@ -4,7 +4,7 @@
 import { useRouter } from 'next/navigation'
 import { useCompletion } from 'ai/react'
 import { useEffect, useState } from 'react'
-import ConvertToQuizObjects from '../functions/convertToQuizObject'
+import ConvertToQuizObjects from "../../services/convertToQuizObject"
 import { nameAtom } from '../../atoms/userAtom'
 import { industryAndFieldAtom } from '../../atoms/userAtom'
 import { useAtomValue } from 'jotai'
