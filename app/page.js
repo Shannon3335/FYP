@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import ThemeSwitcher from '@/components/theme-switcher'
 
 export default function Home() {
   const router = useRouter()
@@ -32,7 +33,7 @@ export default function Home() {
           <div className='p-2 text-lg '>PREPME</div>
           <section
             id='MiddleLinks'
-            className='w-1/4 flex flex-row justify-between'>
+            className='flex w-1/4 flex-row justify-between'>
             <Button asChild>
               <Link href={'https://github.com/Shannon3335/FYP'} target='_blank'>
                 Github
@@ -40,7 +41,7 @@ export default function Home() {
             </Button>
 
             <Button asChild variant='link'>
-              <Link href={'/quiz'}>Quiz</Link>
+              <Link href={'/login'}>login</Link>
             </Button>
 
             <Button asChild variant='link'>
@@ -53,9 +54,13 @@ export default function Home() {
               </Link>
             </Button>
           </section>
+          <div className='flex flex-row justify-between w-1/6'>
           <Button asChild variant='ghost' onClick={toSignup}>
             <Link href={'/signup'}>Signup</Link>
           </Button>
+          <ThemeSwitcher/>
+          </div>
+          
         </div>
       </div>
       <div className='flex '>asdfsfd</div>
