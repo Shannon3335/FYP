@@ -40,7 +40,7 @@ export default function Home() {
             </Button>
 
             <Button asChild variant='link'>
-              <Link href={'/quiz'}>Quiz</Link>
+              <Link href={'/login'}>login</Link>
             </Button>
 
             <Button asChild variant='link'>
