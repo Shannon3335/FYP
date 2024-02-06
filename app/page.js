@@ -2,7 +2,6 @@
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-
 export default function Home() {
   const router = useRouter()
   const toSignup = () => {
@@ -32,7 +31,7 @@ export default function Home() {
           <div className='p-2 text-lg '>PREPME</div>
           <section
             id='MiddleLinks'
-            className='w-1/4 flex flex-row justify-between'>
+            className='flex w-1/4 flex-row justify-between'>
             <Button asChild>
               <Link href={'https://github.com/Shannon3335/FYP'} target='_blank'>
                 Github
