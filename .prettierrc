@@ -2,7 +2,7 @@
   "plugins": ["prettier-plugin-tailwindcss"],
   "semi": false,
   "arrowParens": "always",
-  "bracketSameLine": false,
+  "bracketSameLine": true,
   "bracketSpacing": true,
   "embeddedLanguageFormatting": "auto",
   "tabWidth": 2,
