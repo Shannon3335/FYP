@@ -82,7 +82,7 @@ const SignUpForm = () => {
     })
   }
   return (
-    <div className='max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md'>
+    <div className='mx-auto mt-8 max-w-md rounded-md bg-white p-6 shadow-md'>
       <form onSubmit={handleSubmit}>
         <div className='mb-4'>
           <input
@@ -91,7 +91,7 @@ const SignUpForm = () => {
             name='username'
             value={formData.username}
             onChange={handleChange}
-            className='mt-1 p-2 w-full border rounded-md text-slate-700'
+            className='mt-1 w-full rounded-md border p-2 text-slate-700'
             placeholder='Username'
             required
           />
@@ -103,21 +103,22 @@ const SignUpForm = () => {
             name='email'
             value={formData.email}
             onChange={handleChange}
-            className='mt-1 p-2 w-full border rounded-md text-slate-700'
+            className='mt-1 w-full rounded-md border p-2 text-slate-700'
             placeholder='Email'
             required
           />
         </div>
         <div
           id='Password'
-          className='mb-4 flex flex-row border rounded-md focus:border-slate-700'>
+          className='mb-4 flex flex-row rounded-md border focus:border-slate-700'
+        >
           <input
             type={maskPassword ? 'password' : 'text'}
             id='password'
             name='password'
             value={formData.password}
             onChange={handleChange}
-            className='mt-1 p-2 w-full text-slate-700'
+            className='mt-1 w-full p-2 text-slate-700'
             placeholder='Password'
             required
           />
@@ -125,7 +126,8 @@ const SignUpForm = () => {
             <button
               onClick={() => {
                 setMaskPassword(!maskPassword)
-              }}>
+              }}
+            >
               <FontAwesomeIcon icon={maskPassword ? faEyeSlash : faEye} />
             </button>
           </div>
@@ -137,7 +139,7 @@ const SignUpForm = () => {
             name='confirmPassword'
             value={formData.confirmPassword}
             onChange={handleChange}
-            className='mt-1 p-2 w-full border rounded-md text-slate-700'
+            className='mt-1 w-full rounded-md border p-2 text-slate-700'
             placeholder='Confirm Password'
             required
           />
@@ -145,7 +147,8 @@ const SignUpForm = () => {
             <button
               onClick={() => {
                 setmaskConfirmPassword(!maskConfirmPassword)
-              }}>
+              }}
+            >
               <FontAwesomeIcon
                 icon={maskConfirmPassword ? faEyeSlash : faEye}
               />
@@ -159,7 +162,7 @@ const SignUpForm = () => {
             name='jobTitle'
             value={formData.jobTitle}
             onChange={handleChange}
-            className='mt-1 p-2 w-full border rounded-md text-slate-700'
+            className='mt-1 w-full rounded-md border p-2 text-slate-700'
             placeholder='Job Title'
             required
           />
@@ -167,7 +170,8 @@ const SignUpForm = () => {
         <Dropdown onIndustryChange={handleIndustryChange} />
         <button
           type='submit'
-          className='w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300'>
+          className='w-full rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600 focus:border-blue-300 focus:outline-none focus:ring'
+        >
           Sign Up
         </button>
       </form>
