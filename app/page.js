@@ -22,10 +22,7 @@ export default function Home() {
     router.push('/login')
   }
   return (
-    <main>
-      <div
-        id='MainBody'
-        className='flex h-full min-h-full w-full flex-col '></div>
+    <main className='flex h-full w-full flex-col items-end'>
       <div>
         <div
           id='NavBar'
@@ -55,9 +52,9 @@ export default function Home() {
             </Button>
           </section>
           <div className='flex flex-row justify-between w-1/6'>
-          <Button asChild variant='ghost' onClick={toSignup}>
-            <Link href={'/signup'}>Signup</Link>
-          </Button>
+            <Button asChild variant='ghost' onClick={toSignup}>
+              <Link href={'/signup'}>Signup</Link>
+            </Button>
           <ThemeSwitcher/>
           </div>
           
