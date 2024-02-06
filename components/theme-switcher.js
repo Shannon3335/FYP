@@ -14,13 +14,11 @@ const ThemeSwitcher = () => {
   }, [])
 
   if (!mounted) return null
-
   return (
-    <div>
       <Switch
-        defaultSelected
-        size='lg'
-        color='secondary'
+        defaultSelected = {theme ==='light'}
+        size='md'
+        color='primary'
         thumbIcon={({ isSelected, className }) =>
           isSelected ? (
             <SunIcon className={className} />
@@ -29,14 +27,7 @@ const ThemeSwitcher = () => {
           )
         }
         onValueChange={(isSelected)=> {isSelected?setTheme('light'):setTheme('dark')}}>
-        {({isSelected}) => {
-          isSelected ? 'Light' : 'Dark'
-        }}
       </Switch>
-      {/* The current theme is: {theme}
-      <button onClick={() => setTheme('light')}>Light Mode</button>
-      <button onClick={() => setTheme('dark')}>Dark Mode</button> */}
-    </div>
   )
 }
 

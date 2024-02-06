@@ -2,6 +2,8 @@
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import ThemeSwitcher from '@/components/theme-switcher'
+
 export default function Home() {
   const router = useRouter()
   const toSignup = () => {
@@ -52,9 +54,13 @@ export default function Home() {
               </Link>
             </Button>
           </section>
+          <div className='flex flex-row justify-between w-1/6'>
           <Button asChild variant='ghost' onClick={toSignup}>
             <Link href={'/signup'}>Signup</Link>
           </Button>
+          <ThemeSwitcher/>
+          </div>
+          
         </div>
       </div>
       <div className='flex '>asdfsfd</div>
