@@ -9,6 +9,7 @@ import {
   HandIcon,
 } from '@radix-ui/react-icons'
 import { Separator } from '@/components/ui/separator'
+import TakeQuizModal from '@/components/take-quiz-modal'
 
 export default function Home() {
   const router = useRouter()
@@ -37,7 +38,7 @@ export default function Home() {
         <div
           id='MiddleLinks'
           className='flex w-auto flex-row content-end items-center pl-5 font-mono text-sm'>
-          <Button asChild variant='ghost'>
+          <Button asChild variant='link'>
             <span>
               <GitHubLogoIcon className='mr-2 h-4 w-4' />
               <Link href={'https://github.com/Shannon3335/FYP'} target='_blank'>
@@ -46,12 +47,12 @@ export default function Home() {
             </span>
           </Button>
           <Separator orientation='vertical' className='mx-2' />
-          <Button asChild variant='ghost'>
+          <Button asChild variant='link'>
             <Link href={'/login'}>login</Link>
           </Button>
           <Separator orientation='vertical' className='mx-2' />
 
-          <Button asChild variant='ghost'>
+          <Button asChild variant='link'>
             <span>
               <EnvelopeOpenIcon className='mr-2 h-4 w-4' />
               <Link
@@ -66,11 +67,14 @@ export default function Home() {
         </div>
         <div
           id='CornerButtons'
-          className='w-auto flex-row content-between'>
-          <ThemeSwitcher/>
-          <Button asChild variant='ghost' onClick={toSignup}>
+          className='flex w-auto flex-row content-between items-center'>
+          <div className='flex flex-col content-end pr-4 '>
+            <ThemeSwitcher />
+          </div>
+          {/* <Button asChild variant='ghost' onClick={toSignup} className='w-2/4'>
             <Link href={'/signup'}>Signup</Link>
-          </Button>
+          </Button> */}
+          <TakeQuizModal/>
         </div>
       </div>
 
