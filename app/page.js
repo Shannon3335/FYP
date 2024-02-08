@@ -30,13 +30,13 @@ export default function Home() {
   return (
     <main className='flex-column min-h-screen min-w-full'>
       <div id='header' className='flex flex-row justify-between py-3'>
-        <div id='logo' className=' text-lg '>
+        <div id='logo' className=' ml-4 text-lg'>
           <text>PREPME</text>
           <HandIcon className='ml-5 h-4 w-4' />
         </div>
         <div
           id='MiddleLinks'
-          className='flex w-1/4 flex-row items-center font-mono text-sm'>
+          className='flex w-auto flex-row content-end items-center pl-5 font-mono text-sm'>
           <Button asChild variant='ghost'>
             <span>
               <GitHubLogoIcon className='mr-2 h-4 w-4' />
@@ -66,11 +66,11 @@ export default function Home() {
         </div>
         <div
           id='CornerButtons'
-          className='w-1/12 flex-row items-center justify-between'>
+          className='w-auto flex-row content-between'>
+          <ThemeSwitcher/>
           <Button asChild variant='ghost' onClick={toSignup}>
             <Link href={'/signup'}>Signup</Link>
           </Button>
-          <ThemeSwitcher />
         </div>
       </div>
 
