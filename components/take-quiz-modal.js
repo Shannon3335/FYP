@@ -62,7 +62,9 @@ const TakeQuizModal = () => {
                   <div>
                     <text className='text-sm '>Not a user?</text>
                     <Button asChild variant='link'>
-                      <Link className='pl-1' href={'/signup'}>Sign Up</Link>
+                      <Link className='pl-1' href={'/signup'}>
+                        Sign Up
+                      </Link>
                     </Button>
                   </div>
                 </div>
