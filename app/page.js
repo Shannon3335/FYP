@@ -9,6 +9,7 @@ import {
   HandIcon,
 } from '@radix-ui/react-icons'
 import { Separator } from '@/components/ui/separator'
+import LoginModal from '@/components/login-modal'
 
 export default function Home() {
   const router = useRouter()
@@ -66,11 +67,14 @@ export default function Home() {
         </div>
         <div
           id='CornerButtons'
-          className='w-auto flex-row content-between'>
-          <ThemeSwitcher/>
-          <Button asChild variant='ghost' onClick={toSignup}>
+          className='flex w-auto flex-row content-between items-center'>
+          <div className='flex flex-col content-end pr-4 '>
+            <ThemeSwitcher />
+          </div>
+          {/* <Button asChild variant='ghost' onClick={toSignup} className='w-2/4'>
             <Link href={'/signup'}>Signup</Link>
-          </Button>
+          </Button> */}
+          <LoginModal/>
         </div>
       </div>
 
