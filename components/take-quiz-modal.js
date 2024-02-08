@@ -8,25 +8,32 @@ import {
   useDisclosure,
   Checkbox,
   Input,
-  Link,
 } from '@nextui-org/react'
 import { PersonIcon } from '@radix-ui/react-icons'
 import { LockClosedIcon } from '@radix-ui/react-icons'
 import { Button } from './ui/button'
-const LoginModal = () => {
+import Link from 'next/link'
+
+const TakeQuizModal = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const backdrop = "blur"
+  const backdrop = 'blur'
   return (
     <>
-      <Button variant='ghost' className='w-2/4' onClick={onOpen}>
+      <Button variant='default' className='w-2/4' onClick={onOpen}>
         Quiz Me!
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement='top-center' backdrop={backdrop}>
+      {/* replace with a modal component here */}
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement='top-center'
+        backdrop={backdrop}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className='flex flex-col gap-1'>Log in</ModalHeader>
               <ModalBody>
+                {/* replace with a login form component */}
                 <Input
                   autoFocus
                   endContent={
@@ -52,9 +59,12 @@ const LoginModal = () => {
                     }}>
                     Remember me
                   </Checkbox>
-                  <Link color='primary' href='#' size='sm'>
-                    Forgot password?
-                  </Link>
+                  <div>
+                    <text className='text-sm '>Not a user?</text>
+                    <Button asChild variant='link'>
+                      <Link className='pl-1' href={'/signup'}>Sign Up</Link>
+                    </Button>
+                  </div>
                 </div>
               </ModalBody>
               <ModalFooter>
@@ -73,4 +83,4 @@ const LoginModal = () => {
   )
 }
 
-export default LoginModal
+export default TakeQuizModal

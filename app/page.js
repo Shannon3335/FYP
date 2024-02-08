@@ -9,7 +9,7 @@ import {
   HandIcon,
 } from '@radix-ui/react-icons'
 import { Separator } from '@/components/ui/separator'
-import LoginModal from '@/components/login-modal'
+import TakeQuizModal from '@/components/take-quiz-modal'
 
 export default function Home() {
   const router = useRouter()
@@ -38,7 +38,7 @@ export default function Home() {
         <div
           id='MiddleLinks'
           className='flex w-auto flex-row content-end items-center pl-5 font-mono text-sm'>
-          <Button asChild variant='ghost'>
+          <Button asChild variant='link'>
             <span>
               <GitHubLogoIcon className='mr-2 h-4 w-4' />
               <Link href={'https://github.com/Shannon3335/FYP'} target='_blank'>
@@ -47,12 +47,12 @@ export default function Home() {
             </span>
           </Button>
           <Separator orientation='vertical' className='mx-2' />
-          <Button asChild variant='ghost'>
+          <Button asChild variant='link'>
             <Link href={'/login'}>login</Link>
           </Button>
           <Separator orientation='vertical' className='mx-2' />
 
-          <Button asChild variant='ghost'>
+          <Button asChild variant='link'>
             <span>
               <EnvelopeOpenIcon className='mr-2 h-4 w-4' />
               <Link
@@ -74,7 +74,7 @@ export default function Home() {
           {/* <Button asChild variant='ghost' onClick={toSignup} className='w-2/4'>
             <Link href={'/signup'}>Signup</Link>
           </Button> */}
-          <LoginModal/>
+          <TakeQuizModal/>
         </div>
       </div>
 
