@@ -5,10 +5,10 @@
 const Enum = (baseEnum) => {
   return new Proxy(baseEnum, {
     get(target, prop) {
-      if (prop in target) {
+      if (!(prop in target)) {
         throw new Error(`"${prop}" value does not exist in the enum`)
       }
-      return baseEnum[name]
+      return target[prop]
     },
     set() {
       throw new Error('Cannot add a new value to an enum')

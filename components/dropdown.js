@@ -1,3 +1,4 @@
+import industries from '@/enums/industry'
 import React, { useState } from 'react'
 
 const Dropdown = ({ onIndustryChange }) => {
@@ -7,7 +8,7 @@ const Dropdown = ({ onIndustryChange }) => {
     setSelectedIndustry(newSelectedIndustry)
     onIndustryChange(newSelectedIndustry)
   }
-  const industries = ['Medicine', 'Science', 'Business', 'Media', 'Engineering', 'Academia']
+  // const industries = ['Medicine', 'Science', 'Business', 'Media', 'Engineering', 'Academia']
 
   return (
     <div className='mx-auto max-w-md bg-white text-slate-700 '>
@@ -16,7 +17,7 @@ const Dropdown = ({ onIndustryChange }) => {
         value={selectedIndustry}
         onChange={handleChange}
         required>
-        {industries.map((industry) => (
+        {Object.values(industries).map((industry) => (
           <option key={industry} value={industry} className='text-grey-500'>
             {industry}
           </option>
