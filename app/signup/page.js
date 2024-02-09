@@ -108,10 +108,7 @@ const SignUpForm = () => {
             required
           />
         </div>
-        <div
-          id='Password'
-          className='mb-4 flex flex-row rounded-md border focus:border-slate-700'
-        >
+        <div id='Password' className='mb-4 flex flex-row rounded-md border focus:border-slate-700'>
           <input
             type={maskPassword ? 'password' : 'text'}
             id='password'
@@ -126,8 +123,7 @@ const SignUpForm = () => {
             <button
               onClick={() => {
                 setMaskPassword(!maskPassword)
-              }}
-            >
+              }}>
               <FontAwesomeIcon icon={maskPassword ? faEyeSlash : faEye} />
             </button>
           </div>
@@ -147,11 +143,8 @@ const SignUpForm = () => {
             <button
               onClick={() => {
                 setmaskConfirmPassword(!maskConfirmPassword)
-              }}
-            >
-              <FontAwesomeIcon
-                icon={maskConfirmPassword ? faEyeSlash : faEye}
-              />
+              }}>
+              <FontAwesomeIcon icon={maskConfirmPassword ? faEyeSlash : faEye} />
             </button>
           </div>
         </div>
@@ -170,8 +163,7 @@ const SignUpForm = () => {
         <Dropdown onIndustryChange={handleIndustryChange} />
         <button
           type='submit'
-          className='w-full rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600 focus:border-blue-300 focus:outline-none focus:ring'
-        >
+          className='w-full rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600 focus:border-blue-300 focus:outline-none focus:ring'>
           Sign Up
         </button>
       </form>

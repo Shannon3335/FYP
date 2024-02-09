@@ -3,11 +3,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import ThemeSwitcher from '@/components/theme-switcher'
-import {
-  EnvelopeOpenIcon,
-  GitHubLogoIcon,
-  HandIcon,
-} from '@radix-ui/react-icons'
+import { EnvelopeOpenIcon, GitHubLogoIcon, HandIcon } from '@radix-ui/react-icons'
 import { Separator } from '@/components/ui/separator'
 import TakeQuizModal from '@/components/take-quiz-modal'
 
@@ -65,16 +61,14 @@ export default function Home() {
             </span>
           </Button>
         </div>
-        <div
-          id='CornerButtons'
-          className='flex w-auto flex-row content-between items-center'>
+        <div id='CornerButtons' className='flex w-auto flex-row content-between items-center'>
           <div className='flex flex-col content-end pr-4 '>
             <ThemeSwitcher />
           </div>
           {/* <Button asChild variant='ghost' onClick={toSignup} className='w-2/4'>
             <Link href={'/signup'}>Signup</Link>
           </Button> */}
-          <TakeQuizModal/>
+          <TakeQuizModal />
         </div>
       </div>
 

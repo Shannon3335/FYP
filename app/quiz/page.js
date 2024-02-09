@@ -4,7 +4,7 @@
 import { useRouter } from 'next/navigation'
 import { useCompletion } from 'ai/react'
 import { useEffect, useState } from 'react'
-import ConvertToQuizObjects from "../../services/convertToQuizObject"
+import ConvertToQuizObjects from '../../services/convertToQuizObject'
 import { nameAtom } from '../../atoms/userAtom'
 import { industryAndFieldAtom } from '../../atoms/userAtom'
 import { useAtomValue } from 'jotai'
@@ -38,30 +38,29 @@ const Quiz = () => {
     borderWidth: 1,
   }
 
-  const { completion, input, handleInputChange, handleSubmit, complete } =
-    useCompletion({
-      // api route using openai.chat.completion.create()
-      api: '/api/completionv2',
-      // api route using openai.completion.create()
-      // api: '/api/completion',
-      initialInput: field,
-      onFinish: (_, completion) => {
-        //v2 completion code
-        // console.log("parsed completion:" , parsed_completion)
-        const parsed_completion = JSON.parse(completion)
-        setquizArray(parsed_completion)
-        setIsQuestionsGenerated(true)
-        // v1 completion code
-        // console.log('convertToObj value' + completion + '\n END')
-        // setquizArray(ConvertToQuizObjects(completion))
-        // setIsQuestionsGenerated(!isQuestionsGenerated)
-      },
-    })
+  const { completion, input, handleInputChange, handleSubmit, complete } = useCompletion({
+    // api route using openai.chat.completion.create()
+    api: '/api/completionv2',
+    // api route using openai.completion.create()
+    // api: '/api/completion',
+    initialInput: field,
+    onFinish: (_, completion) => {
+      //v2 completion code
+      // console.log("parsed completion:" , parsed_completion)
+      const parsed_completion = JSON.parse(completion)
+      setquizArray(parsed_completion)
+      setIsQuestionsGenerated(true)
+      // v1 completion code
+      // console.log('convertToObj value' + completion + '\n END')
+      // setquizArray(ConvertToQuizObjects(completion))
+      // setIsQuestionsGenerated(!isQuestionsGenerated)
+    },
+  })
 
-    //useEffect to see what the quiz array holds
-    useEffect(()=>{
-      console.log(quizArray)
-    },[isQuestionsGenerated])
+  //useEffect to see what the quiz array holds
+  useEffect(() => {
+    console.log(quizArray)
+  }, [isQuestionsGenerated])
 
   const verifyAnswer = () => {
     if (selectedOption == quizArray[activeQuestionNo].answer) {
@@ -119,15 +118,11 @@ const Quiz = () => {
               <ul>
                 {quizArray[activeQuestionNo].options.map((option, index) => (
                   <li key={index}>
-                    <button onClick={() => setSelectedOption(option)}>
-                      {option}
-                    </button>
+                    <button onClick={() => setSelectedOption(option)}>{option}</button>
                   </li>
                 ))}
               </ul>
-              <button
-                onClick={() => onClickNext()}
-                disabled={selectedOption === null}>
+              <button onClick={() => onClickNext()} disabled={selectedOption === null}>
                 {!isLastQuestion ? 'Next' : 'Finish'}
               </button>
             </>

@@ -23,11 +23,7 @@ const TakeQuizModal = () => {
         Quiz Me!
       </Button>
       {/* replace with a modal component here */}
-      <Modal
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
-        placement='top-center'
-        backdrop={backdrop}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement='top-center' backdrop={backdrop}>
         <ModalContent>
           {(onClose) => (
             <>

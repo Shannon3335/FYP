@@ -7,7 +7,7 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 
 const PieChart = (props) => {
   // console.log(JSON.stringify(props))
-  console.log("Data:",JSON.stringify(props.data))
+  console.log('Data:', JSON.stringify(props.data))
   const data = {
     // labels: ['Correct', 'Incorrect'],
     labels: props.labels,
