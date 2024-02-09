@@ -1,11 +1,11 @@
 import Enum from './enum'
 
 const industries = Enum({
-  Medicine: 'Medicine',
-  Science: 'Science',
-  Business: 'Busines',
-  Engineering: 'Engineering',
-  Academia: 'Academia',
+  Medicine: 'medicine',
+  Science: 'science',
+  Business: 'business',
+  Engineering: 'engineering',
+  Academia: 'academia',
 })
 
 export default industries

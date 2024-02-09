@@ -17,6 +17,14 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import IndustryDropDown from '@/components/industry-dropdown'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { cn } from "@/lib/utils"
 
 const SignupForm = () => {
   const onSubmit = (values) => {
@@ -130,23 +138,34 @@ const SignupForm = () => {
             <FormField
               control={form.control}
               name='industry'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Industry</FormLabel>
-                  <FormControl>
-                    <Input placeholder='Medicine' {...field} />
-                  </FormControl>
-                  <FormDescription>aljk;fd</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Industry</FormLabel>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger >
+                          <SelectValue
+                            placeholder='Select an account type'
+                            className={cn(
+                              'placeholder:text-lg')}/>
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value='personal'>Personal</SelectItem>
+                        <SelectItem value='company'>Company</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
-
             <Button type='submit'>Submit</Button>
           </form>
         </Form>
       </Card>
-      <IndustryDropDown/>
+      <IndustryDropDown />
     </main>
   )
 }

@@ -18,11 +18,12 @@ import industries from '@/enums/industry'
 const IndustryDropDown = () => {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState('')
-  // console.log(Object.entries(industries))
+
   const industryOptions = Object.entries(industries).map(([industryKey, industryValue]) => ({
     label: industryKey,
     value: industryValue,
   }))
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -32,9 +33,7 @@ const IndustryDropDown = () => {
           aria-expanded={open}
           className='w-[200px] justify-between'>
           {value
-            ? Object.entries(industries).find(
-                ([industryKey, Industryvalue]) => Industryvalue === value
-              )?.[0]
+            ? industryOptions.find((industry) => industry.value === value).label
             : 'Industry'}
 
           <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
@@ -42,24 +41,24 @@ const IndustryDropDown = () => {
       </PopoverTrigger>
       <PopoverContent className='w-[200px] p-0'>
         <Command>
-          <CommandInput placeholder='Search...' />
+          <CommandInput placeholder='Search...' className='h-9' />
           <CommandEmpty>Not found</CommandEmpty>
           <CommandGroup>
-            {Object.entries(industries).map(([label, industryValue]) => (
+            {industryOptions.map((industry) => (
               <CommandItem
-                key={industryValue}
-                value={industryValue}
+                key={industry.value}
+                value={industry.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === industryValue ? '' : currentValue)
+                  setValue(currentValue === value ? '' : currentValue)
                   setOpen(false)
                 }}>
                 <CheckIcon
                   className={cn(
                     'mr-2 h-4 w-4',
-                    value === industryValue ? 'opacity-100' : 'opacity-0'
+                    value === industry.value ? 'opacity-100' : 'opacity-0'
                   )}
                 />
-                {label}
+                {industry.label}
               </CommandItem>
             ))}
           </CommandGroup>
