@@ -74,7 +74,7 @@ export default function Home() {
           {/* <Button asChild variant='ghost' onClick={toSignup} className='w-2/4'>
             <Link href={'/signup'}>Signup</Link>
           </Button> */}
-          <TakeQuizModal/>
+          <TakeQuizModal />
         </div>
       </div>
 
