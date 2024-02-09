@@ -12,11 +12,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={inter.className} >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='dark'
-          disableTransitionOnChange>
+      <body className={inter.className}>
+        <ThemeProvider attribute='class' defaultTheme='dark' disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>

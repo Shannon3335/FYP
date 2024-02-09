@@ -12,9 +12,7 @@ const ConvertToQuizObjects = (input) => {
     console.log('current q line' + lines[i])
     const qText = lines[i].trim('\t').substring(4) //  Trim and Extract the question text
     // console.log("qText:"+qText)
-    const options = lines
-      .slice(i + 1, i + 5)
-      .map((line) => line.trim().substring(3)) // Extract options
+    const options = lines.slice(i + 1, i + 5).map((line) => line.trim().substring(3)) // Extract options
     // console.log("options:"+options)
     const answer = lines[i + 5].trim().substring(lines[i + 5].indexOf(':') + 5) // Extract and trim the answer
     // console.log("answer:"+answer)

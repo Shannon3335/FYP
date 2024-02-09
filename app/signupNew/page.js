@@ -29,9 +29,7 @@ const SignupForm = () => {
         .max(25, { message: 'username must be less than 25 characters' }),
       email: z.string().email({ message: 'Email must be valid' }),
       // profilePic: z.,
-      password: z
-        .string()
-        .min(6, { message: 'Password must be atleast 6 characters long' }),
+      password: z.string().min(6, { message: 'Password must be atleast 6 characters long' }),
       confirmPassword: z.string(),
       jobTitle: z.string(),
       industry: z.string(),
@@ -67,9 +65,7 @@ const SignupForm = () => {
                   <FormControl>
                     <Input placeholder='shadcn' {...field} />
                   </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
+                  <FormDescription>This is your public display name.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -81,11 +77,7 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder='testing@gmail.com'
-                      {...field}
-                      type='email'
-                    />
+                    <Input placeholder='testing@gmail.com' {...field} type='email' />
                   </FormControl>
                   <FormDescription>Hello</FormDescription>
                   <FormMessage />

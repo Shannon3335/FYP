@@ -1,5 +1,5 @@
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "./FirebaseApp"
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from './FirebaseApp'
 
 const Signin = async (email, password) => {
   try {
@@ -9,11 +9,10 @@ const Signin = async (email, password) => {
     const uid = user.uid
     // console.log("My uid :" + uid)
     return { userID: uid }
-  }
-  catch (e) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("Error code: " + errorCode + "Error message: " + errorMessage)
+  } catch (e) {
+    const errorCode = error.code
+    const errorMessage = error.message
+    console.log('Error code: ' + errorCode + 'Error message: ' + errorMessage)
   }
 }
 

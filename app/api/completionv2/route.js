@@ -15,7 +15,7 @@ export async function POST(req) {
   const response = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
     // limit tokens so that the  model doesn't generate overly long prompts
-    max_tokens: 800, 
+    max_tokens: 800,
     temperature: 0.6,
     // top_p: 1,
     // frequency_penalty: 1,

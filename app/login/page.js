@@ -3,11 +3,7 @@
 import ReadUser from '../../services/firebase/ReadUser.js'
 import Signin from '../../services/firebase/Signin.js'
 import { useEffect, useState } from 'react'
-import {
-  faEye,
-  faEyeSlash,
-  faUserAstronaut,
-} from '@fortawesome/free-solid-svg-icons'
+import { faEye, faEyeSlash, faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import userAtom from '../../atoms/userAtom'
 import { useAtom } from 'jotai'
@@ -64,9 +60,7 @@ const Login = () => {
             required
           />
         </div>
-        <div
-          id='Password'
-          className='mb-4 flex flex-row rounded-md border focus:border-slate-700'>
+        <div id='Password' className='mb-4 flex flex-row rounded-md border focus:border-slate-700'>
           <input
             type={maskPassword ? 'password' : 'text'}
             id='password'

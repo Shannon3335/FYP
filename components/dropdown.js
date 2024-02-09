@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const Dropdown = ({ onIndustryChange }) => {
-  const [selectedIndustry, setSelectedIndustry] = useState("");
+  const [selectedIndustry, setSelectedIndustry] = useState('')
   const handleChange = (e) => {
     const newSelectedIndustry = e.target.value
     setSelectedIndustry(newSelectedIndustry)
     onIndustryChange(newSelectedIndustry)
   }
-  const industries = ['Medicine', 'Science', 'Business', 'Media', 'Engineering', 'Academia'];
+  const industries = ['Medicine', 'Science', 'Business', 'Media', 'Engineering', 'Academia']
 
   return (
-    <div className="max-w-md mx-auto bg-white text-slate-700 ">
+    <div className='mx-auto max-w-md bg-white text-slate-700 '>
       <select
-        className="mt-1 p-2 w-full border rounded-md text-grey-500"
+        className='text-grey-500 mt-1 w-full rounded-md border p-2'
         value={selectedIndustry}
         onChange={handleChange}
-        required
-      >
+        required>
         {industries.map((industry) => (
           <option key={industry} value={industry} className='text-grey-500'>
             {industry}
