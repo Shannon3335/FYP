@@ -16,6 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import IndustryDropDown from '@/components/industry-dropdown'
 
 const SignupForm = () => {
   const onSubmit = (values) => {
@@ -145,6 +146,7 @@ const SignupForm = () => {
           </form>
         </Form>
       </Card>
+      <IndustryDropDown/>
     </main>
   )
 }
