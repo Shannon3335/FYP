@@ -15,15 +15,15 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import industries from '@/enums/industry'
 
+export const industryOptions = Object.entries(industries).map(([industryKey, industryValue]) => ({
+  label: industryKey,
+  value: industryValue,
+}))
+
 const IndustryDropDown = () => {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState('')
-
-  const industryOptions = Object.entries(industries).map(([industryKey, industryValue]) => ({
-    label: industryKey,
-    value: industryValue,
-  }))
-
+  
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -67,5 +67,4 @@ const IndustryDropDown = () => {
     </Popover>
   )
 }
-
 export default IndustryDropDown

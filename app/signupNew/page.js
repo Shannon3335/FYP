@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,7 +15,15 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import IndustryDropDown from '@/components/industry-dropdown'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { CheckIcon, CaretSortIcon } from '@radix-ui/react-icons'
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/components/ui/command'
 import {
   Select,
   SelectContent,
@@ -24,9 +31,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { cn } from "@/lib/utils"
-
+import { cn } from '@/lib/utils'
+import { useState } from 'react'
+import { industryOptions } from '@/components/industry-dropdown'
 const SignupForm = () => {
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState('')
+
   const onSubmit = (values) => {
     console.log(values)
   }
@@ -62,7 +73,7 @@ const SignupForm = () => {
   //Zod resolver connects zod to react use form, and revalidates data when it changes
   return (
     <main className='flex min-w-full flex-col content-center'>
-      <Card className='flex min-w-max max-w-full flex-col'>
+      <Card className='flex max-w-md flex-col self-center'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <FormField
@@ -74,7 +85,6 @@ const SignupForm = () => {
                   <FormControl>
                     <Input placeholder='shadcn' {...field} />
                   </FormControl>
-                  <FormDescription>This is your public display name.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -88,7 +98,6 @@ const SignupForm = () => {
                   <FormControl>
                     <Input placeholder='testing@gmail.com' {...field} type='email' />
                   </FormControl>
-                  <FormDescription>Hello</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -102,7 +111,6 @@ const SignupForm = () => {
                   <FormControl>
                     <Input placeholder='******' {...field} />
                   </FormControl>
-                  <FormDescription>LALAL.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -116,7 +124,6 @@ const SignupForm = () => {
                   <FormControl>
                     <Input placeholder='' {...field} />
                   </FormControl>
-                  <FormDescription>Thi.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -130,7 +137,6 @@ const SignupForm = () => {
                   <FormControl>
                     <Input placeholder='Doctor' {...field} />
                   </FormControl>
-                  <FormDescription>Thi.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -138,34 +144,58 @@ const SignupForm = () => {
             <FormField
               control={form.control}
               name='industry'
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel>Industry</FormLabel>
-                    <Select onValueChange={field.onChange}>
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Industry</FormLabel>
+                  <br/>
+                  <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
                       <FormControl>
-                        <SelectTrigger >
-                          <SelectValue
-                            placeholder='Select an account type'
-                            className={cn(
-                              'placeholder:text-lg')}/>
-                        </SelectTrigger>
+                        <Button
+                          variant='outline'
+                          role='combobox'
+                          aria-expanded={open}
+                          className='w-full justify-between'>
+                          {value
+                            ? industryOptions.find((industry) => industry.value === value).label
+                            : 'Industry'}
+                          <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
+                        </Button>
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value='personal'>Personal</SelectItem>
-                        <SelectItem value='company'>Company</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
+                    </PopoverTrigger>
+                    <PopoverContent className='w-full p-0'>
+                      <Command>
+                        <CommandInput placeholder='Search...' className='h-9' />
+                        <CommandEmpty>Not found</CommandEmpty>
+                        <CommandGroup>
+                          {industryOptions.map((industry) => (
+                            <CommandItem
+                              key={industry.value}
+                              value={industry.value}
+                              onSelect={(currentValue) => {
+                                setValue(currentValue === value ? '' : currentValue)
+                                setOpen(false)
+                              }}>
+                              <CheckIcon
+                                className={cn(
+                                  'mr-2 h-4 w-4',
+                                  value === industry.value ? 'opacity-100' : 'opacity-0'
+                                )}
+                              />
+                              {industry.label}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                </FormItem>
+              )}
             />
             <Button type='submit'>Submit</Button>
           </form>
         </Form>
       </Card>
-      <IndustryDropDown />
     </main>
   )
 }
