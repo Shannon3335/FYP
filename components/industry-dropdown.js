@@ -16,11 +16,13 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import industries from '@/enums/industry'
 
 const IndustryDropDown = () => {
-  const industryTing = Object.entries(industries)
-
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState('')
-  console.log(Object.entries(industries))
+  // console.log(Object.entries(industries))
+  const industryOptions = Object.entries(industries).map(([industryKey, industryValue]) => ({
+    label: industryKey,
+    value: industryValue,
+  }))
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -30,7 +32,9 @@ const IndustryDropDown = () => {
           aria-expanded={open}
           className='w-[200px] justify-between'>
           {value
-            ? industryTing.find((pair) => pair[1] === value)?
+            ? Object.entries(industries).find(
+                ([industryKey, Industryvalue]) => Industryvalue === value
+              )?.[0]
             : 'Industry'}
 
           <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
