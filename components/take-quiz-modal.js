@@ -13,6 +13,7 @@ import { PersonIcon } from '@radix-ui/react-icons'
 import { LockClosedIcon } from '@radix-ui/react-icons'
 import { Button } from './ui/button'
 import Link from 'next/link'
+import SignupForm from './signup-form'
 
 const TakeQuizModal = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -22,7 +23,8 @@ const TakeQuizModal = () => {
       <Button variant='default' className='w-2/4' onClick={onOpen}>
         Quiz Me!
       </Button>
-      {/* replace with a modal component here */}
+
+      {/* Change the modal below into a login component */}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement='top-center' backdrop={backdrop}>
         <ModalContent>
           {(onClose) => (
@@ -66,10 +68,10 @@ const TakeQuizModal = () => {
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color='danger' variant='flat' onPress={onClose}>
+                <Button color='danger' variant='flat' onClick={onClose}>
                   Close
                 </Button>
-                <Button color='primary' onPress={onClose}>
+                <Button color='primary' onClick={onClose}>
                   Sign in
                 </Button>
               </ModalFooter>
@@ -77,6 +79,8 @@ const TakeQuizModal = () => {
           )}
         </ModalContent>
       </Modal>
+
+      <SignupForm />
     </>
   )
 }
