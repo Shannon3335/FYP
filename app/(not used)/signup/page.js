@@ -1,14 +1,14 @@
 'use client'
 import { useState } from 'react'
-import AddUser from '../../services/firebase/AddUser'
-import Dropdown from '../../components/dropdown'
+import AddUser from '../../../services/firebase/AddUser'
+import Dropdown from '../../../components/dropdown'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useRouter } from 'next/navigation'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../../services/firebase/FirebaseApp'
+import { auth } from '../../../services/firebase/FirebaseApp'
 import { useAtom } from 'jotai'
-import userAtom from '../../atoms/userAtom'
+import userAtom from '../../../atoms/userAtom'
 
 const SignUpForm = () => {
   const [user, modifyUser] = useAtom(userAtom)
