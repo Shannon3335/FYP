@@ -86,7 +86,7 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder='shanmeister' {...field} />
+                    <Input placeholder='shanmeister' {...field} autofocus />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

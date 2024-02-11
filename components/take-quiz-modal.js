@@ -14,6 +14,9 @@ import { LockClosedIcon } from '@radix-ui/react-icons'
 import { Button } from './ui/button'
 import Link from 'next/link'
 import SignupForm from './signup-form'
+import LoginForm from './login-form'
+import { Tabs, TabsList, TabsTrigger } from './ui/tabs'
+import { TabsContent } from '@radix-ui/react-tabs'
 
 const TakeQuizModal = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -29,10 +32,9 @@ const TakeQuizModal = () => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className='flex flex-col gap-1'>Log in</ModalHeader>
               <ModalBody>
                 {/* replace with a login form component */}
-                <Input
+                {/* <Input
                   autoFocus
                   endContent={
                     <PersonIcon className='pointer-events-none flex-shrink-0 text-2xl text-default-400' />
@@ -65,22 +67,24 @@ const TakeQuizModal = () => {
                       </Link>
                     </Button>
                   </div>
-                </div>
+                </div> */}
+                <Tabs defaultValue='login'>
+                  <TabsList className='mb-2'>
+                    <TabsTrigger value='login'>Login</TabsTrigger>
+                    <TabsTrigger value='signup'>Sign Up</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value='login'>
+                    <LoginForm />
+                  </TabsContent>
+                  <TabsContent value='signup'>
+                    <SignupForm />
+                  </TabsContent>
+                </Tabs>
               </ModalBody>
-              <ModalFooter>
-                <Button color='danger' variant='flat' onClick={onClose}>
-                  Close
-                </Button>
-                <Button color='primary' onClick={onClose}>
-                  Sign in
-                </Button>
-              </ModalFooter>
             </>
           )}
         </ModalContent>
       </Modal>
-
-      <SignupForm />
     </>
   )
 }

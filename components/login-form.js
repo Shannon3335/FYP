@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { PersonIcon } from '@radix-ui/react-icons'
 
 const LoginForm = () => {
   const onSubmit = (values) => {
@@ -54,7 +55,7 @@ const LoginForm = () => {
   })
 
   return (
-    <main className='flex min-h-screen min-w-full flex-col items-stretch'>
+    <main className='flex min-h-full min-w-full flex-col items-stretch'>
       <Card className='flex min-h-max flex-col px-10'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
@@ -78,7 +79,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder='******' {...field} />
+                    <Input placeholder='' {...field} type='password' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
