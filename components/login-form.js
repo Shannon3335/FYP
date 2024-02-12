@@ -56,10 +56,11 @@ const LoginForm = () => {
 
   return (
     <main className='flex min-h-full min-w-full flex-col items-stretch'>
-      <Card className='flex min-h-max flex-col px-10'>
+      <Card className='flex min-h-max flex-col px-10 py-2'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <FormField
+              autofocus
               control={form.control}
               name='email'
               render={({ field }) => (
@@ -85,7 +86,7 @@ const LoginForm = () => {
                 </FormItem>
               )}
             />
-            <Button type='submit'>Submit</Button>
+            <Button type='submit' className='space-y-2'>Submit</Button>
           </form>
         </Form>
       </Card>

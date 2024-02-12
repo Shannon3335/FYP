@@ -200,7 +200,7 @@ const SignupForm = () => {
                 </FormItem>
               )}
             />
-            <Button type='submit'>Submit</Button>
+            <Button type='submit' >Submit</Button>
           </form>
         </Form>
       </Card>

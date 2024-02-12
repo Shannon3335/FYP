@@ -32,15 +32,15 @@ const TakeQuizModal = () => {
           </Button>
         </DialogTrigger>
         <DialogContent>
-          <Tabs defaultValue='login'>
-            <TabsList className='mb-2'>
+          <Tabs defaultValue='login' className='space-y-2'>
+            <TabsList >
               <TabsTrigger value='login'>Login</TabsTrigger>
               <TabsTrigger value='signup'>Sign Up</TabsTrigger>
             </TabsList>
-            <TabsContent value='login'>
+            <TabsContent value='login'  >
               <LoginForm />
             </TabsContent>
-            <TabsContent value='signup'>
+            <TabsContent value='signup' >
               <SignupForm />
             </TabsContent>
           </Tabs>
