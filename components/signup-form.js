@@ -79,7 +79,7 @@ const SignupForm = () => {
     <main className='flex min-h-full min-w-full flex-col items-stretch'>
       <Card className='flex min-h-max flex-col px-10 py-2'>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
             <FormField
               control={form.control}
               name='userName'
@@ -187,7 +187,7 @@ const SignupForm = () => {
                               <CheckIcon
                                 className={cn(
                                   'mr-2 h-4 w-4',
-                                  field.value === industry.label ? 'opacity-100' : 'opacity-0'
+                                  field.value === industry.value ? 'opacity-100' : 'opacity-0'
                                 )}
                               />
                               {industry.label}
@@ -200,7 +200,7 @@ const SignupForm = () => {
                 </FormItem>
               )}
             />
-            <Button type='submit'>Submit</Button>
+            <Button type='submit' >Submit</Button>
           </form>
         </Form>
       </Card>
