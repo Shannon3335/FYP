@@ -28,12 +28,14 @@ import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import { industryOptions } from '@/components/industry-dropdown'
 import industries from '@/enums/industry'
+import { signUp } from '@/services/firebase_service'
 
 const SignupForm = () => {
   const [open, setOpen] = useState(false)
 
   const onSubmit = (values) => {
     console.log(values)
+    console.log(signUp(values.userName, values.email, values.password, values.jobTitle, values.industry))
   }
 
   const signupFormSchema = z
@@ -43,7 +45,7 @@ const SignupForm = () => {
         .min(5, { message: 'Username must be atleast 5 characters' })
         .max(25, { message: 'username must be less than 25 characters' }),
       email: z.string().email({ message: 'Email must be valid' }),
-      // profilePic: z.,
+      // profilePic: z.,                                                      
       password: z.string().min(6, { message: 'Password must be atleast 6 characters long' }),
       confirmPassword: z.string(),
       jobTitle: z.string(),
@@ -87,7 +89,7 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder='shanmeister' {...field} />
+                    <Input placeholder='shanmeister' {...field} autoComplete='username'/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -126,7 +128,7 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input placeholder='' {...field} type='password' />
+                    <Input placeholder='' {...field} type='password' autoComplete='new-password'/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
