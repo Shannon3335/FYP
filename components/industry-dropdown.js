@@ -23,7 +23,7 @@ export const industryOptions = Object.entries(industries).map(([industryKey, ind
 const IndustryDropDown = () => {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState('')
-  
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -32,9 +32,7 @@ const IndustryDropDown = () => {
           role='combobox'
           aria-expanded={open}
           className='w-[200px] justify-between'>
-          {value
-            ? industryOptions.find((industry) => industry.value === value).label
-            : 'Industry'}
+          {value ? industryOptions.find((industry) => industry.value === value).label : 'Industry'}
 
           <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
