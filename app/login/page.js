@@ -1,11 +1,11 @@
 'use client'
 
-import ReadUser from '@/services/firebase/ReadUser.js'
-import Signin from '@/services/firebase/Signin'
+import ReadUser from '../../services/firebase/ReadUser.js'
+import Signin from '../../services/firebase/Signin.js'
 import { useEffect, useState } from 'react'
 import { faEye, faEyeSlash, faUserAstronaut } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import userAtom from '@/atoms/userAtom.js'
+import userAtom from '../../atoms/userAtom'
 import { useAtom } from 'jotai'
 import { useRouter } from 'next/navigation'
 
