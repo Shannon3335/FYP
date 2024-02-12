@@ -33,7 +33,6 @@ const TakeQuizModal = () => {
           {(onClose) => (
             <>
               <ModalBody>
-                {/* replace with a login form component */}
                 {/* <Input
                   autoFocus
                   endContent={
