@@ -1,16 +1,8 @@
 import React from 'react'
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   useDisclosure,
-  Checkbox,
-  Input,
 } from '@nextui-org/react'
-import { PersonIcon } from '@radix-ui/react-icons'
-import { LockClosedIcon } from '@radix-ui/react-icons'
+
 import { Button } from './ui/button'
 import SignupForm from './signup-form'
 import LoginForm from './login-form'
