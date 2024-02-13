@@ -29,13 +29,15 @@ import { useState } from 'react'
 import { industryOptions } from '@/components/industry-dropdown'
 import industries from '@/enums/industry'
 import { signUp } from '@/services/firebase_service'
+import LoginService from '@/services/login_service'
 
 const SignupForm = () => {
+  const loginService = LoginService
   const [open, setOpen] = useState(false)
-
   const onSubmit = (values) => {
     console.log(values)
     console.log(signUp(values.userName, values.email, values.password, values.jobTitle, values.industry))
+    loginService.()
   }
 
   const signupFormSchema = z

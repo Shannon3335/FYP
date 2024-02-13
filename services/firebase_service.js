@@ -77,7 +77,6 @@ const fetchUser = async (id) => {
     const userDoc = await getDoc(doc(db, 'Users', id))
     if (userDoc.exists()) {
       console.log(data)
-
       data = userDoc.data()
       return data
     } else {
