@@ -1,9 +1,9 @@
 import { industryAndFieldAtom } from '@/atoms/userAtom'
 import { initializeApp, FirebaseApp } from 'firebase/app'
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { doc, getFirestore, setDoc } from 'firebase/firestore'
-import { Inder } from 'next/font/google'
-
+import StaticGenerationSearchParamsBailoutProvider from 'next/dist/client/components/static-generation-searchparams-bailout-provider'
+import { authAtom } from '@/atoms/userAtom'
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_ATU_DOMAIN,
@@ -33,12 +33,9 @@ const signUp = async (userName, email, password, jobTitle, industry) => {
       return { success: false, error: error.message }
     }
   }
-
   if (!userCredential) return { success: false, error: 'User not created' }
-
   const user = userCredential.user
   console.log(user)
-
   await writeUser(user, userName, jobTitle, industry)
   return { success: true, user: user }
 }
@@ -68,7 +65,10 @@ const login = async (email, password) => {
       return { success: false, error: 'User data not found' }
     }
   } catch (error) {
-    console.log('Error when loggin in, ' + error.message)
+    if(error.message.includes('auth/invalid-credential')){
+      return {success: false, error: "Invalid credentails"}
+    }
+    console.log('Error when logging in, ' + error.message)
   }
 }
 
@@ -90,7 +90,8 @@ const fetchUser = async (id) => {
 
 const logOut = async () => {
   try {
-    await auth.signOut()
+    await signOut(auth)
+    
   } catch (error) {
     console.error('Error logging out: ', error)
   }
@@ -106,4 +107,4 @@ const getLoggedInUser = async () =>{
     return await fetchUser(id)
   }
 }
-export { signUp, writeUser, login, fetchUser, logOut, isLoggedIn, getLoggedInUser }
+export { signUp, writeUser, login, fetchUser, logOut, isLoggedIn, getLoggedInUser}

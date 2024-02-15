@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { PersonIcon } from '@radix-ui/react-icons'
+import { login } from '@/services/firebase_service'
 
 const LoginForm = () => {
   const onSubmit = (values) => {
@@ -27,23 +28,13 @@ const LoginForm = () => {
     })
     .refine(
       async (data) => {
-        console.log(data.email)
-        //have function to check if email is valid
+        //attempt login
+        const response = await login(data.email, data.password)
+        return response.success === true
       },
       {
-        message: 'No account with email exists',
-        path: ['email'],
-      }
-    )
-    .refine(
-      async (data) => {
-        console.log(data.email)
-        console.log(data.password)
-        //have function to check if password matches the respective email
-      },
-      {
-        message: 'Incorrect password',
-        path: ['password'],
+        message: 'Username or password incorrect',
+        path: ['email', 'password'],
       }
     )
   const form = useForm({
@@ -52,6 +43,7 @@ const LoginForm = () => {
       email: '',
       password: '',
     },
+    reValidateMode: 'onSubmit',
   })
 
   return (
@@ -67,7 +59,12 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder='testing@gmail.com' {...field} type='email' autoComplete='username'/>
+                    <Input
+                      placeholder='testing@gmail.com'
+                      {...field}
+                      type='email'
+                      autoComplete='username'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -80,13 +77,20 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder='' {...field} type='password' autoComplete='current-password'/>
+                    <Input
+                      placeholder=''
+                      {...field}
+                      type='password'
+                      autoComplete='current-password'
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type='submit' className='space-y-2'>Submit</Button>
+            <Button type='submit' className='space-y-2'>
+              Submit
+            </Button>
           </form>
         </Form>
       </Card>
