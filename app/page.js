@@ -8,22 +8,6 @@ import { Separator } from '@/components/ui/separator'
 import TakeQuizModal from '@/components/take-quiz-modal'
 
 export default function Home() {
-  const router = useRouter()
-  const toSignup = () => {
-    router.push('/signup')
-  }
-
-  const toGithub = () => {
-    window.open('https://github.com/Shannon3335/FYP', '_blank')
-  }
-
-  const toQuiz = () => {
-    router.push('/quiz')
-  }
-
-  const toLogin = () => {
-    router.push('/login')
-  }
   return (
     <main className='flex-column min-h-screen min-w-full'>
       <div id='header' className='flex flex-row justify-between py-3'>
@@ -65,9 +49,6 @@ export default function Home() {
           <div className='flex flex-col content-end pr-4 '>
             <ThemeSwitcher />
           </div>
-          {/* <Button asChild variant='ghost' onClick={toSignup} className='w-2/4'>
-            <Link href={'/signup'}>Signup</Link>
-          </Button> */}
           <TakeQuizModal />
         </div>
       </div>
