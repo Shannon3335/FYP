@@ -1,4 +1,3 @@
-import { auth } from '@/services/firebase_service'
 import { atom } from 'jotai'
 
 const userAtom = atom({

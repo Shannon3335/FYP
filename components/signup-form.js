@@ -28,6 +28,11 @@ const SignupForm = () => {
     console.log(values)
     //Sign the user in with the details they've given us
     console.log(signUp(values.userName, values.email, values.password, values.jobTitle, values.industry))
+    setUser({
+      userName: values.userName,
+      industry: values.industry,
+      field: values.jobTitle,
+    })
     router.push('/quiz')
   }
 
