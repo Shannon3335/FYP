@@ -2,22 +2,24 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { PersonIcon } from '@radix-ui/react-icons'
+import { login } from '@/services/firebase_service'
+import { useState } from 'react'
+import { useAtom } from 'jotai'
+import userAtom from '@/atoms/userAtom'
+import { useRouter } from 'next/navigation'
 
 const LoginForm = () => {
-  const onSubmit = (values) => {
-    console.log(values)
+  const [user, setUser] = useAtom(userAtom)
+  const [loggedIn, setLoggedIn] = useState(false)
+  const router = useRouter()
+
+  const onSubmit = () => {
+    if (loggedIn === true) {
+    }
   }
 
   const loginFormSchema = z
@@ -27,23 +29,25 @@ const LoginForm = () => {
     })
     .refine(
       async (data) => {
-        console.log(data.email)
-        //have function to check if email is valid
+        //attempt login
+        const response = await login(data.email, data.password)
+        console.log(response)
+        if (response.success === true) {
+          setUser({
+            userName: response.user.userName,
+            industry: response.user.industry,
+            field: response.user.field,
+            previousIncorrectQuestions: response.user.previousIncorrectQuestions,
+          })
+          setLoggedIn(true)
+          router.push('/quiz')
+        } else {
+          return false
+        }
       },
       {
-        message: 'No account with email exists',
-        path: ['email'],
-      }
-    )
-    .refine(
-      async (data) => {
-        console.log(data.email)
-        console.log(data.password)
-        //have function to check if password matches the respective email
-      },
-      {
-        message: 'Incorrect password',
-        path: ['password'],
+        message: 'Username or password incorrect',
+        path: ['email', 'password'],
       }
     )
   const form = useForm({
@@ -52,6 +56,7 @@ const LoginForm = () => {
       email: '',
       password: '',
     },
+    reValidateMode: 'onSubmit',
   })
 
   return (
@@ -67,7 +72,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder='testing@gmail.com' {...field} type='email' />
+                    <Input placeholder='testing@gmail.com' {...field} type='email' autoComplete='email' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -80,13 +85,15 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder='' {...field} type='password' />
+                    <Input placeholder='' {...field} type='password' autoComplete='password' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type='submit' className='space-y-2'>Submit</Button>
+            <Button type='submit' className='space-y-2'>
+              Submit
+            </Button>
           </form>
         </Form>
       </Card>

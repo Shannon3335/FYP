@@ -1,16 +1,6 @@
 import React from 'react'
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-  Checkbox,
-  Input,
-} from '@nextui-org/react'
-import { PersonIcon } from '@radix-ui/react-icons'
-import { LockClosedIcon } from '@radix-ui/react-icons'
+import { useDisclosure } from '@nextui-org/react'
+
 import { Button } from './ui/button'
 import SignupForm from './signup-form'
 import LoginForm from './login-form'
@@ -24,7 +14,7 @@ const TakeQuizModal = () => {
   const backdrop = 'blur'
   return (
     <>
-    {/* Dialog version using shadcn ui */}
+      {/* Dialog version using shadcn ui */}
       <Dialog>
         <DialogTrigger asChild>
           <Button variant='default' className='w-2/4' onClick={onOpen}>
@@ -33,14 +23,14 @@ const TakeQuizModal = () => {
         </DialogTrigger>
         <DialogContent>
           <Tabs defaultValue='login' className='space-y-2'>
-            <TabsList >
+            <TabsList>
               <TabsTrigger value='login'>Login</TabsTrigger>
               <TabsTrigger value='signup'>Sign Up</TabsTrigger>
             </TabsList>
-            <TabsContent value='login'  >
+            <TabsContent value='login'>
               <LoginForm />
             </TabsContent>
-            <TabsContent value='signup' >
+            <TabsContent value='signup'>
               <SignupForm />
             </TabsContent>
           </Tabs>
