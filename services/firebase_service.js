@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { doc, getFirestore, setDoc } from 'firebase/firestore'
+import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore'
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_ATU_DOMAIN,
@@ -55,6 +55,7 @@ const login = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     console.log(userCredential)
+    console.log(userCredential.user.uid)
     const user = await fetchUser(userCredential.user.uid)
     if (user) {
       return { success: true, user }
@@ -71,10 +72,12 @@ const login = async (email, password) => {
 
 const fetchUser = async (id) => {
   try {
+    console.log(id)
     const userDoc = await getDoc(doc(db, 'Users', id))
+    console.log(userDoc)
     if (userDoc.exists()) {
+      const data = userDoc.data()
       console.log(data)
-      data = userDoc.data()
       return data
     } else {
       return null

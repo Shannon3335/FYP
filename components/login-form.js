@@ -6,12 +6,20 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { PersonIcon } from '@radix-ui/react-icons'
 import { login } from '@/services/firebase_service'
+import { useState } from 'react'
+import { useAtom } from 'jotai'
+import userAtom from '@/atoms/userAtom'
+import { useRouter } from 'next/navigation'
 
 const LoginForm = () => {
-  const onSubmit = (values) => {
-    console.log(values)
+  const [user, setUser] = useAtom(userAtom)
+  const [loggedIn, setLoggedIn] = useState(false)
+  const router = useRouter()
+
+  const onSubmit = () => {
+    if (loggedIn === true) {
+    }
   }
 
   const loginFormSchema = z
@@ -23,7 +31,19 @@ const LoginForm = () => {
       async (data) => {
         //attempt login
         const response = await login(data.email, data.password)
-        return response.success === true
+        console.log(response)
+        if (response.success === true) {
+          setUser({
+            userName: response.user.userName,
+            industry: response.user.industry,
+            field: response.user.field,
+            previousIncorrectQuestions: response.user.previousIncorrectQuestions,
+          })
+          setLoggedIn(true)
+          router.push('/quiz')
+        } else {
+          return false
+        }
       },
       {
         message: 'Username or password incorrect',
@@ -52,7 +72,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder='testing@gmail.com' {...field} type='email' autoComplete='username' />
+                    <Input placeholder='testing@gmail.com' {...field} type='email' autoComplete='email' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -65,7 +85,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder='' {...field} type='password' autoComplete='current-password' />
+                    <Input placeholder='' {...field} type='password' autoComplete='password' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
