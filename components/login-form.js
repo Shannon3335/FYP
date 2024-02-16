@@ -2,14 +2,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -59,12 +52,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder='testing@gmail.com'
-                      {...field}
-                      type='email'
-                      autoComplete='username'
-                    />
+                    <Input placeholder='testing@gmail.com' {...field} type='email' autoComplete='username' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -77,12 +65,7 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder=''
-                      {...field}
-                      type='password'
-                      autoComplete='current-password'
-                    />
+                    <Input placeholder='' {...field} type='password' autoComplete='current-password' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

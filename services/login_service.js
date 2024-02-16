@@ -2,11 +2,8 @@ import { useAtom } from 'jotai'
 import { login, signUp } from './firebase_service'
 import userAtom from '@/atoms/userAtom'
 
-
 class LoginService {
-  
-
-  constructor(){
+  constructor() {
     const [user, setUser] = useAtom(userAtom)
   }
   loginUserAndSetState = async (email, password) => {

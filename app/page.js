@@ -15,9 +15,7 @@ export default function Home() {
           <text>PREPME</text>
           <HandIcon className='ml-5 h-4 w-4' />
         </div>
-        <div
-          id='MiddleLinks'
-          className='flex w-auto flex-row content-end items-center pl-5 font-mono text-sm'>
+        <div id='MiddleLinks' className='flex w-auto flex-row content-end items-center pl-5 font-mono text-sm'>
           <Button asChild variant='link'>
             <span>
               <GitHubLogoIcon className='mr-2 h-4 w-4' />

@@ -1,9 +1,6 @@
-import { industryAndFieldAtom } from '@/atoms/userAtom'
-import { initializeApp, FirebaseApp } from 'firebase/app'
+import { initializeApp } from 'firebase/app'
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { doc, getFirestore, setDoc } from 'firebase/firestore'
-import StaticGenerationSearchParamsBailoutProvider from 'next/dist/client/components/static-generation-searchparams-bailout-provider'
-import { authAtom } from '@/atoms/userAtom'
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_ATU_DOMAIN,
@@ -65,8 +62,8 @@ const login = async (email, password) => {
       return { success: false, error: 'User data not found' }
     }
   } catch (error) {
-    if(error.message.includes('auth/invalid-credential')){
-      return {success: false, error: "Invalid credentails"}
+    if (error.message.includes('auth/invalid-credential')) {
+      return { success: false, error: 'Invalid credentails' }
     }
     console.log('Error when logging in, ' + error.message)
   }
@@ -91,7 +88,6 @@ const fetchUser = async (id) => {
 const logOut = async () => {
   try {
     await signOut(auth)
-    
   } catch (error) {
     console.error('Error logging out: ', error)
   }
@@ -101,10 +97,11 @@ const isLoggedIn = () => {
   return auth.currentUser !== null
 }
 
-const getLoggedInUser = async () =>{
-  if(auth.currentUser){
+const getLoggedInUser = async () => {
+  if (auth.currentUser) {
     const id = auth.currentUser.uid
     return await fetchUser(id)
   }
 }
-export { signUp, writeUser, login, fetchUser, logOut, isLoggedIn, getLoggedInUser}
+
+export { signUp, writeUser, login, fetchUser, logOut, isLoggedIn, getLoggedInUser }

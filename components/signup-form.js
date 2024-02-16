@@ -4,39 +4,31 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { CheckIcon, CaretSortIcon } from '@radix-ui/react-icons'
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/components/ui/command'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import { industryOptions } from '@/components/industry-dropdown'
 import industries from '@/enums/industry'
 import { signUp } from '@/services/firebase_service'
+import { useRouter } from 'next/navigation'
+import { useAtom } from 'jotai'
+import userAtom from '@/atoms/userAtom'
 
 const SignupForm = () => {
   const [open, setOpen] = useState(false)
+  const router = useRouter()
+  const [user, setUser] = useAtom(userAtom)
   const onSubmit = (values) => {
     console.log(values)
     //Sign the user in with the details they've given us
     console.log(signUp(values.userName, values.email, values.password, values.jobTitle, values.industry))
-
+    router.push('/quiz')
   }
 
   const signupFormSchema = z
@@ -46,7 +38,7 @@ const SignupForm = () => {
         .min(5, { message: 'Username must be atleast 5 characters' })
         .max(25, { message: 'username must be less than 25 characters' }),
       email: z.string().email({ message: 'Email must be valid' }),
-      // profilePic: z.,                                                      
+      // profilePic: z.,
       password: z.string().min(6, { message: 'Password must be atleast 6 characters long' }),
       confirmPassword: z.string(),
       jobTitle: z.string(),
@@ -90,7 +82,7 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder='shanmeister' {...field} autoComplete='username'/>
+                    <Input placeholder='shanmeister' {...field} autoComplete='username' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,7 +121,7 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input placeholder='' {...field} type='password' autoComplete='new-password'/>
+                    <Input placeholder='' {...field} type='password' autoComplete='new-password' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -164,8 +156,7 @@ const SignupForm = () => {
                           aria-expanded={open}
                           className='w-full justify-between'>
                           {field.value
-                            ? industryOptions.find((industry) => industry.value === field.value)
-                                ?.label
+                            ? industryOptions.find((industry) => industry.value === field.value)?.label
                             : 'Industry'}
                           <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
                         </Button>
@@ -203,7 +194,7 @@ const SignupForm = () => {
                 </FormItem>
               )}
             />
-            <Button type='submit' >Submit</Button>
+            <Button type='submit'>Submit</Button>
           </form>
         </Form>
       </Card>

@@ -1,14 +1,12 @@
 import { auth } from '@/services/firebase_service'
 import { atom } from 'jotai'
 
-
 const userAtom = atom({
   userName: '',
   industry: '',
   field: '',
   previousIncorrectQuestions: [],
 })
-
 
 export const industryAndFieldAtom = atom((get) => {
   const industry = get(userAtom).industry
@@ -20,4 +18,3 @@ export const industryAndFieldAtom = atom((get) => {
 export const nameAtom = atom((get) => get(userAtom).userName)
 
 export default userAtom
-

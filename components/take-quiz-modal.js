@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  useDisclosure,
-} from '@nextui-org/react'
+import { useDisclosure } from '@nextui-org/react'
 
 import { Button } from './ui/button'
 import SignupForm from './signup-form'
@@ -16,7 +14,7 @@ const TakeQuizModal = () => {
   const backdrop = 'blur'
   return (
     <>
-    {/* Dialog version using shadcn ui */}
+      {/* Dialog version using shadcn ui */}
       <Dialog>
         <DialogTrigger asChild>
           <Button variant='default' className='w-2/4' onClick={onOpen}>
@@ -25,14 +23,14 @@ const TakeQuizModal = () => {
         </DialogTrigger>
         <DialogContent>
           <Tabs defaultValue='login' className='space-y-2'>
-            <TabsList >
+            <TabsList>
               <TabsTrigger value='login'>Login</TabsTrigger>
               <TabsTrigger value='signup'>Sign Up</TabsTrigger>
             </TabsList>
-            <TabsContent value='login'  >
+            <TabsContent value='login'>
               <LoginForm />
             </TabsContent>
-            <TabsContent value='signup' >
+            <TabsContent value='signup'>
               <SignupForm />
             </TabsContent>
           </Tabs>
