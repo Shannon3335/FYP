@@ -1,5 +1,8 @@
+'use client'
+import { industryAndFieldAtom, nameAtom } from '@/atoms/userAtom'
 import QuizTemplate from '@/components/quiz-template'
-import { useCompletion } from 'ai/react/dist'
+import QuizTemplateSkeleton from '@/components/quiz-template-skeleton'
+import { useCompletion } from 'ai/react'
 import { useAtomValue } from 'jotai'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -16,10 +19,12 @@ const QuizNew = () => {
   //Check if a user is logged in and push them to home page if not
   useEffect(() => {
     if (username === '') {
-      router.push('/')
+      //Comment out for testing
+      //router.push('/')
     } else {
       console.log(field, industry)
-      complete({ field, industry })
+      // To stay in skeleton mode
+      // complete({ field, industry })
     }
   }, [])
 
@@ -46,13 +51,12 @@ const QuizNew = () => {
     onFinish: (_, completion) => {
       //v2 completion code
       const parsed_completion = JSON.parse(completion)
-      quizArray = parsed_completion
       setquizArray(parsed_completion)
       setIsQuestionsGenerated(true)
     },
   })
 
-  return <div>{isQuestionsGenerated ? <QuizTemplate quizArray /> : <QuizSkeleton />}</div>
+  return <div>{isQuestionsGenerated ? <QuizTemplate quizArray /> : <QuizTemplateSkeleton />}</div>
 }
 
 export default QuizNew
