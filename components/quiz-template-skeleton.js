@@ -10,18 +10,18 @@ const QuizTemplateSkeleton = () => {
           <Skeleton className='h-32' />
         </Card>
       </div>
-      <div id='options' className='lg:wrap flex min-w-full flex-col items-start space-y-5 lg:flex-row lg:space-x-5'>
-        <Card className='min-h-fit w-full lg:w-1/2'>
-          <Skeleton className='h-5  rounded-md ' />
+      <div id='options' className='flex w-full flex-col items-start lg:flex-row lg:flex-wrap lg:items-end lg:justify-around'>
+        <Card className='min-h-fit w-full lg:w-5/12 lg:flex-none'>
+          <Skeleton className='h-10' />
         </Card>
-        <Card className='min-h-fit w-full  lg:w-1/2'>
-          <Skeleton className='h-5 rounded-md  ' />
+        <Card className='mt-5 min-h-fit w-full lg:ml-0 lg:w-5/12 lg:flex-none'>
+          <Skeleton className='h-10' />
         </Card>
-        <Card className='min-h-fit w-full  lg:w-1/2'>
-          <Skeleton className='h-5 rounded-md  ' />
+        <Card className='mt-5 min-h-fit w-full lg:w-5/12 lg:flex-none'>
+          <Skeleton className='h-10' />
         </Card>
-        <Card className='min-h-fit w-full  lg:w-1/2'>
-          <Skeleton className='h-5 rounded-md  ' />
+        <Card className='mt-5 min-h-fit w-full lg:ml-0 lg:w-5/12  lg:flex-none'>
+          <Skeleton className='h-10' />
         </Card>
       </div>
     </div>
