@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Button } from './ui/button'
 import { Card } from './ui/card'
+import { PlayIcon } from '@radix-ui/react-icons'
+import { select } from '@nextui-org/react'
 
 const QuizTemplate = (props) => {
   let quizArray = [
@@ -23,11 +25,12 @@ const QuizTemplate = (props) => {
   const [isQuizOver, setQuizOver] = useState(false)
   const [activeQuestionNo, setActiveQuestionNo] = useState(0)
   const [selectedOption, setSelectedOption] = useState(null)
+  const [isLastQuestion, setIsLastQuestion] = useState(false)
 
   return (
     <div
       id='main-container'
-      className='flex min-h-screen min-w-full flex-col content-between items-start lg:items-center '>
+      className='flex min-h-screen min-w-full flex-col content-between items-start lg:items-center lg:justify-around lg:pb-32'>
       {!isQuizOver ? (
         <>
           <div id='question' className='min-h-full w-full py-6 text-2xl lg:w-4/5'>
@@ -37,17 +40,23 @@ const QuizTemplate = (props) => {
           </div>
           <div
             id='options'
-            className='flex w-full flex-col items-start space-y-10 lg:flex-row lg:flex-wrap lg:items-end lg:justify-around'>
+            className='flex w-full flex-col items-start space-y-10 lg:flex-row lg:flex-wrap lg:items-end lg:justify-evenly lg:space-y-16'>
             {/* {props.quizArray[activeQuestionNo].options.map((option, index) => ( */}
             {quizArray[activeQuestionNo].options.map((option, index) => (
               <Button
                 variant='mcq'
                 key={option}
                 onClick={() => setSelectedOption(option)}
-                className='min-h-fit w-full lg:w-5/12 lg:flex-none'>
+                className='min-h-fit w-full lg:w-5/12 lg:flex-none text-lg'>
                 {option}
               </Button>
             ))}
+          </div>
+          <div className='flex flex-row pt-9 self-end lg:self-center'>
+            <Button onClick={() => onClickNext()} disabled={selectedOption===null}>
+              <PlayIcon className='mr-2 h-4 w-4'/>
+              {!isLastQuestion ? 'Next' : 'Finish'}
+            </Button>
           </div>
         </>
       ) : null}
