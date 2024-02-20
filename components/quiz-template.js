@@ -30,10 +30,10 @@ const QuizTemplate = (props) => {
       className='flex min-h-screen min-w-full flex-col content-between items-start lg:items-center '>
       {!isQuizOver ? (
         <>
-          <div id='question' className='min-h-full w-full py-6 text-2xl lg:w-4/5 '>
+          <div id='question' className='min-h-full w-full py-6 text-2xl lg:w-4/5'>
             {/* <Card>{props.quizArray[activeQuestionNo].question}</Card> */}
-            <text className='text-lg'>Q{activeQuestionNo +1}</text>
-            <Card className='lg:text-center'>{quizArray[activeQuestionNo].question}</Card>
+            <text className='text-lg'>Q{activeQuestionNo + 1}</text>
+            <Card className='lg:h-24 lg:text-center'>{quizArray[activeQuestionNo].question}</Card>
           </div>
           <div
             id='options'

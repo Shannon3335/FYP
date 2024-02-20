@@ -51,14 +51,13 @@ const QuizNew = () => {
     onFinish: (_, completion) => {
       //v2 completion code
       const parsed_completion = JSON.parse(completion)
-      setquizArray(parsed_completion)    
+      setquizArray(parsed_completion)
       setIsQuestionsGenerated(true)
     },
   })
 
   // return <div>{isQuestionsGenerated ? <QuizTemplate quizArray /> : <QuizTemplateSkeleton />}</div>
   return <div>{<QuizTemplate quizArray />}</div>
-
 }
 
 export default QuizNew
