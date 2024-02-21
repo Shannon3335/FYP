@@ -49,9 +49,29 @@ const QuizTemplate = (props) => {
     setSelectedIndex(null)
   }
 
+  const nextQuizFlow = () => {
+    //Check if you're at the last qestion
+    if (isLastQuestion) {
+      //if at the last question when submitting, end the quiz
+      setQuizOver(true)
+    } else {
+      //go to the next question
+      setActiveQuestionNo((prev) => prev + 1)
+      //if at the second last question, set the last question flag
+      if (activeQuestionNo === quizArray.length - 2) {
+        setIsLastQuestion(true)
+      }
+    }
+  }
+
   const handleOptionSelect = (option, index) => {
     setSelectedOption(option)
     setSelectedIndex(index)
+  }
+
+  const onClickNext = () => {
+    verifyAnswer()
+    nextQuizFlow()
   }
   return (
     <div
