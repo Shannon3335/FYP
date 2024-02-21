@@ -25,8 +25,34 @@ const QuizTemplate = (props) => {
   const [isQuizOver, setQuizOver] = useState(false)
   const [activeQuestionNo, setActiveQuestionNo] = useState(0)
   const [selectedOption, setSelectedOption] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(null)
   const [isLastQuestion, setIsLastQuestion] = useState(false)
+  const [result, setResult] = useState({
+    score: 0,
+    correctAnswers: 0,
+    wrongAnswers: 0,
+  })
 
+  const verifyAnswer = () => {
+    if (selectedOption == quizArray[activeQuestionNo].answer) {
+      console.log('correct answer')
+      setResult((prev) => ({
+        ...prev,
+        score: prev.score + 5,
+        correctAnswers: prev.correctAnswers + 1,
+      }))
+    } else {
+      console.log('incorrect answer')
+      setResult((prev) => ({ ...prev, wrongAnswers: prev.wrongAnswers + 1 }))
+    }
+    setSelectedOption(null)
+    setSelectedIndex(null)
+  }
+
+  const handleOptionSelect = (option, index) => {
+    setSelectedOption(option)
+    setSelectedIndex(index)
+  }
   return (
     <div
       id='main-container'
@@ -44,17 +70,17 @@ const QuizTemplate = (props) => {
             {/* {props.quizArray[activeQuestionNo].options.map((option, index) => ( */}
             {quizArray[activeQuestionNo].options.map((option, index) => (
               <Button
-                variant='mcq'
+                variant={index === selectedIndex ? 'mcq' : 'default'}
                 key={option}
-                onClick={() => setSelectedOption(option)}
-                className='min-h-fit w-full lg:w-5/12 lg:flex-none text-lg'>
+                onClick={() => handleOptionSelect(option, index)}
+                className='min-h-fit w-full text-lg lg:w-5/12 lg:flex-none'>
                 {option}
               </Button>
             ))}
           </div>
-          <div className='flex flex-row pt-9 self-end lg:self-center'>
-            <Button onClick={() => onClickNext()} disabled={selectedOption===null}>
-              <PlayIcon className='mr-2 h-4 w-4'/>
+          <div className='flex flex-row self-end pt-9 lg:self-center'>
+            <Button onClick={() => onClickNext()} disabled={selectedOption === null}>
+              <PlayIcon className='mr-2 h-4 w-4' />
               {!isLastQuestion ? 'Next' : 'Finish'}
             </Button>
           </div>
