@@ -11,20 +11,24 @@ const QuizNew = () => {
   const router = useRouter()
 
   const [quizArray, setquizArray] = useState(null)
+
   const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
   //user related values
-  const username = useAtomValue(nameAtom)
-  const { industry, field } = useAtomValue(industryAndFieldAtom)
+  // const username = useAtomValue(nameAtom)
+  // const { industry, field } = useAtomValue(industryAndFieldAtom)
+
+  //temp values for testing purposes
+  const username = 'tester'
+  const industry = 'software engineering'
+  const field = 'cloud data engineer'
 
   //Check if a user is logged in and push them to home page if not
   useEffect(() => {
     if (username === '') {
-      //Comment out for testing
-      //router.push('/')
+      router.push('/')
     } else {
       console.log(field, industry)
-      // To stay in skeleton mode
-      // complete({ field, industry })
+      complete({ field, industry })
     }
   }, [])
 
@@ -56,8 +60,7 @@ const QuizNew = () => {
     },
   })
 
-  // return <div>{isQuestionsGenerated ? <QuizTemplate quizArray /> : <QuizTemplateSkeleton />}</div>
-  return <div>{<QuizTemplate quizArray />}</div>
+  return <div>{isQuestionsGenerated ? <QuizTemplate quizArray /> : <QuizTemplateSkeleton />}</div>
 }
 
 export default QuizNew
