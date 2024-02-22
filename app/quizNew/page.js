@@ -10,9 +10,12 @@ import { useEffect, useState } from 'react'
 const QuizNew = () => {
   const router = useRouter()
 
-  const [quizArray, setquizArray] = useState(null)
+  const [quizArray, setquizArray] = useState({
+    quizData: null,
+    isQuestionsGenerated: false
+  })
+  // const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
 
-  const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
   //user related values
   // const username = useAtomValue(nameAtom)
   // const { industry, field } = useAtomValue(industryAndFieldAtom)
@@ -55,12 +58,15 @@ const QuizNew = () => {
     onFinish: (_, completion) => {
       //v2 completion code
       const parsed_completion = JSON.parse(completion)
-      setquizArray(parsed_completion)
-      setIsQuestionsGenerated(true)
+      setquizArray({
+        quizData: parsed_completion,
+        isQuestionsGenerated: true
+      })
     },
   })
 
-  return <div>{isQuestionsGenerated ? <QuizTemplate quizArray /> : <QuizTemplateSkeleton />}</div>
+  return <div>{quizArray.isQuestionsGenerated ? <QuizTemplate quizArray={quizArray.quizData} /> : <QuizTemplateSkeleton />}</div>
+
 }
 
 export default QuizNew
