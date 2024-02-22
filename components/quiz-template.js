@@ -86,19 +86,17 @@ const QuizTemplate = (props) => {
           <div id='question' className='min-h-full w-full py-6 text-2xl lg:w-4/5'>
             <text className='text-lg'>Q{activeQuestionNo + 1}</text>
             <Card className='lg:h-24 lg:text-center'>{props.quizArray[activeQuestionNo].question}</Card>
-            {/* <Card className='lg:h-24 lg:text-center'>{quizArray[activeQuestionNo].question}</Card> */}
           </div>
           <div
             id='options'
             className='flex w-full flex-col items-start space-y-10 lg:flex-row lg:flex-wrap lg:items-end lg:justify-evenly lg:space-y-16'>
             {props.quizArray[activeQuestionNo].options.map((option, index) => (
-            // {quizArray[activeQuestionNo].options.map((option, index) => (
               <Button
                 variant={index === selectedIndex ? 'mcq' : 'default'}
                 key={option}
                 onClick={() => handleOptionSelect(option, index)}
                 className='min-h-fit w-full text-lg lg:w-5/12 lg:flex-none'>
-                {option}
+                {option} 
               </Button>
             ))}
           </div>
