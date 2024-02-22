@@ -1,6 +1,4 @@
 'use client'
-
-import * as React from 'react'
 // import { Check, ChevronsUpDown } from 'lucide-react'
 import { CheckIcon, CaretSortIcon } from '@radix-ui/react-icons'
 import { cn } from '@/lib/utils'
@@ -8,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import industries from '@/enums/industry'
+import { useState } from 'react'
 
 export const industryOptions = Object.entries(industries).map(([industryKey, industryValue]) => ({
   label: industryKey,
@@ -15,8 +14,8 @@ export const industryOptions = Object.entries(industries).map(([industryKey, ind
 }))
 
 const IndustryDropDown = () => {
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState('')
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState('')
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

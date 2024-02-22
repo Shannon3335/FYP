@@ -3,9 +3,6 @@ import { login, signUp } from './firebase_service'
 import userAtom from '@/atoms/userAtom'
 
 class LoginService {
-  constructor() {
-    const [user, setUser] = useAtom(userAtom)
-  }
   loginUserAndSetState = async (email, password) => {
     response = await login(email, password)
     //set the user atom with the user details if they've been successfully logged in, else fail
