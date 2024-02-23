@@ -1,0 +1,3 @@
+class QuizLogicService {
+  constructor(quizArray) {}
+}
