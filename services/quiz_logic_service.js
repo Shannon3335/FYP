@@ -1,3 +1,11 @@
 class QuizLogicService {
-  constructor(quizArray) {}
+  constructor(quizData) {}
+
+  verifyAnswer() {}
+
+  getSelectedOption() {}
+
+  setSelectedOption() {}
+
+  nextQuestion() {}
 }
