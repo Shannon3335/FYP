@@ -23,6 +23,7 @@ const QuizTemplate = (props) => {
   //     answer: 'Leonardo da Vinci',
   //   },
   // ]
+
   const [isQuizOver, setQuizOver] = useState(false)
   const [activeQuestionNo, setActiveQuestionNo] = useState(0)
   const [selectedOption, setSelectedOption] = useState(null)
@@ -36,7 +37,7 @@ const QuizTemplate = (props) => {
 
   const verifyAnswer = () => {
     if (selectedOption == props.quizArray[activeQuestionNo].answer) {
-    // if (selectedOption == quizArray[activeQuestionNo].answer) {
+      // if (selectedOption == quizArray[activeQuestionNo].answer) {
       console.log('correct answer')
       setResult((prev) => ({
         ...prev,
@@ -61,7 +62,7 @@ const QuizTemplate = (props) => {
       setActiveQuestionNo((prev) => prev + 1)
       //if at the second last question, set the last question flag
       if (activeQuestionNo === props.quizArray.length - 2) {
-      // if (activeQuestionNo === quizArray.length - 2) {
+        // if (activeQuestionNo === quizArray.length - 2) {
 
         setIsLastQuestion(true)
       }
@@ -96,7 +97,7 @@ const QuizTemplate = (props) => {
                 key={option}
                 onClick={() => handleOptionSelect(option, index)}
                 className='min-h-fit w-full text-lg lg:w-5/12 lg:flex-none'>
-                {option} 
+                {option}
               </Button>
             ))}
           </div>

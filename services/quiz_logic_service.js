@@ -1,38 +1,27 @@
+import { activeQuestionNo, quizDataAtom, result, selectedOption } from '@/atoms/quizAtom'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+
 class QuizLogicService {
-  constructor(quizArray) {
-    this.quizArray = quizArray
-    this.isQuizOver = false
-    this.activeQuestionNo = 0
-    this.selectedOption = null
-    this.selectedIndex = null
-    this.isLastQuestion = false
-    this.result = {
-      score: 0,
-      correctAnswers: 0,
-      wrongAnswers: 0,
-    }
-  }
+  constructor() {}
 
   verifyAnswer() {
-    if (this.selectedOption == this.quizArray[this.activeQuestionNo].answer) {
+    const [selectedOptionValue, setSelectedOption] = useAtom(selectedOption)
+    const activeQuestionNoValue = useAtomValue(activeQuestionNo)
+    const quizDataAtomValue = useAtomValue(quizDataAtom)
+    const setResult = useSetAtom(result)
+
+    if (selectedOptionValue == quizDataAtomValue.answer) {
       console.log('correct answer')
-      result = {
-        ...this.result,
-        score: this.result.score + 5,
-        correctAnswers: this.correctAnswers + 1,
-      }
+      setResult((prev) => ({
+        ...prev,
+        score: prev.score + 5,
+        correctAnswers: prev.correctAnswers + 1,
+      }))
     } else {
       console.log('incorrect answer')
-      this.result = {
-        ...this.result,
-        wrongAnswers: this.result.wrongAnswers + 1,
-      }
+      setResult((prev) => ({ ...prev, wrongAnswers: prev.wrongAnswers + 1 }))
     }
   }
-
-  getSelectedOption() {}
-
-  setSelectedOption() {}
-
-  nextQuestion() {}
 }
+
+export default QuizLogicService
