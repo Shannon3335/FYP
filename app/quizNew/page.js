@@ -1,20 +1,21 @@
 'use client'
-import { industryAndFieldAtom, nameAtom } from '@/atoms/userAtom'
+import { isQuizReadyAtom, quizDataAtom } from '@/atoms/quizAtom'
 import QuizTemplate from '@/components/quiz-template'
 import QuizTemplateSkeleton from '@/components/quiz-template-skeleton'
 import { useCompletion } from 'ai/react'
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const QuizNew = () => {
   const router = useRouter()
 
-  const [quizArray, setquizArray] = useState({
-    quizData: null,
-    isQuestionsGenerated: false
-  })
-  // const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
+  const [quizData, setQuizData] = useAtom(quizDataAtom)
+  const showQuiz = useAtomValue(isQuizReadyAtom)
+  // const [quizArray, setquizArray] = useState({
+  //   quizData: null,
+  //   isQuestionsGenerated: false
+  // })
 
   //user related values
   // const username = useAtomValue(nameAtom)
@@ -37,8 +38,9 @@ const QuizNew = () => {
 
   // UseEffect to see what quizArray holds
   useEffect(() => {
-    console.log(quizArray)
-  }, [quizArray])
+    console.log(quizData)
+    console.log(showQuiz)
+  }, [quizData])
 
   //Call the function to create the ai output
   const { complete } = useCompletion({
@@ -58,15 +60,18 @@ const QuizNew = () => {
     onFinish: (_, completion) => {
       //v2 completion code
       const parsed_completion = JSON.parse(completion)
-      setquizArray({
-        quizData: parsed_completion,
-        isQuestionsGenerated: true
-      })
+      // setquizArray({
+      //   quizData: parsed_completion,
+      //   isQuestionsGenerated: true
+      // })
+      console.log(quizData)
+      setQuizData({ quizArray: parsed_completion, isQuizReady: true })
+      console.log(quizData)
     },
   })
 
-  return <div>{quizArray.isQuestionsGenerated ? <QuizTemplate quizArray={quizArray.quizData} /> : <QuizTemplateSkeleton />}</div>
-
+  // return <div>{quizArray.isQuestionsGenerated ? <QuizTemplate quizArray={quizArray.quizData} /> : <QuizTemplateSkeleton />}</div>
+  return <div>{ showQuiz ? <QuizTemplate /> : <QuizTemplateSkeleton />}</div>
 }
 
 export default QuizNew

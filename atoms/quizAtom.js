@@ -1,21 +1,90 @@
-import { atom } from 'jotai'
-const quizDataAtom = atom(null)
-const isQuizOver = false
-const activeQuestionNo = atom(0)
-const selectedOption = atom(null)
-const selectedIndex = atom(null)
-const isLastQuestion = atom(false)
-const setSelectedIndex = atom(null)
+import { atom, useSetAtom } from 'jotai'
+import { atomWithReset } from 'jotai/utils'
 
-const result = atom({
+//Primitive Atoms
+const quizDataAtom = atom({ quizArray: [], isQuizReady: false })
+const isQuizOverAtom = atom(false)
+const activeQuestionNoAtom = atom(0)
+const selectedOptionAtom = atom(null)
+const selectedIndexAtom = atom(null)
+const isLastQuestionAtom = atom(false)
+const resultAtom = atom({
   score: 0,
   correctAnswers: 0,
   wrongAnswers: 0,
 })
 
-const handleOptionSelect = atom(null, (get, set, payload) => {
-  setSelectedOption(payload.option)
-  setSelectedIndex(payload.index)
+//Derived Atoms
+// get and set the quiz array
+const quizArrayAtom = atom(
+  (get) => get(quizDataAtom).quizArray,
+  (get, set, update) => {
+    set(quizDataAtom, (prev) => ({
+      ...prev,
+      quizArray: update,
+    }))
+  }
+)
+
+// get and set if the quiz is ready or not
+const isQuizReadyAtom = atom(
+  (get) => get(quizDataAtom).isQuizReady,
+  (get, set, update) => set(quizDataAtom, update)
+)
+
+// set the result after getting an answer right
+const correctAnswerLogicAtom = atom(null, (get, set, payload) => {
+  set(resultAtom, (prev) => ({
+    ...prev,
+    score: prev.score + 5,
+    correctAnswers: prev.correctAnswers + 1,
+  }))
 })
 
-export { quizDataAtom, isQuizOver, activeQuestionNo, selectedIndex, selectedOption, isLastQuestion, result }
+// set the result after getting an answer wrong
+const incorrectAnswerLogicAtom = atom(null, (get, set, payload) => {
+  set(resultAtom, (prev) => ({
+    ...prev,
+    wrongAnswers: prev.wrongAnswers + 1,
+  }))
+})
+
+// handle logic for what happens when verifying an answer
+const verifyAnswerAtom = atom(null, (get, set, payload) => {
+  if (get(selectedOptionAtom) == get(rightAnswerAtom)) {
+    console.log('correct answer')
+    set(correctAnswerLogicAtom)
+  } else {
+    console.log('incorrect answer')
+    set(incorrectAnswerLogicAtom)
+  }
+})
+
+// get the right answer to the current question
+const rightAnswerAtom = atom((get) => get(quizArrayAtom)[get(activeQuestionNoAtom)].answer)
+
+// handle logic for what happens when moving to the next question
+const nextQuizFlowAtom = atom(null, (get, set, payload) => {
+  if (get(isLastQuestionAtom)) {
+    set(isQuizOverAtom, true)
+  } else {
+    set(activeQuestionNoAtom, (prev) => prev + 1)
+    if (get(activeQuestionNoAtom) === quizDataAtom.length - 2) {
+      set(isLastQuestionAtom, true)
+    }
+  }
+})
+
+export {
+  quizDataAtom,
+  isQuizOverAtom,
+  activeQuestionNoAtom,
+  selectedIndexAtom,
+  selectedOptionAtom,
+  isLastQuestionAtom,
+  resultAtom,
+  nextQuizFlowAtom,
+  verifyAnswerAtom,
+  quizArrayAtom,
+  isQuizReadyAtom,
+}

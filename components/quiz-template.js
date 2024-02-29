@@ -3,8 +3,10 @@ import { Button } from './ui/button'
 import { Card } from './ui/card'
 import { PlayIcon } from '@radix-ui/react-icons'
 import { select } from '@nextui-org/react'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { activeQuestionNoAtom, isLastQuestionAtom, isQuizOverAtom, nextQuizFlowAtom, quizArrayAtom, quizDataAtom, selectedIndexAtom, selectedOptionAtom, verifyAnswerAtom } from '@/atoms/quizAtom'
 
-const QuizTemplate = (props) => {
+const QuizTemplate = () => {
   //Mock quiz array for testing
   // let quizArray = [
   //   {
@@ -24,50 +26,14 @@ const QuizTemplate = (props) => {
   //   },
   // ]
 
-  const [isQuizOver, setQuizOver] = useState(false)
-  const [activeQuestionNo, setActiveQuestionNo] = useState(0)
-  const [selectedOption, setSelectedOption] = useState(null)
-  const [selectedIndex, setSelectedIndex] = useState(null)
-  const [isLastQuestion, setIsLastQuestion] = useState(false)
-  const [result, setResult] = useState({
-    score: 0,
-    correctAnswers: 0,
-    wrongAnswers: 0,
-  })
-
-  const verifyAnswer = () => {
-    if (selectedOption == props.quizArray[activeQuestionNo].answer) {
-      // if (selectedOption == quizArray[activeQuestionNo].answer) {
-      console.log('correct answer')
-      setResult((prev) => ({
-        ...prev,
-        score: prev.score + 5,
-        correctAnswers: prev.correctAnswers + 1,
-      }))
-    } else {
-      console.log('incorrect answer')
-      setResult((prev) => ({ ...prev, wrongAnswers: prev.wrongAnswers + 1 }))
-    }
-    setSelectedOption(null)
-    setSelectedIndex(null)
-  }
-
-  const nextQuizFlow = () => {
-    //Check if you're at the last qestion
-    if (isLastQuestion) {
-      //if at the last question when submitting, end the quiz
-      setQuizOver(true)
-    } else {
-      //go to the next question
-      setActiveQuestionNo((prev) => prev + 1)
-      //if at the second last question, set the last question flag
-      if (activeQuestionNo === props.quizArray.length - 2) {
-        // if (activeQuestionNo === quizArray.length - 2) {
-
-        setIsLastQuestion(true)
-      }
-    }
-  }
+  const quizArray = useAtomValue(quizArrayAtom)
+  const isQuizOver = useAtomValue(isQuizOverAtom)
+  const activeQuestionNo = useAtomValue(activeQuestionNoAtom)
+  const [selectedOption, setSelectedOption] = useAtom(selectedOptionAtom)
+  const [selectedIndex, setSelectedIndex] = useAtom(selectedIndexAtom)
+  const isLastQuestion = useAtomValue(isLastQuestionAtom)
+  const verifyAnswer = useSetAtom(verifyAnswerAtom)
+  const nextQuizFlow = useSetAtom(nextQuizFlowAtom)
 
   const handleOptionSelect = (option, index) => {
     setSelectedOption(option)
@@ -76,6 +42,9 @@ const QuizTemplate = (props) => {
 
   const onClickNext = () => {
     verifyAnswer()
+    //Reset the states to null //look into using jotai reset utils next
+    setSelectedIndex(null)
+    setSelectedOption(null)
     nextQuizFlow()
   }
   return (
@@ -85,13 +54,13 @@ const QuizTemplate = (props) => {
       {!isQuizOver ? (
         <>
           <div id='question' className='min-h-full w-full py-6 text-2xl lg:w-4/5'>
-            <text className='text-lg'>Q{activeQuestionNo + 1}</text>
-            <Card className='lg:h-24 lg:text-center'>{props.quizArray[activeQuestionNo].question}</Card>
+            <p className='text-lg'>Q{activeQuestionNo + 1}</p>
+            <Card className='lg:h-24 lg:text-center'>{quizArray[activeQuestionNo].question}</Card>
           </div>
           <div
             id='options'
             className='flex w-full flex-col items-start space-y-10 lg:flex-row lg:flex-wrap lg:items-end lg:justify-evenly lg:space-y-16'>
-            {props.quizArray[activeQuestionNo].options.map((option, index) => (
+            {quizArray[activeQuestionNo].options.map((option, index) => (
               <Button
                 variant={index === selectedIndex ? 'mcq' : 'default'}
                 key={option}
