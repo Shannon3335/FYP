@@ -7,7 +7,7 @@ const isQuizOverAtom = atom(false)
 const activeQuestionNoAtom = atom(0)
 const selectedOptionAtom = atom(null)
 const selectedIndexAtom = atom(null)
-const isLastQuestionAtom = atom(false)
+const isLastQuestionAtom = atom((get) => get(activeQuestionNoAtom) === get(quizArrayAtom).length - 1)
 const resultAtom = atom({
   score: 0,
   correctAnswers: 0,
@@ -69,10 +69,10 @@ const nextQuizFlowAtom = atom(null, (get, set, payload) => {
     set(isQuizOverAtom, true)
   } else {
     set(activeQuestionNoAtom, (prev) => prev + 1)
-    if (get(activeQuestionNoAtom) === quizDataAtom.length - 2) {
-      set(isLastQuestionAtom, true)
-    }
   }
+  // if (get(activeQuestionNoAtom) === quizDataAtom.length - 1) {
+  //   set(isLastQuestionAtom, true)
+  // }
 })
 
 export {

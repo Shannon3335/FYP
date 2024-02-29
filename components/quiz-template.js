@@ -13,6 +13,7 @@ import {
   selectedOptionAtom,
   verifyAnswerAtom,
 } from '@/atoms/quizAtom'
+import { useEffect } from 'react'
 
 const QuizTemplate = () => {
   //Mock quiz array for testing
@@ -55,6 +56,10 @@ const QuizTemplate = () => {
     setSelectedOption(null)
     nextQuizFlow()
   }
+
+  useEffect(() => {
+    console.log(isQuizOver)
+  }, [isQuizOver])
   return (
     <div
       id='main-container'

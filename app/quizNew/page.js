@@ -12,14 +12,6 @@ const QuizNew = () => {
 
   const [quizData, setQuizData] = useAtom(quizDataAtom)
   const showQuiz = useAtomValue(isQuizReadyAtom)
-  // const [quizArray, setquizArray] = useState({
-  //   quizData: null,
-  //   isQuestionsGenerated: false
-  // })
-
-  //user related values
-  // const username = useAtomValue(nameAtom)
-  // const { industry, field } = useAtomValue(industryAndFieldAtom)
 
   //temp values for testing purposes
   const username = 'tester'
@@ -60,13 +52,7 @@ const QuizNew = () => {
     onFinish: (_, completion) => {
       //v2 completion code
       const parsed_completion = JSON.parse(completion)
-      // setquizArray({
-      //   quizData: parsed_completion,
-      //   isQuestionsGenerated: true
-      // })
-      console.log(quizData)
       setQuizData({ quizArray: parsed_completion, isQuizReady: true })
-      console.log(quizData)
     },
   })
 
