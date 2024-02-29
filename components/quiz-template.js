@@ -1,10 +1,18 @@
-import { useState } from 'react'
 import { Button } from './ui/button'
 import { Card } from './ui/card'
 import { PlayIcon } from '@radix-ui/react-icons'
-import { select } from '@nextui-org/react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import { activeQuestionNoAtom, isLastQuestionAtom, isQuizOverAtom, nextQuizFlowAtom, quizArrayAtom, quizDataAtom, selectedIndexAtom, selectedOptionAtom, verifyAnswerAtom } from '@/atoms/quizAtom'
+import {
+  activeQuestionNoAtom,
+  isLastQuestionAtom,
+  isQuizOverAtom,
+  nextQuizFlowAtom,
+  quizArrayAtom,
+  quizDataAtom,
+  selectedIndexAtom,
+  selectedOptionAtom,
+  verifyAnswerAtom,
+} from '@/atoms/quizAtom'
 
 const QuizTemplate = () => {
   //Mock quiz array for testing

@@ -71,7 +71,7 @@ const QuizNew = () => {
   })
 
   // return <div>{quizArray.isQuestionsGenerated ? <QuizTemplate quizArray={quizArray.quizData} /> : <QuizTemplateSkeleton />}</div>
-  return <div>{ showQuiz ? <QuizTemplate /> : <QuizTemplateSkeleton />}</div>
+  return <div>{showQuiz ? <QuizTemplate /> : <QuizTemplateSkeleton />}</div>
 }
 
 export default QuizNew
