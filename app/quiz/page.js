@@ -13,6 +13,7 @@ const Quiz = () => {
   const [quizArray, setquizArray] = useState({
     quizData: null,
     isQuestionsGenerated: false,
+
   })
   // const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
 
@@ -70,6 +71,7 @@ const Quiz = () => {
       {quizArray.isQuestionsGenerated ? <QuizTemplate quizArray={quizArray.quizData} /> : <QuizTemplateSkeleton />}
     </div>
   )
+
 }
 
 export default Quiz
