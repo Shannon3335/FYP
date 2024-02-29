@@ -12,7 +12,8 @@ const Quiz = () => {
 
   const [quizArray, setquizArray] = useState({
     quizData: null,
-    isQuestionsGenerated: false
+    isQuestionsGenerated: false,
+
   })
   // const [isQuestionsGenerated, setIsQuestionsGenerated] = useState(false)
 
@@ -60,12 +61,16 @@ const Quiz = () => {
       const parsed_completion = JSON.parse(completion)
       setquizArray({
         quizData: parsed_completion,
-        isQuestionsGenerated: true
+        isQuestionsGenerated: true,
       })
     },
   })
 
-  return <div>{quizArray.isQuestionsGenerated ? <QuizTemplate quizArray={quizArray.quizData} /> : <QuizTemplateSkeleton />}</div>
+  return (
+    <div>
+      {quizArray.isQuestionsGenerated ? <QuizTemplate quizArray={quizArray.quizData} /> : <QuizTemplateSkeleton />}
+    </div>
+  )
 
 }
 
