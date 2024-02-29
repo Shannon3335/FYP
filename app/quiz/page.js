@@ -61,6 +61,7 @@ const Quiz = () => {
       setquizArray({
         quizData: parsed_completion,
         isQuestionsGenerated: true,
+        isQuestionsGenerated: true,
       })
     },
   })
