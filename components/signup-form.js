@@ -18,7 +18,7 @@ import industries from '@/enums/industry'
 import { signUp } from '@/services/firebase_service'
 import { useRouter } from 'next/navigation'
 import { useAtom } from 'jotai'
-import userAtom from '@/atoms/userAtom'
+import { userAtom } from '@/atoms/userAtom'
 
 const SignupForm = () => {
   const [open, setOpen] = useState(false)
