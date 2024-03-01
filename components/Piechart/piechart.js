@@ -9,8 +9,6 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 
 const PieChart = (props) => {
   const results = useAtomValue(resultAtom)
-  // console.log(JSON.stringify(props))
-  console.log('Data:', JSON.stringify(props.data))
   const data = {
     // labels: ['Correct', 'Incorrect'],
     labels: props.labels,
