@@ -35,7 +35,7 @@ const LoginForm = () => {
           console.log('Response', response)
           // console.log('Outside the if condition' + JSON.stringify(response))
           if (response !== undefined && response.success === true) {
-            console.log('Inside the if condition' + JSON.stringify(response))
+            // console.log('Inside the if condition' + JSON.stringify(response))
             setUser({
               username: response.user.Name,
               industry: response.user.Industry,

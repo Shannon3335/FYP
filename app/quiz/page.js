@@ -17,10 +17,6 @@ const Quiz = () => {
   const user = useAtomValue(userAtom)
   const username = useAtomValue(nameAtom)
   const industryAndField = useAtomValue(industryAndFieldAtom)
-  //temp values for testing purposes
-  // const username = 'tester'
-  // const industry = 'software engineering'
-  // const field = 'cloud data engineer'
 
   //Check if a user is logged in and push them to home page if not
   useEffect(() => {
@@ -35,12 +31,6 @@ const Quiz = () => {
       complete(industryAndField)
     }
   }, [])
-
-  // UseEffect to see what quizArray holds
-  // useEffect(() => {
-  //   console.log(quizData)
-  //   console.log(showQuiz)
-  // }, [quizData])
 
   //Call the function to create the ai output
   const { complete } = useCompletion({
@@ -60,6 +50,7 @@ const Quiz = () => {
     onFinish: (_, completion) => {
       //v2 completion code
       const parsed_completion = JSON.parse(completion)
+      console.log(parsed_completion)
       setQuizData({ quizArray: parsed_completion, isQuizReady: true })
     },
   })
