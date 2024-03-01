@@ -1,5 +1,4 @@
-import { atom, useSetAtom } from 'jotai'
-import { atomWithReset } from 'jotai/utils'
+import { atom } from 'jotai'
 import { previousIncorrectQuestionsAtom } from './userAtom'
 
 //Primitive Atoms
@@ -89,4 +88,5 @@ export {
   verifyAnswerAtom,
   quizArrayAtom,
   isQuizReadyAtom,
+  activeQuestionAtom,
 }

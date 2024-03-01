@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore'
+import { doc, getDoc, getFirestore, setDoc, updateDoc } from 'firebase/firestore'
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_ATU_DOMAIN,
@@ -88,6 +88,15 @@ const fetchUser = async (id) => {
   }
 }
 
+const updateUser = async (id, payload) => {
+  try {
+    await updateDoc(doc(db, 'Users', id), payload)
+    return { success: true }
+  } catch (error) {
+    console.error('Error updating user details: ', error.message)
+    return { success: false, message: error }
+  }
+}
 const logOut = async () => {
   try {
     await signOut(auth)
@@ -107,4 +116,4 @@ const getLoggedInUser = async () => {
   }
 }
 
-export { signUp, writeUser, login, fetchUser, logOut, isLoggedIn, getLoggedInUser }
+export { signUp, writeUser, login, fetchUser, logOut, isLoggedIn, getLoggedInUser, updateUser }
