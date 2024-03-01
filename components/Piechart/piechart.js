@@ -1,11 +1,14 @@
 import React from 'react'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Pie } from 'react-chartjs-2'
+import { useAtomValue } from 'jotai'
+import { resultAtom } from '@/atoms/quizAtom'
 
 //Register only what you need from chartjs for tree shakability (reduces code size when deploying)
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 const PieChart = (props) => {
+  const results = useAtomValue(resultAtom)
   // console.log(JSON.stringify(props))
   console.log('Data:', JSON.stringify(props.data))
   const data = {
@@ -13,7 +16,7 @@ const PieChart = (props) => {
     labels: props.labels,
     datasets: [
       {
-        // label: '# of Votes',
+        label: 'Score',
         // data: [12, 19],
         data: props.data,
         // backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],

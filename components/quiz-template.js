@@ -8,12 +8,13 @@ import {
   isQuizOverAtom,
   nextQuizFlowAtom,
   quizArrayAtom,
-  quizDataAtom,
+  resultAtom,
   selectedIndexAtom,
   selectedOptionAtom,
   verifyAnswerAtom,
 } from '@/atoms/quizAtom'
 import { useEffect } from 'react'
+import PieChart from './Piechart/piechart'
 
 const QuizTemplate = () => {
   //Mock quiz array for testing
@@ -43,7 +44,14 @@ const QuizTemplate = () => {
   const isLastQuestion = useAtomValue(isLastQuestionAtom)
   const verifyAnswer = useSetAtom(verifyAnswerAtom)
   const nextQuizFlow = useSetAtom(nextQuizFlowAtom)
-
+  const results = useAtomValue(resultAtom)
+  const piechartProps = {
+    labels: ['Incorrect', 'Correct'],
+    data: [results.correctAnswers, results.wrongAnswers],
+    bgColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+    borderWidth: 1,
+  }
   const handleOptionSelect = (option, index) => {
     setSelectedOption(option)
     setSelectedIndex(index)
@@ -60,6 +68,7 @@ const QuizTemplate = () => {
   useEffect(() => {
     console.log(isQuizOver)
   }, [isQuizOver])
+
   return (
     <div
       id='main-container'
@@ -90,7 +99,9 @@ const QuizTemplate = () => {
             </Button>
           </div>
         </>
-      ) : null}
+      ) : (
+        <PieChart {...piechartProps} />
+      )}
     </div>
   )
 }
