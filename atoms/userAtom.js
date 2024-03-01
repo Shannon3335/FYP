@@ -1,19 +1,32 @@
 import { atom } from 'jotai'
 
+// Primitive Atom
 const userAtom = atom({
-  userName: '',
+  username: '',
   industry: '',
   field: '',
   previousIncorrectQuestions: [],
 })
 
-export const industryAndFieldAtom = atom((get) => {
-  const industry = get(userAtom).industry
-  const field = get(userAtom).field
+// Derived Atoms
 
-  return { industry, field }
+// get the user's industry and field
+const industryAndFieldAtom = atom((get) => {
+  return { industry: get(userAtom).industry, field: get(userAtom).field }
 })
 
-export const nameAtom = atom((get) => get(userAtom).userName)
+// get the user's name
+const nameAtom = atom((get) => get(userAtom).username)
 
-export default userAtom
+// get and add to the the user's incorrect questions
+const previousIncorrectQuestionsAtom = atom(
+  (get) => get(userAtom).previousIncorrectQuestions,
+  (get, set, newIncorrectQuestions) => {
+    set(userAtom, (prev) => ({
+      ...prev,
+      previousIncorrectQuestions: [prev.previousIncorrectQuestions + newIncorrectQuestions],
+    }))
+  }
+)
+
+export { userAtom, industryAndFieldAtom, nameAtom, previousIncorrectQuestionsAtom }

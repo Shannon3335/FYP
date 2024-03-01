@@ -1,5 +1,4 @@
 'use client'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import ThemeSwitcher from '@/components/theme-switcher'
@@ -12,7 +11,7 @@ export default function Home() {
     <main className='flex-column min-h-screen min-w-full'>
       <div id='header' className='flex flex-row justify-between py-3'>
         <div id='logo' className=' ml-4 text-lg'>
-          <text>PREPME</text>
+          <p>PREPME</p>
           <HandIcon className='ml-5 h-4 w-4' />
         </div>
         <div id='MiddleLinks' className='flex w-auto flex-row content-end items-center pl-5 font-mono text-sm'>

@@ -9,8 +9,8 @@ import { Card } from '@/components/ui/card'
 import { login } from '@/services/firebase_service'
 import { useState } from 'react'
 import { useAtom } from 'jotai'
-import userAtom from '@/atoms/userAtom'
 import { useRouter } from 'next/navigation'
+import { userAtom } from '@/atoms/userAtom'
 
 const LoginForm = () => {
   const [user, setUser] = useAtom(userAtom)
@@ -29,25 +29,33 @@ const LoginForm = () => {
     })
     .refine(
       async (data) => {
-        //attempt login
-        const response = await login(data.email, data.password)
-        console.log(response)
-        if (response.success === true) {
-          setUser({
-            userName: response.user.userName,
-            industry: response.user.industry,
-            field: response.user.field,
-            previousIncorrectQuestions: response.user.previousIncorrectQuestions,
-          })
-          setLoggedIn(true)
-          router.push('/quiz')
-        } else {
-          return false
+        try {
+          //attempt login
+          const response = await login(data.email, data.password)
+          console.log('Response', response)
+          // console.log('Outside the if condition' + JSON.stringify(response))
+          if (response !== undefined && response.success === true) {
+            // console.log('Inside the if condition' + JSON.stringify(response))
+            setUser({
+              username: response.user.Name,
+              industry: response.user.Industry,
+              field: response.user.JobTitle,
+              previousIncorrectQuestions: response.user.PreviousIncorrectQuestions,
+            })
+            setLoggedIn(true)
+            router.push('/quiz')
+            return true
+          } else {
+            return false
+          }
+        } catch (error) {
+          console.error('Error during login', error)
+          throw new Error('Login failed')
         }
       },
       {
         message: 'Username or password incorrect',
-        path: ['email', 'password'],
+        path: ['email'],
       }
     )
   const form = useForm({
