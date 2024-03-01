@@ -24,7 +24,7 @@ const previousIncorrectQuestionsAtom = atom(
   (get, set, newIncorrectQuestions) => {
     set(userAtom, (prev) => ({
       ...prev,
-      previousIncorrectQuestions: [prev.previousIncorrectQuestions + newIncorrectQuestions],
+      previousIncorrectQuestions: [...prev.previousIncorrectQuestions, newIncorrectQuestions],
     }))
   }
 )
