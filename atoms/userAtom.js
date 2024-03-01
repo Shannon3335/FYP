@@ -1,3 +1,4 @@
+import { user } from '@nextui-org/react'
 import { atom } from 'jotai'
 
 const userAtom = atom({
@@ -7,13 +8,20 @@ const userAtom = atom({
   previousIncorrectQuestions: [],
 })
 
-export const industryAndFieldAtom = atom((get) => {
-  const industry = get(userAtom).industry
-  const field = get(userAtom).field
-
-  return { industry, field }
+const industryAndFieldAtom = atom((get) => {
+  return { industry: get(userAtom).industry, field: get(userAtom).industry }
 })
 
-export const nameAtom = atom((get) => get(userAtom).userName)
+const nameAtom = atom((get) => get(userAtom).userName)
 
-export default userAtom
+const previousIncorrectQuestions = atom(
+  (get) => get(userAtom).previousIncorrectQuestions,
+  (get, set, newIncorrectQuestions) => {
+    set(userAtom, (prev) => ({
+      ...prev,
+      previousIncorrectQuestions: [prev.previousIncorrectQuestions + newIncorrectQuestions],
+    }))
+  }
+)
+
+export { userAtom, industryAndFieldAtom, nameAtom, previousIncorrectQuestions }
