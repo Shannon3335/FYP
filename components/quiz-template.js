@@ -3,6 +3,7 @@ import { Card } from './ui/card'
 import { PlayIcon } from '@radix-ui/react-icons'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import {
+  activeQuestionAtom,
   activeQuestionNoAtom,
   isLastQuestionAtom,
   isQuizOverAtom,
@@ -15,28 +16,12 @@ import {
 } from '@/atoms/quizAtom'
 import { useEffect } from 'react'
 import PieChart from './Piechart/piechart'
+import { getCurrentUserId, updateCurrentUser, updateUser } from '@/services/firebase_service'
+import { previousIncorrectQuestionsAtom } from '@/atoms/userAtom'
 
 const QuizTemplate = () => {
-  //Mock quiz array for testing
-  // let quizArray = [
-  //   {
-  //     question: 'What is the capital of France?',
-  //     options: ['Berlin', 'Madrid', 'Paris', 'Rome'],
-  //     answer: 'Paris',
-  //   },
-  //   {
-  //     question: 'Which planet is known as the Red Planet?',
-  //     options: ['Venus', 'Mars', 'Jupiter', 'Saturn'],
-  //     answer: 'Mars',
-  //   },
-  //   {
-  //     question: 'Who painted the Mona Lisa?',
-  //     options: ['Leonardo da Vinci', 'Pablo Picasso', 'Vincent van Gogh', 'Michelangelo'],
-  //     answer: 'Leonardo da Vinci',
-  //   },
-  // ]
-
   const quizArray = useAtomValue(quizArrayAtom)
+  const activeQuestion = useAtomValue(activeQuestionAtom)
   const isQuizOver = useAtomValue(isQuizOverAtom)
   const activeQuestionNo = useAtomValue(activeQuestionNoAtom)
   const [selectedOption, setSelectedOption] = useAtom(selectedOptionAtom)
@@ -45,6 +30,8 @@ const QuizTemplate = () => {
   const verifyAnswer = useSetAtom(verifyAnswerAtom)
   const nextQuizFlow = useSetAtom(nextQuizFlowAtom)
   const results = useAtomValue(resultAtom)
+  const PreviousIncorrectQuestions = useAtomValue(previousIncorrectQuestionsAtom)
+
   const piechartProps = {
     labels: ['Incorrect', 'Correct'],
     data: [results.correctAnswers, results.wrongAnswers],
@@ -66,7 +53,10 @@ const QuizTemplate = () => {
   }
 
   useEffect(() => {
-    console.log(isQuizOver)
+    if (isQuizOver === true) {
+      // updateUser('89wF5PQ5JWPkOaxPZRAtttwWtV52', { PreviousIncorrectQuestions: PreviousIncorrectQuestions })
+      updateCurrentUser({ PreviousIncorrectQuestions: PreviousIncorrectQuestions })
+    }
   }, [isQuizOver])
 
   return (
@@ -77,7 +67,7 @@ const QuizTemplate = () => {
         <>
           <div id='question' className='min-h-full w-full py-6 text-2xl lg:w-4/5'>
             <p className='text-lg'>Q{activeQuestionNo + 1}</p>
-            <Card className='lg:h-24 lg:text-center'>{quizArray[activeQuestionNo].question}</Card>
+            <Card className='lg:h-24 lg:text-center'>{activeQuestion}</Card>
           </div>
           <div
             id='options'

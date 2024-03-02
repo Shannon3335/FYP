@@ -53,6 +53,9 @@ const Quiz = () => {
       console.log(parsed_completion)
       setQuizData({ quizArray: parsed_completion, isQuizReady: true })
     },
+    onError: (error) => {
+      console.error('Error when creating completion: ' + error.message)
+    },
   })
 
   // return <div>{quizArray.isQuestionsGenerated ? <QuizTemplate quizArray={quizArray.quizData} /> : <QuizTemplateSkeleton />}</div>

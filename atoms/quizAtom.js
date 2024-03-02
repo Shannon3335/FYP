@@ -1,5 +1,5 @@
-import { atom, useSetAtom } from 'jotai'
-import { atomWithReset } from 'jotai/utils'
+import { atom } from 'jotai'
+import { previousIncorrectQuestionsAtom } from './userAtom'
 
 //Primitive Atoms
 const quizDataAtom = atom({ quizArray: [], isQuizReady: false })
@@ -47,6 +47,7 @@ const incorrectAnswerLogicAtom = atom(null, (get, set, payload) => {
     ...prev,
     wrongAnswers: prev.wrongAnswers + 1,
   }))
+  set(previousIncorrectQuestionsAtom, get(activeQuestionAtom))
 })
 
 // handle logic for what happens when verifying an answer
@@ -61,7 +62,10 @@ const verifyAnswerAtom = atom(null, (get, set, payload) => {
 })
 
 // get the right answer to the current question
-const rightAnswerAtom = atom((get) => get(quizArrayAtom)[get(activeQuestionNoAtom)].answer)
+const rightAnswerAtom = atom((get) => get(quizArrayAtom)[get(activeQuestionNoAtom)]?.answer)
+
+// get active question
+const activeQuestionAtom = atom((get) => get(quizArrayAtom)[get(activeQuestionNoAtom)]?.question)
 
 // handle logic for what happens when moving to the next question
 const nextQuizFlowAtom = atom(null, (get, set, payload) => {
@@ -70,9 +74,6 @@ const nextQuizFlowAtom = atom(null, (get, set, payload) => {
   } else {
     set(activeQuestionNoAtom, (prev) => prev + 1)
   }
-  // if (get(activeQuestionNoAtom) === quizDataAtom.length - 1) {
-  //   set(isLastQuestionAtom, true)
-  // }
 })
 
 export {
@@ -87,4 +88,5 @@ export {
   verifyAnswerAtom,
   quizArrayAtom,
   isQuizReadyAtom,
+  activeQuestionAtom,
 }
