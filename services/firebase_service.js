@@ -116,4 +116,29 @@ const getLoggedInUser = async () => {
   }
 }
 
-export { signUp, writeUser, login, fetchUser, logOut, isLoggedIn, getLoggedInUser, updateUser }
+const getCurrentUserId = async () => {
+  return auth.currentUser.uid
+}
+
+const updateCurrentUser = async (payload) => {
+  const id = await getCurrentUserId()
+  try {
+    updateUser(id, payload)
+    return { success: true }
+  } catch (error) {
+    console.log('Error when updating current user:' + error.message)
+    return { success: false, message: error.message }
+  }
+}
+export {
+  signUp,
+  writeUser,
+  login,
+  fetchUser,
+  logOut,
+  isLoggedIn,
+  getLoggedInUser,
+  updateUser,
+  getCurrentUserId,
+  updateCurrentUser,
+}

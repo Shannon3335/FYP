@@ -16,7 +16,7 @@ import {
 } from '@/atoms/quizAtom'
 import { useEffect } from 'react'
 import PieChart from './Piechart/piechart'
-import { updateUser } from '@/services/firebase_service'
+import { getCurrentUserId, updateCurrentUser, updateUser } from '@/services/firebase_service'
 import { previousIncorrectQuestionsAtom } from '@/atoms/userAtom'
 
 const QuizTemplate = () => {
@@ -54,7 +54,8 @@ const QuizTemplate = () => {
 
   useEffect(() => {
     if (isQuizOver === true) {
-      updateUser('89wF5PQ5JWPkOaxPZRAtttwWtV52', { PreviousIncorrectQuestions: PreviousIncorrectQuestions })
+      // updateUser('89wF5PQ5JWPkOaxPZRAtttwWtV52', { PreviousIncorrectQuestions: PreviousIncorrectQuestions })
+      updateCurrentUser({ PreviousIncorrectQuestions: PreviousIncorrectQuestions })
     }
   }, [isQuizOver])
 
