@@ -24,16 +24,19 @@ const Quiz = () => {
       router.push('/')
     } else {
       // console.log(JSON.stringify(user))
-      console.log('user:', user)
-      console.log(username)
+      // console.log('user:', user)
+      // console.log(username)
       // console.log(field)
-      console.log(industryAndField)
-      complete(industryAndField)
+      // console.log(industryAndField)
+      if (!isLoading) {
+        console.log(isLoading)
+        complete(industryAndField)
+      }
     }
   }, [])
 
   //Call the function to create the ai output
-  const { complete } = useCompletion({
+  const { complete, isLoading } = useCompletion({
     //v1 version using: openai.completion.create()
 
     // api: '/api/completion',
@@ -46,7 +49,6 @@ const Quiz = () => {
     //v2 version using: openai.chat.completion.create()
 
     api: '/api/completionv2',
-    initialInput: industryAndField,
     onFinish: (_, completion) => {
       //v2 completion code
       const parsed_completion = JSON.parse(completion)
