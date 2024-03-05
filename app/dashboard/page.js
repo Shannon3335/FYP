@@ -1,8 +1,12 @@
-
+import DashboardDrawer from '@/components/dashboardDrawer'
 const Dashboard = () => {
-    <div>
-        
-    </div>
+  return (
+    <main>
+      <div>
+        <DashboardDrawer />
+      </div>
+    </main>
+  )
 }
 
 export default Dashboard
