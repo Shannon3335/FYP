@@ -34,7 +34,7 @@ const QuizTemplate = () => {
 
   const piechartProps = {
     labels: ['Incorrect', 'Correct'],
-    data: [results.correctAnswers, results.wrongAnswers],
+    data: [ results.wrongAnswers, results.correctAnswers],
     bgColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
     borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
     borderWidth: 1,
