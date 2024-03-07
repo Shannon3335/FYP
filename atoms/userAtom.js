@@ -5,7 +5,7 @@ const userAtom = atom({
   username: '',
   industry: '',
   field: '',
-  previousIncorrectQuestions: [],
+  previousIncorrectQuestions: [''],
 })
 
 // Derived Atoms
