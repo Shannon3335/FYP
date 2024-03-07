@@ -32,6 +32,7 @@ const SignupForm = () => {
       userName: values.userName,
       industry: values.industry,
       field: values.jobTitle,
+      previousIncorrectQuestions: []
     })
     router.push('/quiz')
   }

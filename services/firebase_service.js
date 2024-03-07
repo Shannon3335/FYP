@@ -92,7 +92,7 @@ const updateUser = async (id, payload) => {
   try {
     await updateDoc(doc(db, 'Users', id), payload)
     return { success: true }
-  } catch (error) {
+  } catch (error) {  
     console.error('Error updating user details: ', error.message)
     return { success: false, message: error }
   }
