@@ -23,7 +23,7 @@ const Quiz = () => {
       router.push('/')
     } else {
       if (!isLoading) {
-        console.log(isLoading)
+        // console.log(isLoading)
         console.log(previousIncorrectQuestions)
         complete({ ...industryAndField, previousIncorrectQuestions: previousIncorrectQuestions })
       }
@@ -32,13 +32,15 @@ const Quiz = () => {
 
   //Call the function to create the ai output
   const { complete, isLoading } = useCompletion({
-    api:
-      previousIncorrectQuestions.length === 1 && previousIncorrectQuestions.at(0) === ''
-        ? '/api/completionv2'
-        : '/api/adaptiveCompletion',
+    // api:
+    //   previousIncorrectQuestions.length === 1 && previousIncorrectQuestions.at(0) === ''
+    //     ? '/api/completionv2'
+    //     : '/api/adaptiveCompletion',
+    api: '/api/completionv2',
     onFinish: (_, completion) => {
       //v2 completion code
       const parsed_completion = JSON.parse(completion)
+      console.log(JSON.stringify(parsed_completion))
       console.log(parsed_completion)
       setQuizData({ quizArray: parsed_completion, isQuizReady: true })
     },
