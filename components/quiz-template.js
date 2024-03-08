@@ -9,15 +9,14 @@ import {
   isQuizOverAtom,
   nextQuizFlowAtom,
   quizArrayAtom,
-  resultAtom,
   selectedIndexAtom,
   selectedOptionAtom,
   verifyAnswerAtom,
 } from '@/atoms/quizAtom'
 import { useEffect } from 'react'
-import PieChart from './Piechart/piechart'
 import { updateCurrentUser } from '@/services/firebase_service'
 import { previousIncorrectQuestionsAtom } from '@/atoms/userAtom'
+import { useRouter } from 'next/navigation'
 
 const QuizTemplate = () => {
   const quizArray = useAtomValue(quizArrayAtom)
@@ -29,17 +28,9 @@ const QuizTemplate = () => {
   const isLastQuestion = useAtomValue(isLastQuestionAtom)
   const verifyAnswer = useSetAtom(verifyAnswerAtom)
   const nextQuizFlow = useSetAtom(nextQuizFlowAtom)
-  const results = useAtomValue(resultAtom)
-
+  const router = useRouter()
   const PreviousIncorrectQuestions = useAtomValue(previousIncorrectQuestionsAtom)
 
-  const piechartProps = {
-    labels: ['Incorrect', 'Correct'],
-    data: [results.wrongAnswers, results.correctAnswers],
-    bgColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
-    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
-    borderWidth: 1,
-  }
   const handleOptionSelect = (option, index) => {
     setSelectedOption(option)
     setSelectedIndex(index)
@@ -53,9 +44,14 @@ const QuizTemplate = () => {
     nextQuizFlow()
   }
 
+  const onClickFinish = () => {
+    onClickNext()
+    router.push('/results')
+  }
+
   useEffect(() => {
     if (isQuizOver === true) {
-      // updateUser('89wF5PQ5JWPkOaxPZRAtttwWtV52', { PreviousIncorrectQuestions: PreviousIncorrectQuestions })
+      //keep track of the user's incorrect questions and save it to the database when the quiz is over
       updateCurrentUser({ PreviousIncorrectQuestions: PreviousIncorrectQuestions })
     }
   }, [isQuizOver])
@@ -64,35 +60,34 @@ const QuizTemplate = () => {
     <div
       id='main-container'
       className='flex min-h-screen min-w-full flex-col content-between items-start lg:items-center lg:justify-around lg:pb-32'>
-      {!isQuizOver ? (
-        <>
-          <div id='question' className='min-h-full w-full py-6 text-2xl lg:w-4/5'>
-            <p className='text-lg'>Q{activeQuestionNo + 1}</p>
-            <Card className='lg:h-24 lg:text-center'>{activeQuestion}</Card>
-          </div>
-          <div
-            id='options'
-            className='flex w-full flex-col items-start space-y-10 lg:flex-row lg:flex-wrap lg:items-end lg:justify-evenly lg:space-y-16'>
-            {quizArray[activeQuestionNo].options.map((option, index) => (
-              <Button
-                variant={index === selectedIndex ? 'mcq' : 'default'}
-                key={option}
-                onClick={() => handleOptionSelect(option, index)}
-                className='min-h-fit w-full text-lg lg:w-5/12 lg:flex-none'>
-                {option}
-              </Button>
-            ))}
-          </div>
-          <div className='flex flex-row self-end pt-9 lg:self-center'>
-            <Button onClick={() => onClickNext()} disabled={selectedOption === null}>
-              <PlayIcon className='mr-2 h-4 w-4' />
-              {!isLastQuestion ? 'Next' : 'Finish'}
+      <>
+        <div id='question' className='min-h-full w-full py-6 text-2xl lg:w-4/5'>
+          <p className='text-lg'>Q{activeQuestionNo + 1}</p>
+          <Card className='lg:h-24 lg:text-center'>{activeQuestion}</Card>
+        </div>
+        <div
+          id='options'
+          className='flex w-full flex-col items-start space-y-10 lg:flex-row lg:flex-wrap lg:items-end lg:justify-evenly lg:space-y-16'>
+          {quizArray[activeQuestionNo].options.map((option, index) => (
+            <Button
+              variant={index === selectedIndex ? 'mcq' : 'default'}
+              key={option}
+              onClick={() => handleOptionSelect(option, index)}
+              className='min-h-fit w-full text-lg lg:w-5/12 lg:flex-none'>
+              {option}
             </Button>
-          </div>
-        </>
-      ) : (
-        <PieChart {...piechartProps} />
-      )}
+          ))}
+        </div>
+
+        <div className='flex flex-row self-end pt-9 lg:self-center'>
+          <Button
+            onClick={isLastQuestion ? () => onClickFinish() : () => onClickNext()}
+            disabled={selectedOption === null}>
+            <PlayIcon className='mr-2 h-4 w-4' />
+            {!isLastQuestion ? 'Next' : 'Finish'}
+          </Button>
+        </div>
+      </>
     </div>
   )
 }
