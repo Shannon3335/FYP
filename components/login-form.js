@@ -43,7 +43,7 @@ const LoginForm = () => {
               previousIncorrectQuestions: response.user.PreviousIncorrectQuestions,
             })
             setLoggedIn(true)
-            router.push('/quiz')
+            router.push('/dashboard')
             return true
           } else {
             return false
