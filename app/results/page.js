@@ -31,14 +31,8 @@ const Results = () => {
   useEffect(() => {
     if (username === '') {
       router.push('/')
-    } else {
-      if (!isLoading) {
-        // console.log(isLoading)
-        console.log(previousIncorrectQuestions)
-        complete({ ...industryAndField, previousIncorrectQuestions: previousIncorrectQuestions })
-      }
     }
-  })
+  }, [])
   return (
     <main className='flex h-screen flex-col lg:flex-row lg:items-start'>
       <div className='lg:w-2/3'>
