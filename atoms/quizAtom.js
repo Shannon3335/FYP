@@ -7,7 +7,7 @@ const isQuizOverAtom = atom(false)
 const activeQuestionNoAtom = atom(0)
 const selectedOptionAtom = atom(null)
 const selectedIndexAtom = atom(null)
-const isLastQuestionAtom = atom((get) => get(activeQuestionNoAtom) === get(quizArrayAtom).length - 1)
+
 const resultAtom = atom({
   score: 0,
   correctAnswers: 0,
@@ -15,6 +15,9 @@ const resultAtom = atom({
 })
 
 //Derived Atoms
+
+// get a boolean value if the the last question is active or not
+const isLastQuestionAtom = atom((get) => get(activeQuestionNoAtom) === get(quizArrayAtom).length - 1)
 // get and set the quiz array
 const quizArrayAtom = atom(
   (get) => get(quizDataAtom).quizArray,
@@ -76,6 +79,20 @@ const nextQuizFlowAtom = atom(null, (get, set, payload) => {
   }
 })
 
+// reset the rquired atoms to the initial state for the next quiz
+const resetQuizAtoms = atom(null, (get, set, update) => {
+  set(quizDataAtom, { quizArray: [], isQuizReady: false })
+  set(isQuizOverAtom, false)
+  set(activeQuestionNoAtom, 0)
+  set(selectedOptionAtom, null)
+  set(selectedIndexAtom, null)
+  set(resultAtom, {
+    score: 0,
+    correctAnswers: 0,
+    wrongAnswers: 0,
+  })
+})
+
 export {
   quizDataAtom,
   isQuizOverAtom,
@@ -89,4 +106,5 @@ export {
   quizArrayAtom,
   isQuizReadyAtom,
   activeQuestionAtom,
+  resetQuizAtoms,
 }
