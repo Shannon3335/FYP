@@ -30,11 +30,12 @@ const QuizTemplate = () => {
   const verifyAnswer = useSetAtom(verifyAnswerAtom)
   const nextQuizFlow = useSetAtom(nextQuizFlowAtom)
   const results = useAtomValue(resultAtom)
+
   const PreviousIncorrectQuestions = useAtomValue(previousIncorrectQuestionsAtom)
 
   const piechartProps = {
     labels: ['Incorrect', 'Correct'],
-    data: [ results.wrongAnswers, results.correctAnswers],
+    data: [results.wrongAnswers, results.correctAnswers],
     bgColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
     borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
     borderWidth: 1,
