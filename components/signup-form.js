@@ -32,9 +32,9 @@ const SignupForm = () => {
       userName: values.userName,
       industry: values.industry,
       field: values.jobTitle,
-      previousIncorrectQuestions: []
+      previousIncorrectQuestions: [],
     })
-    router.push('/quiz')
+    router.push('/dashboard')
   }
 
   const signupFormSchema = z
