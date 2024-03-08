@@ -11,7 +11,7 @@ export async function POST(req) {
   // Extract the `prompt` from the body of the request
   const { prompt } = await req.json()
   const { industry, field } = prompt
-  const difficulty = 10
+  const difficulty = 'difficult'
   const numberOfQuestions = 8
   // Request the OpenAI API for the response based on the prompt
   const response = await openai.chat.completions.create({
@@ -88,8 +88,6 @@ export async function POST(req) {
       },
     ],
   })
-
   const stream = OpenAIStream(response)
-
   return new StreamingTextResponse(stream)
 }
