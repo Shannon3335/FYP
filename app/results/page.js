@@ -1,19 +1,22 @@
 'use client'
-import { quizArrayAtom, resultAtom } from '@/atoms/quizAtom'
+import { quizArrayAtom, resetQuizAtoms, resultAtom } from '@/atoms/quizAtom'
+import { nameAtom } from '@/atoms/userAtom'
 import PieChart from '@/components/Piechart/piechart'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 const Results = () => {
-  const [quizArray, setQuizArray] = useAtom(quizArrayAtom)
-  const [result, setResults] = useAtom(resultAtom)
-
+  const quizArray = useAtomValue(quizArrayAtom)
+  const result = useAtomValue(resultAtom)
+  const resetQuizVariables = useSetAtom(resetQuizAtoms)
+  const username = useAtomValue(nameAtom)
   const score = result.score
-
+  const router = useRouter()
   //Set these values below for testing purposes
 
   const piechartProps = {
@@ -24,6 +27,18 @@ const Results = () => {
     borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
     borderWidth: 1,
   }
+
+  useEffect(() => {
+    if (username === '') {
+      router.push('/')
+    } else {
+      if (!isLoading) {
+        // console.log(isLoading)
+        console.log(previousIncorrectQuestions)
+        complete({ ...industryAndField, previousIncorrectQuestions: previousIncorrectQuestions })
+      }
+    }
+  })
   return (
     <main className='flex h-screen flex-col lg:flex-row lg:items-start'>
       <div className='lg:w-2/3'>
@@ -71,7 +86,7 @@ const Results = () => {
           <PieChart {...piechartProps} />
         </div>
       </div>
-      <Button asChild className='mb-4 self-end'>
+      <Button asChild className='mb-4 self-end' onClick={() => resetQuizVariables()}>
         <Link href={'/dashboard'}>Dashboard</Link>
       </Button>
     </main>
