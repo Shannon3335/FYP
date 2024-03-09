@@ -15,6 +15,7 @@ import { Input } from './ui/input'
 import { industryAndFieldAtom } from '@/atoms/userAtom'
 import { useAtom } from 'jotai'
 import IndustryDropDown from './industry-dropdown'
+import DifficultyDropdown from './difficulty-dropdown'
 
 const SettingsModal = () => {
   const industryAndField = useAtom(industryAndFieldAtom)
@@ -38,13 +39,19 @@ const SettingsModal = () => {
             <Label htmlFor='jobTitle' className='text-right'>
               Job Title
             </Label>
-            <Input id='jobTitle' value='Pedro Duarte' className='col-span-3' />
+            <Input id='jobTitle' defaultValue='Pedro Duarte' className='col-span-3' />
           </div>
           <div className='grid grid-cols-4 items-center gap-4'>
             <Label htmlFor='Industry' className='text-right'>
               Industry
             </Label>
             <IndustryDropDown />
+          </div>
+          <div className='grid grid-cols-4 items-center gap-4'>
+            <Label htmlFor='Difficulty' className='text-right'>
+              Difficulty
+            </Label>
+            <DifficultyDropdown />
           </div>
         </div>
         <DialogFooter>
