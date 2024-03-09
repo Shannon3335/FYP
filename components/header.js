@@ -4,8 +4,11 @@ import Link from 'next/link'
 import { Separator } from './ui/separator'
 import ThemeSwitcher from './theme-switcher'
 import TakeQuizModal from './take-quiz-modal'
+import { useAtomValue } from 'jotai'
+import { nameAtom } from '@/atoms/userAtom'
 
 const Header = () => {
+  const username = useAtomValue(nameAtom)
   return (
     <>
       <div id='header' className='flex flex-row justify-between py-3'>
@@ -45,7 +48,13 @@ const Header = () => {
           <div className='flex flex-col content-end pr-4 '>
             <ThemeSwitcher />
           </div>
-          <TakeQuizModal />
+          {username === '' ? (
+            <TakeQuizModal />
+          ) : (
+            <Button variant='mcq' className='w-2/4' asChild>
+              <Link href='/quiz'>Take Quiz</Link>
+            </Button>
+          )}
         </div>
       </div>
     </>
