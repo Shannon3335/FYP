@@ -11,6 +11,7 @@ import {
 import Link from 'next/link'
 import { Button } from './ui/button'
 import { GearIcon } from '@radix-ui/react-icons/dist'
+import SettingsModal from './settings-modal'
 
 const DashboardDrawer = () => {
   return (
@@ -33,28 +34,11 @@ const DashboardDrawer = () => {
           <DrawerHeader className='w-full'>
             <DrawerTitle>
               <Button variant='ghost'>
-                <span className='flex flex-row'>
-                  <GearIcon className='mr-2 h-4 w-4' />
-                  Settings
-                </span>
+                <SettingsModal />
               </Button>
             </DrawerTitle>
             <DrawerDescription></DrawerDescription>
           </DrawerHeader>
-          <Button asChild variant='ghost'>
-            <Link
-              href={
-                'https://docs.google.com/document/d/e/2PACX-1vTqBRxYfns9hSk6zSf4PjvHcnB6FHvNBFE6nIMLnArgitQNd7Ul1jwIw9oOi2Imdg/pub'
-              }
-              target='_blank'>
-              Docs
-            </Link>
-          </Button>
-          <Button asChild variant='ghost'>
-            <Link href={'https://github.com/Shannon3335/FYP'} target='_blank'>
-              Github
-            </Link>
-          </Button>
         </div>
         <DrawerFooter>
           <DrawerTitle>Really?</DrawerTitle>
