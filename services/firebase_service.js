@@ -44,6 +44,7 @@ const writeUser = async (user, Name, JobTitle, Industry) => {
       Industry: Industry,
       JobTitle: JobTitle,
       PreviousIncorrectQuestions: [''],
+      Difficulty: 'medium',
     })
   } catch (error) {
     console.log('Error adding user to database: ', error)
@@ -92,7 +93,7 @@ const updateUser = async (id, payload) => {
   try {
     await updateDoc(doc(db, 'Users', id), payload)
     return { success: true }
-  } catch (error) {  
+  } catch (error) {
     console.error('Error updating user details: ', error.message)
     return { success: false, message: error }
   }
