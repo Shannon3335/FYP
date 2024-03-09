@@ -10,29 +10,36 @@ import {
 } from '@/components/ui/drawer'
 import Link from 'next/link'
 import { Button } from './ui/button'
+import { GearIcon } from '@radix-ui/react-icons/dist'
 
 const DashboardDrawer = () => {
   return (
     <Drawer direction='left'>
       <DrawerTrigger>Open</DrawerTrigger>
-      <DrawerContent className='min-h-full w-2/6'>
-        <div className='flex h-full flex-col w-full items-start space-y-8 pl-2'>
-          <DrawerHeader>
+      <DrawerContent className='min-h-full w-2/6 lg:w-1/5'>
+        <div className='flex h-full w-full flex-col items-start space-y-8 pl-2'>
+          <DrawerHeader className='w-full'>
             <DrawerTitle>
               <Button variant='ghost'>Statistics</Button>
             </DrawerTitle>
-            <DrawerDescription>This action cannot be undone.</DrawerDescription>
+            <DrawerDescription></DrawerDescription>
           </DrawerHeader>
-          <DrawerHeader>
+          <DrawerHeader className='w-full'>
             <DrawerTitle>
               <Button variant='ghost'>History</Button>
             </DrawerTitle>
-            <DrawerDescription>This action cannot be undone.</DrawerDescription>
+            <DrawerDescription>View a record of all previous quizes</DrawerDescription>
           </DrawerHeader>
-          <DrawerHeader>
+          <DrawerHeader className='w-full'>
             <DrawerTitle>
-              <Button variant='ghost'>Settings</Button>
+              <Button variant='ghost'>
+                <span className='flex flex-row'>
+                  <GearIcon className='mr-2 h-4 w-4' />
+                  Settings
+                </span>
+              </Button>
             </DrawerTitle>
+            <DrawerDescription></DrawerDescription>
           </DrawerHeader>
           <Button asChild variant='ghost'>
             <Link

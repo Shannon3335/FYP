@@ -7,6 +7,8 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import industries from '@/enums/industry'
 import { useState } from 'react'
+import { useAtomValue } from 'jotai'
+import { industryAndFieldAtom } from '@/atoms/userAtom'
 
 export const industryOptions = Object.entries(industries).map(([industryKey, industryValue]) => ({
   label: industryKey,
@@ -16,12 +18,13 @@ export const industryOptions = Object.entries(industries).map(([industryKey, ind
 const IndustryDropDown = () => {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
-
+  const { industry } = useAtomValue(industryAndFieldAtom)
+  const defaultValue = industry === '' ? 'Industry' : industry
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
-          {value ? industryOptions.find((industry) => industry.value === value).label : 'Industry'}
+          {value ? industryOptions.find((industry) => industry.value === value).label : defaultValue}
 
           <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>

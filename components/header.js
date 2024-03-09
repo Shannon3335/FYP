@@ -26,10 +26,10 @@ const Header = () => {
             </span>
           </Button>
           <Separator orientation='vertical' className='mx-2' />
-          <Button asChild variant='link'>
+          {/* <Button asChild variant='link'>
             <Link href={'/login'}>login</Link>
           </Button>
-          <Separator orientation='vertical' className='mx-2' />
+          <Separator orientation='vertical' className='mx-2' /> */}
 
           <Button asChild variant='link'>
             <span>
