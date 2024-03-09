@@ -11,7 +11,6 @@ export default function Home() {
   return (
     <main className='flex-column min-h-screen min-w-full'>
       <Header />
-      <div className='flex  '>asdfsfd</div>
     </main>
   )
 }
