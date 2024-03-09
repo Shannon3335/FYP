@@ -18,7 +18,7 @@ export const industryOptions = Object.entries(industries).map(([industryKey, ind
 const IndustryDropDown = () => {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
-  const { industry } = useAtomValue(industryAndFieldAtom)
+  const industry = useAtomValue(industryAndFieldAtom).industry
   const defaultValue = industry === '' ? 'Industry' : industry
   return (
     <Popover open={open} onOpenChange={setOpen}>
