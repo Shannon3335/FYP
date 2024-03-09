@@ -21,7 +21,7 @@ export async function POST(req) {
     // response_format: { "type" : 'json_object' },
 
     // limit tokens so that the  model doesn't generate overly long prompts
-    max_tokens: 1700,
+    max_tokens: 3000,
     temperature: 0.9,
     // top_p: 1,
     // frequency_penalty: 1,
