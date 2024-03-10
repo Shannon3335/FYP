@@ -1,3 +1,4 @@
+'use client'
 import { useState, useEffect, useCallback } from 'react'
 
 const useRandomTextWithStyle = (transitionDuration, ob) => {
