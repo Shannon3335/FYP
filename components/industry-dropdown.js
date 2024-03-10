@@ -15,17 +15,21 @@ export const industryOptions = Object.entries(industries).map(([industryKey, ind
   value: industryValue,
 }))
 
-const IndustryDropDown = () => {
+const IndustryDropDown = (setIndustry) => {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
-  const industry = useAtomValue(industryAndFieldAtom).industry
-  const defaultValue = industry === '' ? 'Industry' : industry
+  const handleIndustryChange = (currentValue) => {
+    setValue(currentValue)
+    setIndustry(currentValue)
+  }
+  const currentIndustry = useAtomValue(industryAndFieldAtom).industry
+  const currentIndustryKey = industryOptions.find((industry) => industry.value === currentIndustry)
+  const defaultValue = currentIndustry === '' ? 'Industry' : currentIndustryKey
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
           {value ? industryOptions.find((industry) => industry.value === value).label : defaultValue}
-
           <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </PopoverTrigger>
@@ -39,7 +43,7 @@ const IndustryDropDown = () => {
                 key={industry.value}
                 value={industry.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === value ? '' : currentValue)
+                  handleIndustryChange(currentValue === value ? '' : currentValue)
                   setOpen(false)
                 }}>
                 <CheckIcon className={cn('mr-2 h-4 w-4', value === industry.value ? 'opacity-100' : 'opacity-0')} />
