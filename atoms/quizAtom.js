@@ -50,7 +50,12 @@ const incorrectAnswerLogicAtom = atom(null, (get, set, payload) => {
     ...prev,
     wrongAnswers: prev.wrongAnswers + 1,
   }))
-  set(previousIncorrectQuestionsAtom, get(activeQuestionAtom))
+  //Set the previous incorrect questions atom with a new object
+  set(previousIncorrectQuestionsAtom, {
+    question: get(activeQuestionAtom),
+    answer: get(rightAnswerAtom),
+    explanation: get(explainAnsweratom),
+  })
 })
 
 // handle logic for what happens when verifying an answer
@@ -70,6 +75,8 @@ const rightAnswerAtom = atom((get) => get(quizArrayAtom)[get(activeQuestionNoAto
 // get active question
 const activeQuestionAtom = atom((get) => get(quizArrayAtom)[get(activeQuestionNoAtom)]?.question)
 
+// get explanation for the active question
+const explainAnsweratom = atom((get) => get(quizArrayAtom)[get(activeQuestionNoAtom)]?.explanation)
 // handle logic for what happens when moving to the next question
 const nextQuizFlowAtom = atom(null, (get, set, payload) => {
   if (get(isLastQuestionAtom)) {
@@ -107,4 +114,5 @@ export {
   isQuizReadyAtom,
   activeQuestionAtom,
   resetQuizAtoms,
+  explainAnsweratom,
 }

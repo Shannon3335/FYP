@@ -33,6 +33,7 @@ const SignupForm = () => {
       industry: values.industry,
       field: values.jobTitle,
       previousIncorrectQuestions: [],
+      difficulty: 'medium',
     })
     router.push('/dashboard')
   }
