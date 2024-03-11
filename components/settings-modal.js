@@ -1,13 +1,6 @@
 import { GearIcon } from '@radix-ui/react-icons/dist'
 import { Button } from './ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from './ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import SettingsForm from './settings-form'
 
 const SettingsModal = () => {
