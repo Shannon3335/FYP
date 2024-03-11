@@ -5,6 +5,7 @@ const userAtom = atom({
   username: '',
   industry: '',
   field: '',
+  difficulty: '',
   previousIncorrectQuestions: [''],
 })
 
@@ -15,6 +16,10 @@ const industryAndFieldAtom = atom((get) => {
   return { industry: get(userAtom).industry, field: get(userAtom).field }
 })
 
+//get user's preferred difficulty
+const difficultyAtom = atom((get) => {
+  return get(userAtom).difficulty
+})
 // get the user's name
 const nameAtom = atom((get) => get(userAtom).username)
 
@@ -29,4 +34,4 @@ const previousIncorrectQuestionsAtom = atom(
   }
 )
 
-export { userAtom, industryAndFieldAtom, nameAtom, previousIncorrectQuestionsAtom }
+export { userAtom, industryAndFieldAtom, nameAtom, previousIncorrectQuestionsAtom, difficultyAtom }

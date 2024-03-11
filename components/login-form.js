@@ -41,6 +41,7 @@ const LoginForm = () => {
               industry: response.user.Industry,
               field: response.user.JobTitle,
               previousIncorrectQuestions: response.user.PreviousIncorrectQuestions,
+              difficulty: response.user.Difficulty,
             })
             setLoggedIn(true)
             router.push('/dashboard')

@@ -5,31 +5,26 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import industries from '@/enums/industry'
 import { useState } from 'react'
+import difficulties from '@/enums/difficulty'
+import { difficultyAtom } from '@/atoms/userAtom'
 import { useAtomValue } from 'jotai'
-import { industryAndFieldAtom } from '@/atoms/userAtom'
 
-export const industryOptions = Object.entries(industries).map(([industryKey, industryValue]) => ({
-  label: industryKey,
-  value: industryValue,
+export const difficultyOptions = Object.entries(difficulties).map(([difficultyKey, difficultyValue]) => ({
+  label: difficultyKey,
+  value: difficultyValue,
 }))
 
-const IndustryDropDown = (setIndustry) => {
+const DifficultyDropdown = () => {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('')
-  const handleIndustryChange = (currentValue) => {
-    setValue(currentValue)
-    setIndustry(currentValue)
-  }
-  const currentIndustry = useAtomValue(industryAndFieldAtom).industry
-  const currentIndustryKey = industryOptions.find((industry) => industry.value === currentIndustry)
-  const defaultValue = currentIndustry === '' ? 'Industry' : currentIndustryKey
+  const difficulty = useAtomValue(difficultyAtom)
+  const defaultValue = difficulty === '' ? 'Difficulty' : difficulty
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant='outline' role='combobox' aria-expanded={open} className='w-[200px] justify-between'>
-          {value ? industryOptions.find((industry) => industry.value === value).label : defaultValue}
+          {value ? difficultyOptions.find((difficulty) => difficulty.value === value).label : defaultValue}
           <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </PopoverTrigger>
@@ -38,16 +33,16 @@ const IndustryDropDown = (setIndustry) => {
           <CommandInput placeholder='Search...' className='h-9' />
           <CommandEmpty>Not found</CommandEmpty>
           <CommandGroup>
-            {industryOptions.map((industry) => (
+            {difficultyOptions.map((difficulty) => (
               <CommandItem
-                key={industry.value}
-                value={industry.value}
+                key={difficulty.value}
+                value={difficulty.value}
                 onSelect={(currentValue) => {
-                  handleIndustryChange(currentValue === value ? '' : currentValue)
+                  setValue(currentValue === value ? '' : currentValue)
                   setOpen(false)
                 }}>
-                <CheckIcon className={cn('mr-2 h-4 w-4', value === industry.value ? 'opacity-100' : 'opacity-0')} />
-                {industry.label}
+                <CheckIcon className={cn('mr-2 h-4 w-4', value === difficulty.value ? 'opacity-100' : 'opacity-0')} />
+                {difficulty.label}
               </CommandItem>
             ))}
           </CommandGroup>
@@ -56,4 +51,4 @@ const IndustryDropDown = (setIndustry) => {
     </Popover>
   )
 }
-export default IndustryDropDown
+export default DifficultyDropdown
