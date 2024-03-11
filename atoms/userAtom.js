@@ -12,14 +12,28 @@ const userAtom = atom({
 // Derived Atoms
 
 // get the user's industry and field
-const industryAndFieldAtom = atom((get) => {
-  return { industry: get(userAtom).industry, field: get(userAtom).field }
-})
+const industryAndFieldAtom = atom(
+  (get) => {
+    return { industry: get(userAtom).industry, field: get(userAtom).field }
+  },
+  (get, set, payload) => {
+    set(userAtom, (prev) => ({
+      ...prev,
+      industry: payload.industry,
+      field: payload.field,
+    }))
+  }
+)
 
 //get user's preferred difficulty
-const difficultyAtom = atom((get) => {
-  return get(userAtom).difficulty
-})
+const difficultyAtom = atom(
+  (get) => {
+    return get(userAtom).difficulty
+  },
+  (get, set, update) => {
+    set(userAtom, (prev) => ({ ...prev, difficulty: update }))
+  }
+)
 // get the user's name
 const nameAtom = atom((get) => get(userAtom).username)
 

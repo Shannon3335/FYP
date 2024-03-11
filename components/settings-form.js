@@ -9,7 +9,7 @@ import difficulties from '@/enums/difficulty'
 import industries from '@/enums/industry'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAtomValue } from 'jotai'
+import { useAtom } from 'jotai'
 import { difficultyAtom, industryAndFieldAtom } from '@/atoms/userAtom'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
@@ -22,8 +22,8 @@ const SettingsForm = () => {
   const [openDifficulty, setDifficultyOpen] = useState(false)
 
   //use the atom values for the default values of the form
-  const userCurrentIndustryAndField = useAtomValue(industryAndFieldAtom)
-  const userCurrentDifficulty = useAtomValue(difficultyAtom)
+  const [userCurrentIndustryAndField, setCurrentIndustryandField] = useAtom(industryAndFieldAtom)
+  const [userCurrentDifficulty, setCurrentDifficulty] = useAtom(difficultyAtom)
 
   const settingsFormSchema = z.object({
     jobTitle: z.string(),
@@ -48,17 +48,23 @@ const SettingsForm = () => {
       }
     ),
   })
-  const saveChanges = (values) => {
+  const saveChanges = async (values) => {
     //call firebase function to write the new details
     //update the atoms to use these values
     try {
-      updateCurrentUser({
+      await updateCurrentUser({
         //update the current user's details and reset their previous incorrect questions
         Industry: values.industry,
         JobTitle: values.jobTitle,
         Difficulty: values.difficulty,
         PreviousIncorrectQuestions: [''],
       })
+      setCurrentDifficulty(values.difficulty)
+      setCurrentIndustryandField({
+        industry: values.industry,
+        field: values.jobTitle
+      })
+      
     } catch (error) {}
     console.log('Change these details:', values)
   }
@@ -70,6 +76,7 @@ const SettingsForm = () => {
       industry: userCurrentIndustryAndField.industry,
       difficulty: userCurrentDifficulty,
     },
+    reValidateMode:'onSubmit'
   })
   return (
     <main className='flex min-h-full min-w-full flex-col items-stretch'>
