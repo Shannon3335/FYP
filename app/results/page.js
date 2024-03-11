@@ -64,6 +64,7 @@ const Results = () => {
                     ))}
                   </div>
                   <div className='font-bold text-green-600'>Answer: {questionObj.answer}</div>
+                  <div className='font-medium text-orange-400'>Explanation: {questionObj.explanation}</div>
                 </div>
               ))}
             </div>
