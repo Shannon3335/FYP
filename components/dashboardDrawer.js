@@ -9,6 +9,7 @@ import {
 import { Button } from './ui/button'
 import { CountdownTimerIcon, GearIcon } from '@radix-ui/react-icons/dist'
 import SettingsModal from './settings-modal'
+import HistoryModal from './history-modal'
 
 const DashboardDrawer = () => {
   return (
@@ -18,12 +19,7 @@ const DashboardDrawer = () => {
         <div className='flex h-full w-full flex-col items-start space-y-8 pl-2'>
           <DrawerHeader className='w-full'>
             <DrawerTitle>
-              <Button variant='ghost' asChild>
-                <span className='flex w-full flex-row  '>
-                  <CountdownTimerIcon className='mr-2 h-4 w-4' />
-                  History
-                </span>
-              </Button>
+              <HistoryModal />
             </DrawerTitle>
             <DrawerDescription>View a record of all previous quizes</DrawerDescription>
           </DrawerHeader>
