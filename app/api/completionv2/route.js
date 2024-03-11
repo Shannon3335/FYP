@@ -15,7 +15,7 @@ export async function POST(req) {
   const numberOfQuestions = 10
   // Request the OpenAI API for the response based on the prompt
   const response = await openai.chat.completions.create({
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4',
 
     // I can not use the type below since it doesn't return a json array, but a json object.
     // response_format: { "type" : 'json_object' },
@@ -34,14 +34,14 @@ export async function POST(req) {
         //System content is the primary context given to the ai model and should be used to give high level context to the ai
         role: 'system',
         content: `Generate a multiple-choice question quiz tailored to the user's industry and job title. Ensure the questions align with the specified difficulty level.
-        Include at most 2 questions from previously incorrect questions, avoiding reuse.
+        Create the number of questions specified by the user.
         Return the output in a JSON array of objects with keys like:  [{question: "question", options: ["option1","option2","option3","option4"], answer: "option1", explanation: "explanation1"},
         {question: "question", options: ["option1","option2","option3","option4"], answer: "option3", explanation: "explanation2"},...]`,
       },
       {
         //User context is the secondary content that presents the query and prompt
         role: 'user',
-        content: `{industry: "Software Development", jobTitle: "DevOps", numberOfQuestions: 3, difficulty: 9}`,
+        content: `{industry: "Software Development", jobTitle: "DevOps", numberOfQuestions: 3, difficulty: difficult}`,
       },
       {
         role: 'assistant',
