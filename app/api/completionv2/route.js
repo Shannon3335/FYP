@@ -10,8 +10,7 @@ const openai = new OpenAI({
 export async function POST(req) {
   // Extract the `prompt` from the body of the request
   const { prompt } = await req.json()
-  const { industry, field } = prompt
-  const difficulty = 'difficult'
+  const { industry, field, difficulty } = prompt
   const numberOfQuestions = 10
   // Request the OpenAI API for the response based on the prompt
   const response = await openai.chat.completions.create({

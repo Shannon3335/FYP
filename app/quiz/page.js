@@ -1,6 +1,12 @@
 'use client'
 import { isQuizReadyAtom, quizDataAtom } from '@/atoms/quizAtom'
-import { industryAndFieldAtom, nameAtom, previousIncorrectQuestionsAtom, userAtom } from '@/atoms/userAtom'
+import {
+  difficultyAtom,
+  industryAndFieldAtom,
+  nameAtom,
+  previousIncorrectQuestionsAtom,
+  userAtom,
+} from '@/atoms/userAtom'
 import QuizTemplate from '@/components/quiz-template'
 import QuizTemplateSkeleton from '@/components/quiz-template-skeleton'
 import { useCompletion } from 'ai/react'
@@ -15,6 +21,7 @@ const Quiz = () => {
   const user = useAtomValue(userAtom)
   const username = useAtomValue(nameAtom)
   const industryAndField = useAtomValue(industryAndFieldAtom)
+  const difficulty = useAtomValue(difficultyAtom)
   const previousIncorrectQuestions = useAtomValue(previousIncorrectQuestionsAtom)
 
   //Check if a user is logged in and push them to home page if not
@@ -25,7 +32,8 @@ const Quiz = () => {
       if (!isLoading) {
         // console.log(isLoading)
         console.log(previousIncorrectQuestions)
-        complete({ ...industryAndField, previousIncorrectQuestions: previousIncorrectQuestions })
+        // complete({ ...industryAndField, previousIncorrectQuestions: previousIncorrectQuestions })
+        complete({ ...industryAndField, difficulty: difficulty })
       }
     }
   }, [])
