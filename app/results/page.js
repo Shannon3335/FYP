@@ -42,7 +42,7 @@ const Results = () => {
             <div className='flex w-3/5 flex-col self-center lg:hidden lg:w-1/3'>
               <Card className='m-6'>
                 <div className='bg-primary-foreground text-center text-xl font-bold'>
-                  Score : {score}/{quizArray.length * 5}
+                  Score : {score}/{quizArray.length}
                 </div>
                 <PieChart {...piechartProps} />
               </Card>
@@ -74,7 +74,7 @@ const Results = () => {
       <div className='hidden w-3/5 flex-col content-center lg:flex lg:w-1/3'>
         <Card className='m-6'>
           <div className='bg-primary-foreground text-center text-xl font-bold'>
-            Score : {score}/{quizArray.length * 5}
+            Score : {score}/{quizArray.length}
           </div>
         </Card>
         <div className='flex w-full'>

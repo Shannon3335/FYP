@@ -16,6 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from './ui/command'
 import { cn } from '@/lib/utils'
 import { updateCurrentUser } from '@/services/firebase_service'
+import { DialogClose } from './ui/dialog'
 
 const SettingsForm = () => {
   const [openIndustry, setIndustryOpen] = useState(false)
@@ -62,9 +63,8 @@ const SettingsForm = () => {
       setCurrentDifficulty(values.difficulty)
       setCurrentIndustryandField({
         industry: values.industry,
-        field: values.jobTitle
+        field: values.jobTitle,
       })
-      
     } catch (error) {}
     console.log('Change these details:', values)
   }
@@ -76,7 +76,7 @@ const SettingsForm = () => {
       industry: userCurrentIndustryAndField.industry,
       difficulty: userCurrentDifficulty,
     },
-    reValidateMode:'onSubmit'
+    reValidateMode: 'onSubmit',
   })
   return (
     <main className='flex min-h-full min-w-full flex-col items-stretch'>
@@ -204,7 +204,9 @@ const SettingsForm = () => {
               </FormItem>
             )}
           />
-          <Button type='submit'>Submit</Button>
+          <DialogClose asChild>
+            <Button type='submit'>Submit</Button>
+          </DialogClose>
         </form>
       </Form>
     </main>

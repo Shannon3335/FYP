@@ -39,7 +39,7 @@ const isQuizReadyAtom = atom(
 const correctAnswerLogicAtom = atom(null, (get, set, payload) => {
   set(resultAtom, (prev) => ({
     ...prev,
-    score: prev.score + 5,
+    score: prev.score + 1,
     correctAnswers: prev.correctAnswers + 1,
   }))
 })
