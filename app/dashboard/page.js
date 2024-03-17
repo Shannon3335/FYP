@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Header from '@/components/header'
 import DashboardDrawer from '@/components/dashboardDrawer'
 import { Button } from '@/components/ui/button'
-import useRandomTextWithStyle from '@/services/transitionHook'
+import { useRandomTextWithStyle } from '@/services/transitionHooks'
 
 const Dashboard = () => {
   const transitionDuration = 3000
