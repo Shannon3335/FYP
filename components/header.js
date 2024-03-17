@@ -26,11 +26,6 @@ const Header = () => {
             </span>
           </Button>
           <Separator orientation='vertical' className='mx-2' />
-          {/* <Button asChild variant='link'>
-            <Link href={'/login'}>login</Link>
-          </Button>
-          <Separator orientation='vertical' className='mx-2' /> */}
-
           <Button asChild variant='link'>
             <span>
               <EnvelopeOpenIcon className='mr-2 h-4 w-4' />

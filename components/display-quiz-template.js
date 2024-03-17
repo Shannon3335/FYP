@@ -4,7 +4,6 @@ import { Button } from './ui/button'
 import { useTextFromArray } from '@/services/transitionHooks'
 
 const DisplayQuizTemplate = () => {
-  let jobTitle = 'artist'
   const displayQuestions = [
     {
       jobTitle: 'Fine Arts Instructor',
@@ -59,7 +58,7 @@ const DisplayQuizTemplate = () => {
           </span>
         </div>
       </div>
-      <Card className='mt-10 flex h-full w-4/5 flex-col items-center'>
+      <Card className='mt-10 flex h-fit w-4/5 flex-col items-center'>
         <div id='question' className='min-h-full w-full py-2 text-lg lg:w-4/5'>
           <p className='text-medium'>Q</p>
           <Card className='transition-all duration-500 ease-in-out lg:h-24 lg:text-center'>
