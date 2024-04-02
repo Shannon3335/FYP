@@ -4,7 +4,6 @@ import { Button } from './ui/button'
 import { useTextFromArray } from '@/services/transitionHooks'
 
 const DisplayQuizTemplate = () => {
-  let jobTitle = 'artist'
   const displayQuestions = [
     {
       jobTitle: 'Fine Arts Instructor',
@@ -49,9 +48,9 @@ const DisplayQuizTemplate = () => {
   return (
     <div id='main-container' className='flex h-full w-full flex-col items-center'>
       <div id='tagline' className='text-center text-xl'>
-        <span className='font-semibold'>
+        <span className='font-semibold lg:text-2xl'>
           Use the Power of <span className='decoration-3 underline decoration-purple-500'>AI</span> to Prepare for Your
-          Next Interview as a{' '}
+          Next Interview as a
         </span>
         <div>
           <span className='rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent transition-all duration-250 ease-in-out'>
@@ -59,8 +58,8 @@ const DisplayQuizTemplate = () => {
           </span>
         </div>
       </div>
-      <Card className='mt-10 flex h-full w-4/5 flex-col items-center'>
-        <div id='question' className='min-h-full w-full py-2 text-lg lg:w-4/5'>
+      <Card className='mt-10 flex h-fit w-4/5 flex-col items-center lg:w-4/6'>
+        <div id='question' className='min-h-full w-full  py-2 text-lg lg:w-4/5'>
           <p className='text-medium'>Q</p>
           <Card className='transition-all duration-500 ease-in-out lg:h-24 lg:text-center'>
             {selectedObject.question}

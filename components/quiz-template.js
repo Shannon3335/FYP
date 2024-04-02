@@ -46,7 +46,7 @@ const QuizTemplate = () => {
 
   const onClickFinish = () => {
     onClickNext()
-    router.push('/results')
+    router.push('/quiz/results')
   }
 
   useEffect(() => {
@@ -78,7 +78,6 @@ const QuizTemplate = () => {
             </Button>
           ))}
         </div>
-
         <div className='flex flex-row self-end pt-9 lg:self-center'>
           <Button
             onClick={isLastQuestion ? () => onClickFinish() : () => onClickNext()}

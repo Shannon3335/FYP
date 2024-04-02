@@ -14,6 +14,7 @@ const Header = () => {
       <div id='header' className='flex flex-row justify-between py-3'>
         <div id='logo' className=' ml-4 text-lg'>
           <p>PREPME</p>
+          
           <HandIcon className='ml-5 h-4 w-4' />
         </div>
         <div id='MiddleLinks' className='flex w-auto flex-row content-end items-center pl-5 font-mono text-sm'>
@@ -26,11 +27,6 @@ const Header = () => {
             </span>
           </Button>
           <Separator orientation='vertical' className='mx-2' />
-          {/* <Button asChild variant='link'>
-            <Link href={'/login'}>login</Link>
-          </Button>
-          <Separator orientation='vertical' className='mx-2' /> */}
-
           <Button asChild variant='link'>
             <span>
               <EnvelopeOpenIcon className='mr-2 h-4 w-4' />

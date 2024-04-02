@@ -4,6 +4,7 @@ import Header from '@/components/header'
 import DashboardDrawer from '@/components/dashboardDrawer'
 import { Button } from '@/components/ui/button'
 import { useRandomTextWithStyle } from '@/services/transitionHooks'
+import DisplayQuizTemplate from '@/components/display-quiz-template'
 
 const Dashboard = () => {
   const transitionDuration = 3000
@@ -17,11 +18,7 @@ const Dashboard = () => {
   return (
     <main className='flex h-screen w-full flex-col'>
       <Header />
-      <Button asChild variant='secondary'>
-        <Link href='/quiz'>
-          <div className={`transition-all duration-500 ease-in-out ${style}`}>{text}</div>
-        </Link>
-      </Button>
+      <DisplayQuizTemplate />
       <DashboardDrawer />
     </main>
   )
