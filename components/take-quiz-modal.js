@@ -17,7 +17,7 @@ const TakeQuizModal = () => {
       {/* Dialog version using shadcn ui */}
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant='default' className='w-2/4' onClick={onOpen}>
+          <Button variant='default' className='' onClick={onOpen}>
             Quiz Me!
           </Button>
         </DialogTrigger>
