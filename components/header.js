@@ -7,6 +7,7 @@ import TakeQuizModal from './take-quiz-modal'
 import { useAtomValue } from 'jotai'
 import { nameAtom } from '@/atoms/userAtom'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
+import Image from 'next/image'
 
 const Header = () => {
   const username = useAtomValue(nameAtom)
@@ -49,10 +50,7 @@ const Header = () => {
           </SheetContent>
         </Sheet>
         <div id='logo' className=' text-lg md:ml-4'>
-          <span>
-            <p>PREPME</p>
-            <HandIcon className='ml-5 h-4 w-4' />
-          </span>
+          <Image src='/appLogo.svg' alt='Website Logo' width={120} height={100} />
         </div>
         <div
           id='MiddleLinks'
