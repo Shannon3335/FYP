@@ -10,15 +10,14 @@ import {
 import QuizTemplate from '@/components/quiz-template'
 import QuizTemplateSkeleton from '@/components/quiz-template-skeleton'
 import { useCompletion } from 'ai/react'
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 const Quiz = () => {
   const router = useRouter()
-  const [quizData, setQuizData] = useAtom(quizDataAtom)
+  const setQuizData = useSetAtom(quizDataAtom)
   const showQuiz = useAtomValue(isQuizReadyAtom)
-  const user = useAtomValue(userAtom)
   const username = useAtomValue(nameAtom)
   const industryAndField = useAtomValue(industryAndFieldAtom)
   const difficulty = useAtomValue(difficultyAtom)
