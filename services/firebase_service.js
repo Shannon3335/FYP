@@ -32,7 +32,7 @@ const signUp = async (userName, email, password, jobTitle, industry) => {
   }
   if (!userCredential) return { success: false, error: 'User not created' }
   const user = userCredential.user
-  console.log(user)
+  // console.log(user)
   await writeUser(user, userName, jobTitle, industry)
   return { success: true, user: user }
 }
@@ -55,8 +55,8 @@ const writeUser = async (user, Name, JobTitle, Industry) => {
 const login = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
-    console.log(userCredential)
-    console.log(userCredential.user.uid)
+    // console.log(userCredential)
+    // console.log(userCredential.user.uid)
     const user = await fetchUser(userCredential.user.uid)
     if (user) {
       return { success: true, user }
@@ -73,12 +73,12 @@ const login = async (email, password) => {
 
 const fetchUser = async (id) => {
   try {
-    console.log(id)
+    // console.log(id)
     const userDoc = await getDoc(doc(db, 'Users', id))
-    console.log(userDoc)
+    // console.log(userDoc)
     if (userDoc.exists()) {
       const data = userDoc.data()
-      console.log(data)
+      // console.log(data)
       return data
     } else {
       return null

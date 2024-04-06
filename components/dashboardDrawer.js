@@ -10,6 +10,7 @@ import { Button } from './ui/button'
 import { CountdownTimerIcon, DashboardIcon, GearIcon } from '@radix-ui/react-icons/dist'
 import SettingsModal from './settings-modal'
 import HistoryModal from './history-modal'
+import SignoutButton from './signout-button'
 
 const DashboardDrawer = () => {
   return (
@@ -19,7 +20,7 @@ const DashboardDrawer = () => {
           <DashboardIcon className='h-4 w-4' />
         </Button>
       </DrawerTrigger>
-      <DrawerContent className='min-h-full w-2/6 lg:w-1/5 '>
+      <DrawerContent className='min-h-full w-2/3 md:w-2/5 lg:w-1/5'>
         <div className='flex h-full w-full flex-col items-start space-y-8 pl-2'>
           <DrawerHeader className='w-full'>
             <DrawerTitle>
@@ -32,6 +33,13 @@ const DashboardDrawer = () => {
               <SettingsModal />
             </DrawerTitle>
             <DrawerDescription>Change difficulty, job title and other fields</DrawerDescription>
+          </DrawerHeader>
+          <DrawerHeader className='flex w-full justify-center'>
+            <DrawerTitle>
+              <div>
+                <SignoutButton />
+              </div>
+            </DrawerTitle>
           </DrawerHeader>
         </div>
       </DrawerContent>

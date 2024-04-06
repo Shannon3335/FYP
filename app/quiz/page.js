@@ -47,12 +47,13 @@ const Quiz = () => {
     onFinish: (_, completion) => {
       //v2 completion code
       const parsed_completion = JSON.parse(completion)
-      console.log(JSON.stringify(parsed_completion))
-      console.log(parsed_completion)
+      // console.log(JSON.stringify(parsed_completion))
+      // console.log(parsed_completion)
       setQuizData({ quizArray: parsed_completion, isQuizReady: true })
     },
     onError: (error) => {
       console.error('Error when creating completion: ' + error.message)
+      router.push('/dashboard')
     },
   })
 

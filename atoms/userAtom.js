@@ -48,4 +48,25 @@ const previousIncorrectQuestionsAtom = atom(
   }
 )
 
-export { userAtom, industryAndFieldAtom, nameAtom, previousIncorrectQuestionsAtom, difficultyAtom }
+// reset the previous incorrect questions of the user
+const clearPreviousIncorrectQuestions = atom(null, (get, set, update) => {
+  set(userAtom, {
+    ...get(userAtom),
+    previousIncorrectQuestions: [],
+  })
+})
+
+// reset user atom to starting default values
+const resetUserAtom = atom(null, (get, set, update) => {
+  set(userAtom, { username: '', industry: '', field: '', difficulty: '', previousIncorrectQuestions: [''] })
+})
+
+export {
+  userAtom,
+  industryAndFieldAtom,
+  nameAtom,
+  previousIncorrectQuestionsAtom,
+  difficultyAtom,
+  resetUserAtom,
+  clearPreviousIncorrectQuestions,
+}
