@@ -7,6 +7,7 @@ import { previousIncorrectQuestionsAtom } from '@/atoms/userAtom'
 
 const HistoryModal = () => {
   const previousIncorrectQuestions = useAtomValue(previousIncorrectQuestionsAtom)
+  console.log(previousIncorrectQuestions)
   return (
     <div>
       <Dialog>
@@ -22,15 +23,15 @@ const HistoryModal = () => {
           <DialogHeader>
             <DialogTitle>History</DialogTitle>
             <DialogDescription>Revise your previous incorrect questions here</DialogDescription>
-            <ScrollArea className='h-1/5 w-full rounded-md border p-2'>
-              <div className='space-y-4'>
+            <ScrollArea className='h-96 w-full rounded-md border p-2 md:h-[500px]'>
+              <div className='space-y-4 text-left'>
                 {previousIncorrectQuestions.slice(1)?.map((questionObj, index) => (
                   <div key={index}>
-                    <div className='text-sm font-semibold'>
+                    <div className='text-sm font-semibold md:text-sm'>
                       Q{index + 1}. {questionObj.question}
                     </div>
-                    <div className='font-bold text-green-600'>Answer: {questionObj.answer}</div>
-                    <div className='font-medium text-orange-400'>Explanation: {questionObj.explanation}</div>
+                    <div className='text-sm font-bold text-green-600'>Answer: {questionObj.answer}</div>
+                    <div className='text-sm font-medium text-orange-400'>Explanation: {questionObj.explanation}</div>
                   </div>
                 ))}
               </div>

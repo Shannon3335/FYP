@@ -9,8 +9,8 @@ import difficulties from '@/enums/difficulty'
 import industries from '@/enums/industry'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAtom } from 'jotai'
-import { difficultyAtom, industryAndFieldAtom } from '@/atoms/userAtom'
+import { useAtom, useSetAtom } from 'jotai'
+import { clearPreviousIncorrectQuestions, difficultyAtom, industryAndFieldAtom } from '@/atoms/userAtom'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form'
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from './ui/command'
@@ -25,6 +25,7 @@ const SettingsForm = () => {
   //use the atom values for the default values of the form
   const [userCurrentIndustryAndField, setCurrentIndustryandField] = useAtom(industryAndFieldAtom)
   const [userCurrentDifficulty, setCurrentDifficulty] = useAtom(difficultyAtom)
+  const resetPreviousQuestions = useSetAtom(clearPreviousIncorrectQuestions)
 
   const settingsFormSchema = z.object({
     jobTitle: z.string(),
@@ -65,6 +66,7 @@ const SettingsForm = () => {
         industry: values.industry,
         field: values.jobTitle,
       })
+      resetPreviousQuestions()
     } catch (error) {}
     console.log('Change these details:', values)
   }
