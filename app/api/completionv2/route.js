@@ -87,7 +87,8 @@ export async function POST(req) {
       },
       {
         role: 'assistant',
-        content: `Sorry, I can't assist with that request. If you have any questions related to medicine or any other topic, feel free to ask!`,
+        content: '{"error":"Invalid/Inappropriate jobtitle given"}',
+        // content: `Sorry, I can't assist with that request. If you have any questions related to medicine or any other topic, feel free to ask!`,
       },
       {
         //User context is the secondary content that presents the query and prompt

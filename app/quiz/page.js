@@ -7,12 +7,13 @@ import {
   previousIncorrectQuestionsAtom,
   userAtom,
 } from '@/atoms/userAtom'
+import CompletionErrorAlert from '@/components/completion-error-alert'
 import QuizTemplate from '@/components/quiz-template'
 import QuizTemplateSkeleton from '@/components/quiz-template-skeleton'
 import { useCompletion } from 'ai/react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Quiz = () => {
   const router = useRouter()
@@ -22,7 +23,7 @@ const Quiz = () => {
   const industryAndField = useAtomValue(industryAndFieldAtom)
   const difficulty = useAtomValue(difficultyAtom)
   const previousIncorrectQuestions = useAtomValue(previousIncorrectQuestionsAtom)
-
+  const [error, setError] = useState({ hasError: false, message: '' })
   //Check if a user is logged in and push them to home page if not
   useEffect(() => {
     if (username === '') {
@@ -39,25 +40,46 @@ const Quiz = () => {
 
   //Call the function to create the ai output
   const { complete, isLoading } = useCompletion({
-    // api:
-    //   previousIncorrectQuestions.length === 1 && previousIncorrectQuestions.at(0) === ''
-    //     ? '/api/completionv2'
-    //     : '/api/adaptiveCompletion',
     api: '/api/completionv2',
     onFinish: (_, completion) => {
       //v2 completion code
+      console.log('Completion on finish:' + completion)
       const parsed_completion = JSON.parse(completion)
-      // console.log(JSON.stringify(parsed_completion))
-      // console.log(parsed_completion)
-      setQuizData({ quizArray: parsed_completion, isQuizReady: true })
+      if (parsed_completion.error) {
+        setError({
+          hasError: true,
+          message: parsed_completion.error,
+        })
+      } else {
+        setQuizData({ quizArray: parsed_completion, isQuizReady: true })
+      }
     },
     onError: (error) => {
       console.error('Error when creating completion: ' + error.message)
-      router.push('/dashboard')
+      setError({
+        hasError: true,
+        message: error.message,
+      })
     },
   })
 
-  return <div>{showQuiz ? <QuizTemplate /> : <QuizTemplateSkeleton />}</div>
+  return (
+    <div>
+      {showQuiz ? <QuizTemplate /> : <QuizTemplateSkeleton />}
+      {error.hasError && (
+        <CompletionErrorAlert
+          errorMessage={error.message}
+          onClickAction={() => {
+            setError({
+              hasError: false,
+              message: '',
+            })
+            router.push('/dashboard')
+          }}
+        />
+      )}
+    </div>
+  )
 }
 
 export default Quiz
