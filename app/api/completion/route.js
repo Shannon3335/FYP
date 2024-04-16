@@ -7,6 +7,12 @@ const openai = new OpenAI({
 })
 
 // Set the runtime to edge for best performance
+/* what is edge runtime? Edge runtime is a subset of fetch api provided by vercel 
+that converts code into functions executed and managed by Vercel's edge network, ie, closer
+to your server
+Pros: Faster cold boot times, higher scalability
+Cons: Only some of the libraries available to node.js are available for edge runtime, with a cap on memory space
+  */
 export const runtime = 'edge'
 
 export async function POST(req) {
