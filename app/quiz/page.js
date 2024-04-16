@@ -43,7 +43,9 @@ const Quiz = () => {
     api: '/api/completionv2',
     onFinish: (_, completion) => {
       //v2 completion code
+
       console.log('Completion on finish:' + completion)
+
       const parsed_completion = JSON.parse(completion)
       if (parsed_completion.error) {
         setError({
@@ -55,11 +57,13 @@ const Quiz = () => {
       }
     },
     onError: (error) => {
+
       console.error('Error when creating completion: ' + error.message)
       setError({
         hasError: true,
         message: error.message,
       })
+
     },
   })
 

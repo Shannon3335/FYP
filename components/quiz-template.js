@@ -72,7 +72,7 @@ const QuizTemplate = () => {
             variant={index === selectedIndex ? 'mcq' : 'default'}
             key={option}
             onClick={() => handleOptionSelect(option, index)}
-            className='min-h-fit w-full text-lg lg:w-5/12 lg:flex-none '>
+            className='min-h-[72px] w-full whitespace-break-spaces text-lg lg:w-5/12 lg:flex-none'>
             {option}
           </Button>
         ))}
