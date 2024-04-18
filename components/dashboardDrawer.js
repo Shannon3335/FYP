@@ -7,11 +7,10 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer'
 import { Button } from './ui/button'
-import { CountdownTimerIcon, DashboardIcon, GearIcon, LoopIcon } from '@radix-ui/react-icons/dist'
+import { CountdownTimerIcon, DashboardIcon, GearIcon } from '@radix-ui/react-icons/dist'
 import SettingsModal from './settings-modal'
 import HistoryModal from './history-modal'
 import SignoutButton from './signout-button'
-import AdaptiveTestingSwitch from './adaptive-testing-switch'
 
 const DashboardDrawer = () => {
   return (
@@ -34,17 +33,6 @@ const DashboardDrawer = () => {
               <SettingsModal />
             </DrawerTitle>
             <DrawerDescription>Change difficulty, job title and other fields</DrawerDescription>
-          </DrawerHeader>
-          <DrawerHeader className='w-full'>
-            <DrawerTitle>
-              <span className='flex w-full justify-center'>
-                <LoopIcon className='mr-4 h-4 w-4' />
-                <AdaptiveTestingSwitch />
-              </span>
-            </DrawerTitle>
-            <DrawerDescription>
-              Your next quiz will focus on your weakpoints! Need atleast 5 incorrect questions to work.
-            </DrawerDescription>
           </DrawerHeader>
           <DrawerHeader className='flex w-full justify-center'>
             <DrawerTitle>

@@ -39,7 +39,6 @@ const Quiz = () => {
   }, [])
 
   //Call the function to create the ai output
-  //Todo; abstract with custom function
   const { complete, isLoading } = useCompletion({
     api: '/api/completionv2',
     onFinish: (_, completion) => {
@@ -58,11 +57,13 @@ const Quiz = () => {
       }
     },
     onError: (error) => {
+
       console.error('Error when creating completion: ' + error.message)
       setError({
         hasError: true,
         message: error.message,
       })
+
     },
   })
 
