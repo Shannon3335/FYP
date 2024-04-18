@@ -8,9 +8,11 @@ import { useAtomValue } from 'jotai'
 import { nameAtom } from '@/atoms/userAtom'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import Image from 'next/image'
+import { quizDataAtom } from '@/atoms/quizAtom'
 
 const Header = () => {
   const username = useAtomValue(nameAtom)
+  const quizData = useAtomValue(quizDataAtom)
   return (
     <>
       <div id='header' className='flex flex-row justify-between py-3'>
@@ -87,7 +89,10 @@ const Header = () => {
             </div>
           ) : (
             <div>
-              <Button variant='mcq' asChild>
+              <Button
+                variant={quizData.isAdaptiveTest ? 'adaptiveTest' : 'mcq'}
+                disabled={!quizData.isQuizReady && quizData.isAdaptiveTest}
+                asChild>
                 <Link href='/quiz'>Take Quiz</Link>
               </Button>
             </div>
