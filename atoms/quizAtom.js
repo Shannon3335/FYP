@@ -2,7 +2,7 @@ import { atom } from 'jotai'
 import { previousIncorrectQuestionsAtom } from './userAtom'
 
 //Primitive Atoms
-const quizDataAtom = atom({ quizArray: [], isQuizReady: false })
+const quizDataAtom = atom({ quizArray: [], isQuizReady: false, isAdaptiveTest: false })
 const isQuizOverAtom = atom(false)
 const activeQuestionNoAtom = atom(0)
 const selectedOptionAtom = atom(null)
@@ -35,6 +35,18 @@ const isQuizReadyAtom = atom(
   (get, set, update) => set(quizDataAtom, update)
 )
 
+// get and set the adaptiveTestingStatus of the
+const isAdaptiveTestAtom = atom(
+  (get) => get(quizDataAtom).isAdaptiveTest,
+  (get, set, update) => {
+    set(quizDataAtom, (prev) => {
+      return {
+        ...prev,
+        isAdaptiveTest: update,
+      }
+    })
+  }
+)
 // set the result after getting an answer right
 const correctAnswerLogicAtom = atom(null, (get, set, payload) => {
   set(resultAtom, (prev) => ({
@@ -115,4 +127,5 @@ export {
   activeQuestionAtom,
   resetQuizAtoms,
   explainAnsweratom,
+  isAdaptiveTestAtom,
 }
