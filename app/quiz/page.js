@@ -17,7 +17,7 @@ const Quiz = () => {
   const quizData  = useAtomValue((quizDataAtom))//debugging purposes
   const router = useRouter()
   const setQuizData = useSetAtom(quizDataAtom)
-  const showQuiz = useAtomValue(isQuizReadyAtom) || useAtomValue(isAdaptiveTestReadyAtom)
+  const showQuiz = quizData.isQuizReady || quizData.isAdaptiveTestReady
   const username = useAtomValue(nameAtom)
   const industryAndField = useAtomValue(industryAndFieldAtom)
   const difficulty = useAtomValue(difficultyAtom)
