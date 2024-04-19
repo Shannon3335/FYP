@@ -1,6 +1,5 @@
-import OpenAI from 'openai'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
-import { openai } from '@/services/promptFunctions'
+import { openai } from '../../completionv2/route'
 
 export const runtime = 'edge'
 

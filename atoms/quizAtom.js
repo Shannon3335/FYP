@@ -2,7 +2,7 @@ import { atom } from 'jotai'
 import { previousIncorrectQuestionsAtom } from './userAtom'
 
 //Primitive Atoms
-const quizDataAtom = atom({ quizArray: [], isQuizReady: false, isAdaptiveTest: false })
+const quizDataAtom = atom({ quizArray: [], isQuizReady: false, isAdaptiveTest: false, isAdaptiveTestReady: false })
 const isQuizOverAtom = atom(false)
 const activeQuestionNoAtom = atom(0)
 const selectedOptionAtom = atom(null)
@@ -31,6 +31,18 @@ const quizArrayAtom = atom(
 
 // get and set if the quiz is ready or not
 const isQuizReadyAtom = atom(
+  (get) => get(quizDataAtom).isQuizReady,
+  (get, set, update) => {
+    set(quizDataAtom, (prev) => {
+      return {
+        ...prev,
+        isQuizReady: update,
+      }
+    })
+  }
+)
+
+const isAdaptiveTestReadyAtom = atom(
   (get) => get(quizDataAtom).isQuizReady,
   (get, set, update) => set(quizDataAtom, update)
 )

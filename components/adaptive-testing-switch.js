@@ -30,7 +30,43 @@ const AdaptiveTestingSwitch = () => {
   // }, [adaptiveTestingStatus])
 
   //Can put this in differnt file and export
-  
+
+  const getConceptsPrompt = useCompletion({
+    api: '/api/adaptiveCompletion/getConcepts',
+    onFinish: (_, completion) => {
+      //Get concepts completion
+      const parsedConcepts = JSON.parse(completion)
+      console.log('getConcepts completion on finish:' + parsedConcepts)
+      setCallAdaptivePrompt({
+        ready: true,
+        concepts: parsedConcepts,
+      })
+    },
+    onError: (error) => {
+      console.error('Error when running getConceptsPrompt: ' + error.message)
+    },
+  })
+
+  const adaptiveMCQResponse = useCompletion({
+    api: '/api/adaptiveCompletion/createMCQ',
+    onFinish: (_, completion) => {
+      //Create mcq with the concepts from getConcetpsRequest
+      console.log('AdaptiveCompletion createMCQ output:' + completion)
+      const parsedCompletion = JSON.parse(completion)
+      if (parsedCompletion.error) {
+        // setError({
+        //   hasError: true,
+        //   message: parsedCompletion.error,
+        // })
+      } else {
+        console.log('AdaptiveCompletion createMCQ output:' + parsedCompletion)
+        setQuizData({ quizArray: parsedCompletion, isQuizReady: true })
+      }
+    },
+    onError: (error) => {
+      console.error('Error when creating completion: ' + error.message)
+    },
+  })
 
   const onCheckedChange = () => {
     console.log('check changed value rn:' + isChecked)

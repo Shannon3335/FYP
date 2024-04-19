@@ -1,5 +1,9 @@
-import { openai } from '@/services/promptFunctions'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
+import OpenAI from 'openai'
+
+export const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+})
 
 export const runtime = 'edge'
 
