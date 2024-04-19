@@ -2,7 +2,7 @@ import { atom } from 'jotai'
 import { previousIncorrectQuestionsAtom } from './userAtom'
 
 //Primitive Atoms
-const quizDataAtom = atom({ quizArray: [], isQuizReady: false })
+const quizDataAtom = atom({ quizArray: [], isQuizReady: false, isAdaptiveTest: false })
 const isQuizOverAtom = atom(false)
 const activeQuestionNoAtom = atom(0)
 const selectedOptionAtom = atom(null)
@@ -35,6 +35,18 @@ const isQuizReadyAtom = atom(
   (get, set, update) => set(quizDataAtom, update)
 )
 
+// get and set the adaptiveTestingStatus of the
+const isAdaptiveTestAtom = atom(
+  (get) => get(quizDataAtom).isAdaptiveTest,
+  (get, set, update) => {
+    set(quizDataAtom, (prev) => {
+      return {
+        ...prev,
+        isAdaptiveTest: update,
+      }
+    })
+  }
+)
 // set the result after getting an answer right
 const correctAnswerLogicAtom = atom(null, (get, set, payload) => {
   set(resultAtom, (prev) => ({
@@ -51,11 +63,13 @@ const incorrectAnswerLogicAtom = atom(null, (get, set, payload) => {
     wrongAnswers: prev.wrongAnswers + 1,
   }))
   //Set the previous incorrect questions atom with a new object
-  set(previousIncorrectQuestionsAtom, {
-    question: get(activeQuestionAtom),
-    answer: get(rightAnswerAtom),
-    explanation: get(explainAnsweratom),
-  })
+  if (get(!isAdaptiveTestAtom)) {
+    set(previousIncorrectQuestionsAtom, {
+      question: get(activeQuestionAtom),
+      answer: get(rightAnswerAtom),
+      explanation: get(explainAnsweratom),
+    })
+  }
 })
 
 // handle logic for what happens when verifying an answer
@@ -88,7 +102,7 @@ const nextQuizFlowAtom = atom(null, (get, set, payload) => {
 
 // reset the rquired atoms to the initial state for the next quiz
 const resetQuizAtoms = atom(null, (get, set, update) => {
-  set(quizDataAtom, { quizArray: [], isQuizReady: false })
+  set(quizDataAtom, { quizArray: [], isQuizReady: false, isAdaptiveTest: false })
   set(isQuizOverAtom, false)
   set(activeQuestionNoAtom, 0)
   set(selectedOptionAtom, null)
@@ -115,4 +129,5 @@ export {
   activeQuestionAtom,
   resetQuizAtoms,
   explainAnsweratom,
+  isAdaptiveTestAtom,
 }

@@ -1,11 +1,7 @@
-import OpenAI from 'openai'
+import { openai } from '@/services/promptFunctions'
 import { OpenAIStream, StreamingTextResponse } from 'ai'
 
 export const runtime = 'edge'
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
 
 export async function POST(req) {
   // Extract the `prompt` from the body of the request

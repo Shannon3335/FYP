@@ -1,5 +1,5 @@
 'use client'
-import { isQuizReadyAtom, quizDataAtom } from '@/atoms/quizAtom'
+import { isAdaptiveTestAtom, isQuizReadyAtom, quizDataAtom } from '@/atoms/quizAtom'
 import {
   difficultyAtom,
   industryAndFieldAtom,
@@ -23,22 +23,28 @@ const Quiz = () => {
   const industryAndField = useAtomValue(industryAndFieldAtom)
   const difficulty = useAtomValue(difficultyAtom)
   const previousIncorrectQuestions = useAtomValue(previousIncorrectQuestionsAtom)
+  const [isAdaptiveTest, setIsAdaptiveTest] = useAtom(isAdaptiveTestAtom)
   const [error, setError] = useState({ hasError: false, message: '' })
   //Check if a user is logged in and push them to home page if not
   useEffect(() => {
     if (username === '') {
       router.push('/')
     } else {
-      if (!isLoading) {
+      if (!isLoading && !isAdaptiveTest) {
         // console.log(isLoading)
-        console.log(previousIncorrectQuestions)
+        // console.log(previousIncorrectQuestions)
         // complete({ ...industryAndField, previousIncorrectQuestions: previousIncorrectQuestions })
         complete({ ...industryAndField, difficulty: difficulty })
+      }
+      else{
+        setIsAdaptiveTest(false)
+        console.log("Back to normal tests now")
       }
     }
   }, [])
 
   //Call the function to create the ai output
+  //Todo; abstract with custom function
   const { complete, isLoading } = useCompletion({
     api: '/api/completionv2',
     onFinish: (_, completion) => {
@@ -57,13 +63,11 @@ const Quiz = () => {
       }
     },
     onError: (error) => {
-
       console.error('Error when creating completion: ' + error.message)
       setError({
         hasError: true,
         message: error.message,
       })
-
     },
   })
 
