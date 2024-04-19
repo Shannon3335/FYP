@@ -7,7 +7,6 @@ import { previousIncorrectQuestionsAtom } from '@/atoms/userAtom'
 
 const HistoryModal = () => {
   const previousIncorrectQuestions = useAtomValue(previousIncorrectQuestionsAtom)
-  console.log(previousIncorrectQuestions)
   return (
     <div>
       <Dialog>
