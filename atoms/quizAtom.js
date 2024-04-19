@@ -63,7 +63,7 @@ const incorrectAnswerLogicAtom = atom(null, (get, set, payload) => {
     wrongAnswers: prev.wrongAnswers + 1,
   }))
   //Set the previous incorrect questions atom with a new object
-  if (get(!isAdaptiveTestAtom)) {
+  if (!get(isAdaptiveTestAtom)) {
     set(previousIncorrectQuestionsAtom, {
       question: get(activeQuestionAtom),
       answer: get(rightAnswerAtom),

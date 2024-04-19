@@ -34,6 +34,7 @@ const Quiz = () => {
         // console.log(isLoading)
         // console.log(previousIncorrectQuestions)
         // complete({ ...industryAndField, previousIncorrectQuestions: previousIncorrectQuestions })
+        console.log('sending quiz prompt')
         complete({ ...industryAndField, difficulty: difficulty })
       }
       else{
