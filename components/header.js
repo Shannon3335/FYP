@@ -91,8 +91,9 @@ const Header = () => {
             <div>
               <Button
                 variant={quizData.isAdaptiveTest ? 'adaptiveTest' : 'mcq'}
+                disabled={quizData.isAdaptiveTest ? !quizData.isAdaptiveTestReady : true}
                 asChild>
-                <Link  disabled={!quizData.isQuizReady && quizData.isAdaptiveTest} href='/quiz'>Take Quiz</Link>
+                <Link href='/quiz'>Take Quiz</Link>
               </Button>
             </div>
           )}

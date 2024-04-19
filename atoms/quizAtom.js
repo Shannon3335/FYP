@@ -43,20 +43,18 @@ const isQuizReadyAtom = atom(
 )
 
 const isAdaptiveTestReadyAtom = atom(
-  (get) => get(quizDataAtom).isQuizReady,
-  (get, set, update) => set(quizDataAtom, update)
+  (get) => get(quizDataAtom).isAdaptiveTestReady,
+  (get, set, update) => set(quizDataAtom, (prev) => ({ ...prev, isAdaptiveTestReady: update }))
 )
 
 // get and set the adaptiveTestingStatus of the
 const isAdaptiveTestAtom = atom(
   (get) => get(quizDataAtom).isAdaptiveTest,
   (get, set, update) => {
-    set(quizDataAtom, (prev) => {
-      return {
-        ...prev,
-        isAdaptiveTest: update,
-      }
-    })
+    set(quizDataAtom, (prev) => ({
+      ...prev,
+      isAdaptiveTest: update,
+    }))
   }
 )
 // set the result after getting an answer right
@@ -114,7 +112,7 @@ const nextQuizFlowAtom = atom(null, (get, set, payload) => {
 
 // reset the rquired atoms to the initial state for the next quiz
 const resetQuizAtoms = atom(null, (get, set, update) => {
-  set(quizDataAtom, { quizArray: [], isQuizReady: false, isAdaptiveTest: false })
+  set(quizDataAtom, { quizArray: [], isQuizReady: false, isAdaptiveTest: false, isAdaptiveTestReady: false })
   set(isQuizOverAtom, false)
   set(activeQuestionNoAtom, 0)
   set(selectedOptionAtom, null)
@@ -142,4 +140,5 @@ export {
   resetQuizAtoms,
   explainAnsweratom,
   isAdaptiveTestAtom,
+  isAdaptiveTestReadyAtom,
 }

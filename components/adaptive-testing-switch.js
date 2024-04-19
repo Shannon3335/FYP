@@ -2,11 +2,10 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { Switch } from './ui/switch'
 import { industryAndFieldAtom, previousIncorrectQuestionsAtom } from '@/atoms/userAtom'
-import { isAdaptiveTestAtom, isQuizReadyAtom, quizDataAtom } from '@/atoms/quizAtom'
+import { isAdaptiveTestAtom, isAdaptiveTestReadyAtom, isQuizReadyAtom, quizDataAtom } from '@/atoms/quizAtom'
 import { useCompletion } from 'ai/react'
 import { useToast } from './ui/use-toast'
 import { useEffect, useState } from 'react'
-import { adaptiveMCQResponse, getConceptsPrompt } from '@/services/promptFunctions'
 
 const AdaptiveTestingSwitch = () => {
   const { toast } = useToast()
@@ -14,10 +13,9 @@ const AdaptiveTestingSwitch = () => {
   const [callAdaptivePrompt, setCallAdaptivePrompt] = useState(false)
   const disabled = prevInccorrectQs.length < 5
   const [adaptiveTestingStatus, setAdaptiveTestingStatus] = useAtom(isAdaptiveTestAtom)
-  const [isChecked, setIsChecked] = useState(adaptiveTestingStatus)
   const industryAndField = useAtomValue(industryAndFieldAtom)
-  const setQuizData = useSetAtom(quizDataAtom)
-  const setQuizReady = useSetAtom(isQuizReadyAtom)
+  const [quizData, setQuizData] = useAtom(quizDataAtom)
+  const setAdaptiveTestReady = useSetAtom(isAdaptiveTestReadyAtom)
 
   useEffect(() => {
     if (callAdaptivePrompt.ready) {
@@ -28,6 +26,10 @@ const AdaptiveTestingSwitch = () => {
   // useEffect(() => {
   //   console.log('is adaptive test?:', adaptiveTestingStatus)
   // }, [adaptiveTestingStatus])
+
+  // useEffect(() => {
+  //   console.log('quizData currently?:', quizData)
+  // }, [quizData])
 
   //Can put this in differnt file and export
 
@@ -44,6 +46,12 @@ const AdaptiveTestingSwitch = () => {
     },
     onError: (error) => {
       console.error('Error when running getConceptsPrompt: ' + error.message)
+      setQuizData((prev) => ({ ...prev, quizArray: [], isAdaptiveTestReady: false, isAdaptiveTest: false }))
+      toast({
+        variant: 'destructive',
+        title: 'Someting went wrong...',
+        description: 'An error occured while generating your adaptive quiz',
+      })
     },
   })
 
@@ -60,19 +68,29 @@ const AdaptiveTestingSwitch = () => {
         // })
       } else {
         console.log('AdaptiveCompletion createMCQ output:' + parsedCompletion)
-        setQuizData({ quizArray: parsedCompletion, isQuizReady: true })
+        setQuizData((prev) => ({ ...prev, quizArray: parsedCompletion, isAdaptiveTestReady: true }))
+        toast({
+          variant:'success',
+          title: 'Succesfully created quiz!',
+          description: 'Your adaptive quiz is ready',
+        })
       }
     },
     onError: (error) => {
       console.error('Error when creating completion: ' + error.message)
+      setQuizData((prev) => ({ ...prev, quizArray: [], isAdaptiveTestReady: false, isAdaptiveTest: false }))
+      toast({
+        variant: 'destructive',
+        title: 'Someting went wrong...',
+        description: 'An error occured while generating your adaptive quiz',
+      })
     },
   })
 
-  const onCheckedChange = () => {
-    console.log('check changed value rn:' + isChecked)
+  const onCheckedChange = (isChecked) => {
     if (isChecked) {
       //call the wrapper function that calls both the prompts
-      setQuizReady(false)
+      setAdaptiveTestReady(false)
       toast({
         title: 'Generating Adaptive Test',
         description: 'A test catered to you is in the works!',
@@ -84,11 +102,20 @@ const AdaptiveTestingSwitch = () => {
       getConceptsPrompt.stop()
       adaptiveMCQResponse.stop()
     }
-    setIsChecked((prev) => !prev)
+    // setIsChecked((prev) => !prev)
+    console.log('check changed value rn:' + isChecked)
     setAdaptiveTestingStatus(isChecked)
+    console.log('check adaptive status value rn:' + adaptiveTestingStatus)
   }
 
-  return <Switch id='adaptive-testing' disabled={disabled} checked={isChecked} onCheckedChange={onCheckedChange} />
+  return (
+    <Switch
+      id='adaptive-testing'
+      disabled={disabled}
+      checked={adaptiveTestingStatus}
+      onCheckedChange={(value) => onCheckedChange(value)}
+    />
+  )
 }
 
 export default AdaptiveTestingSwitch
