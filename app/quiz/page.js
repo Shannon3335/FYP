@@ -1,10 +1,6 @@
 'use client'
 import { isAdaptiveTestAtom, isAdaptiveTestReadyAtom, isQuizReadyAtom, quizDataAtom } from '@/atoms/quizAtom'
-import {
-  difficultyAtom,
-  industryAndFieldAtom,
-  nameAtom,
-} from '@/atoms/userAtom'
+import { difficultyAtom, industryAndFieldAtom, nameAtom } from '@/atoms/userAtom'
 import CompletionErrorAlert from '@/components/completion-error-alert'
 import QuizTemplate from '@/components/quiz-template'
 import QuizTemplateSkeleton from '@/components/quiz-template-skeleton'
@@ -14,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const Quiz = () => {
-  const quizData  = useAtomValue((quizDataAtom))//debugging purposes
+  const quizData = useAtomValue(quizDataAtom) //debugging purposes
   const router = useRouter()
   const setQuizData = useSetAtom(quizDataAtom)
   const showQuiz = quizData.isQuizReady || quizData.isAdaptiveTestReady
@@ -28,13 +24,12 @@ const Quiz = () => {
     if (username === '') {
       router.push('/')
     } else {
-      console.log('QuizData in Quiz page:'+ JSON.stringify(quizData))
+      console.log('QuizData in Quiz page:' + JSON.stringify(quizData))
       if (!isLoading && !isAdaptiveTest) {
         console.log('sending quiz prompt')
         complete({ ...industryAndField, difficulty: difficulty })
-      }
-      else{
-        console.log("Back to normal tests now")
+      } else {
+        console.log('Back to normal tests now')
         //do this at the end of the quiz?
         // setIsAdaptiveTest(false)
       }
@@ -61,7 +56,7 @@ const Quiz = () => {
       }
     },
     onError: (error) => {
-      console.error('Error when creating completion: ' + error.message)
+      console.error('Error when creating completion: ' + JSON.stringify(error.message))
       setError({
         hasError: true,
         message: error.message,
