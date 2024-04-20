@@ -1,3 +1,4 @@
+'use client'
 import { EnvelopeOpenIcon, GitHubLogoIcon, HamburgerMenuIcon, HandIcon } from '@radix-ui/react-icons/dist'
 import { Button } from './ui/button'
 import Link from 'next/link'
@@ -9,9 +10,11 @@ import { nameAtom } from '@/atoms/userAtom'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import Image from 'next/image'
 import { quizDataAtom } from '@/atoms/quizAtom'
+import { useRouter } from 'next/navigation'
 
 const Header = () => {
   const username = useAtomValue(nameAtom)
+  const router = useRouter()
   const quizData = useAtomValue(quizDataAtom)
   return (
     <>
@@ -90,10 +93,12 @@ const Header = () => {
           ) : (
             <div>
               <Button
+                disabled={quizData.isAdaptiveTest ? !quizData.isAdaptiveTestReady : false}
                 variant={quizData.isAdaptiveTest ? 'adaptiveTest' : 'mcq'}
-                disabled={quizData.isAdaptiveTest ? !quizData.isAdaptiveTestReady : true}
-                asChild>
-                <Link href='/quiz'>Take Quiz</Link>
+                onClick={() => {
+                  router.push('/quiz')
+                }}>
+                Take Quiz
               </Button>
             </div>
           )}
