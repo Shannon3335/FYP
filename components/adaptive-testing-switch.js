@@ -10,7 +10,10 @@ import { useEffect, useState } from 'react'
 const AdaptiveTestingSwitch = () => {
   const { toast } = useToast()
   const prevInccorrectQs = useAtomValue(previousIncorrectQuestionsAtom)
-  const [callAdaptivePrompt, setCallAdaptivePrompt] = useState(false)
+  const [callAdaptivePrompt, setCallAdaptivePrompt] = useState({
+    ready: false,
+    concepts: [],
+  })
   const disabled = prevInccorrectQs.length < 5
   const [adaptiveTestingStatus, setAdaptiveTestingStatus] = useAtom(isAdaptiveTestAtom)
   const industryAndField = useAtomValue(industryAndFieldAtom)
@@ -19,6 +22,7 @@ const AdaptiveTestingSwitch = () => {
 
   useEffect(() => {
     if (callAdaptivePrompt.ready) {
+      console.log('Calling adaptiveMCQ')
       adaptiveMCQResponse.complete({ ...industryAndField, concepts: callAdaptivePrompt.concepts })
     }
   }, [callAdaptivePrompt])
@@ -46,6 +50,10 @@ const AdaptiveTestingSwitch = () => {
     },
     onError: (error) => {
       console.error('Error when running getConceptsPrompt: ' + error.message)
+      setCallAdaptivePrompt({
+        ready: false,
+        concepts: [],
+      })
       setQuizData((prev) => ({ ...prev, quizArray: [], isAdaptiveTestReady: false, isAdaptiveTest: false }))
       toast({
         variant: 'destructive',
@@ -70,9 +78,13 @@ const AdaptiveTestingSwitch = () => {
         console.log('AdaptiveCompletion createMCQ output:' + parsedCompletion)
         setQuizData((prev) => ({ ...prev, quizArray: parsedCompletion, isAdaptiveTestReady: true }))
         toast({
-          variant:'success',
+          variant: 'success',
           title: 'Succesfully created quiz!',
           description: 'Your adaptive quiz is ready',
+        })
+        setCallAdaptivePrompt({
+          ready: false,
+          concepts: [],
         })
       }
     },
