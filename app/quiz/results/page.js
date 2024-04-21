@@ -34,7 +34,7 @@ const Results = () => {
     }
   }, [])
   return (
-    <main className='flex h-full flex-col lg:flex-row lg:items-start'>
+    <main className='flex h-screen flex-col lg:flex-row lg:items-start'>
       <div className='lg:w-2/3'>
         <ScrollArea className='h-full w-full rounded-md border lg:h-full'>
           <div className='p-4'>
