@@ -42,7 +42,7 @@ const AdaptiveTestingSwitch = () => {
     onFinish: (_, completion) => {
       //Get concepts completion
       const parsedConcepts = JSON.parse(completion)
-      console.log('getConcepts completion on finish:' + parsedConcepts)
+      console.log('getConcepts completion on finish:', parsedConcepts)
       setCallAdaptivePrompt({
         ready: true,
         concepts: parsedConcepts,
@@ -67,7 +67,7 @@ const AdaptiveTestingSwitch = () => {
     api: '/api/adaptiveCompletion/createMCQ',
     onFinish: (_, completion) => {
       //Create mcq with the concepts from getConcetpsRequest
-      console.log('AdaptiveCompletion createMCQ output:' + completion)
+      console.log('AdaptiveCompletion createMCQ output:', completion)
       const parsedCompletion = JSON.parse(completion)
       if (parsedCompletion.error) {
         // setError({
