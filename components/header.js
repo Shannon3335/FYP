@@ -41,7 +41,7 @@ const Header = () => {
                   <EnvelopeOpenIcon className='mr-2 h-4 w-4' />
                   <Link
                     href={
-                      'https://docs.google.com/document/d/e/2PACX-1vTqBRxYfns9hSk6zSf4PjvHcnB6FHvNBFE6nIMLnArgitQNd7Ul1jwIw9oOi2Imdg/pub'
+                      'https://www.overleaf.com/project/66139e8619e86d667136c774'
                     }
                     target='_blank'>
                     Docs
@@ -74,7 +74,7 @@ const Header = () => {
               <EnvelopeOpenIcon className='mr-2 h-4 w-4' />
               <Link
                 href={
-                  'https://docs.google.com/document/d/e/2PACX-1vTqBRxYfns9hSk6zSf4PjvHcnB6FHvNBFE6nIMLnArgitQNd7Ul1jwIw9oOi2Imdg/pub'
+                  'https://www.overleaf.com/project/66139e8619e86d667136c774'
                 }
                 target='_blank'>
                 Docs
